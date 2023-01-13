@@ -4,7 +4,7 @@ import { LoginComponent } from "../../pages/examples/login/login.component";
 import { PricingComponent } from "../../pages/examples/pricing/pricing.component";
 import { LockComponent } from "../../pages/examples/lock/lock.component";
 import { RegisterComponent } from "../../pages/examples/register/register.component";
-import { PresentationComponent } from "../../pages/presentation/presentation.component";
+import { HomeComponent } from "../../pages/examples/home/home.component";
 
 export const AuthLayoutRoutes: Routes = [
   {
@@ -40,6 +40,15 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "pricing",
         component: PricingComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "home",
+        component: HomeComponent
       }
     ]
   }
