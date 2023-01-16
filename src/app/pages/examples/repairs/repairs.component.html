@@ -1,0 +1,428 @@
+<div class=" main-content">
+  <div class=" header bg-gradient-danger py-7 py-lg-8 pt-lg-9">
+
+
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg
+        x="0"
+        y="0"
+        viewBox="0 0 2560 100"
+        preserveAspectRatio="none"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+
+  <div class=" container mt--8 pb-5">
+    <div class=" row justify-content-center">
+      <div class=" col-lg-10">
+
+
+
+
+
+
+        <div class=" card">
+          <div class=" card-header border-0">
+            <h3 class=" mb-0">Repairs</h3>
+          </div>
+  
+          <div class=" table-responsive">
+            <table class=" table align-items-center table-flush">
+              <thead class=" thead-light">
+                <tr>
+                  <th class=" sort" data-sort="name" scope="col">Repair #</th>
+  
+                  <th class=" sort" data-sort="budget" scope="col">Watch</th>
+  
+                  <th class=" sort" data-sort="status" scope="col">Status</th>
+  
+                  <th scope="col">Customer</th>
+  
+                  <th class=" sort" data-sort="completion" scope="col">
+                    Completion
+                  </th>
+  
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+  
+              <tbody class=" list">
+                <tr>
+                  <th scope="row">
+                    <div class=" media align-items-center">
+                      <div class=" media-body">
+                        <span class=" name mb-0 text-sm">
+                          <a href="javascript:void(0)">2023-0001123</a>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+  
+                  <td class=" budget">Cartier</td>
+  
+                  <td>
+                    <span class=" badge badge-dot mr-4">
+                      <i class=" bg-warning"> </i>
+  
+                      <span class=" status"> pending </span>
+                    </span>
+                  </td>
+  
+                  <td class=" budget">Emily White</td>
+  
+                  <td>
+                    <div class=" d-flex align-items-center">
+                      <span class=" completion mr-2"> 60% </span>
+  
+                      <div>
+                        <div class=" progress">
+                          <progressbar type="warning" [value]="60"> </progressbar>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+  
+                  <td class=" text-right">
+                    <div class="dropdown no-caret" dropdown>
+                      <a
+                        aria-controls="dropdown-basic"
+                        class=" btn btn-sm btn-icon-only text-light dropdown-toggle"
+                        dropdownToggle
+                        href="javascript:void(0)"
+                        role="button"
+                      >
+                        <i class=" fas fa-ellipsis-v"> </i>
+                      </a>
+  
+                      <div
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                        *dropdownMenu
+                      >
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Another action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">
+                    <div class=" media align-items-center">
+                      <div class=" media-body">
+                        <span class=" name mb-0 text-sm">
+                          <a href="javascript:void(0)">2023-0001145</a>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+  
+                  <td class=" budget">Cartier</td>
+  
+                  <td>
+                    <span class=" badge badge-dot mr-4">
+                      <i class="bg-success"> </i>
+  
+                      <span class=" status"> completed </span>
+                    </span>
+                  </td>
+  
+                  <td class=" budget">Jonathan Byers</td>
+  
+                  <td>
+                    <div class=" d-flex align-items-center">
+                      <span class=" completion mr-2"> 100% </span>
+  
+                      <div>
+                        <div class=" progress">
+                          <progressbar type="success" [value]="100">
+                          </progressbar>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+  
+                  <td class=" text-right">
+                    <div class="dropdown no-caret" dropdown>
+                      <a
+                        aria-controls="dropdown-basic"
+                        class=" btn btn-sm btn-icon-only text-light dropdown-toggle"
+                        dropdownToggle
+                        href="javascript:void(0)"
+                        role="button"
+                      >
+                        <i class=" fas fa-ellipsis-v"> </i>
+                      </a>
+  
+                      <div
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                        *dropdownMenu
+                      >
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Another action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">
+                    <div class=" media align-items-center">
+                      <div class=" media-body">
+                        <span class=" name mb-0 text-sm">
+                          <a href="javascript:void(0)">2023-0001213</a>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+  
+                  <td class=" budget">Montblanc</td>
+  
+                  <td>
+                    <span class=" badge badge-dot mr-4">
+                      <i class=" bg-danger"> </i>
+  
+                      <span class=" status"> estimated </span>
+                    </span>
+                  </td>
+  
+                  <td class=" budget">Michael Strong</td>
+  
+                  <td>
+                    <div class=" d-flex align-items-center">
+                      <span class=" completion mr-2"> 72% </span>
+  
+                      <div>
+                        <div class=" progress">
+                          <progressbar type="danger" [value]="72"> </progressbar>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+  
+                  <td class=" text-right">
+                    <div class="dropdown no-caret" dropdown>
+                      <a
+                        aria-controls="dropdown-basic"
+                        class=" btn btn-sm btn-icon-only text-light dropdown-toggle"
+                        dropdownToggle
+                        href="javascript:void(0)"
+                        role="button"
+                      >
+                        <i class=" fas fa-ellipsis-v"> </i>
+                      </a>
+  
+                      <div
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                        *dropdownMenu
+                      >
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Another action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">
+                    <div class=" media align-items-center">
+                      <div class=" media-body">
+                        <span class=" name mb-0 text-sm">
+                          <a href="javascript:void(0)">2023-0001256</a>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+  
+                  <td class=" budget">IWC</td>
+  
+                  <td>
+                    <span class=" badge badge-dot mr-4">
+                      <i class=" bg-info"> </i>
+  
+                      <span class=" status"> on schedule </span>
+                    </span>
+                  </td>
+  
+                  <td class=" budget">Eva Williams</td>
+  
+                  <td>
+                    <div class=" d-flex align-items-center">
+                      <span class=" completion mr-2"> 90% </span>
+  
+                      <div>
+                        <div class=" progress">
+                          <progressbar type="info" [value]="90"> </progressbar>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+  
+                  <td class=" text-right">
+                    <div class="dropdown no-caret">
+                      <a
+                        aria-controls="dropdown-basic"
+                        class=" btn btn-sm btn-icon-only text-light dropdown-toggle"
+                        dropdownToggle
+                        href="javascript:void(0)"
+                        role="button"
+                      >
+                        <i class=" fas fa-ellipsis-v"> </i>
+                      </a>
+  
+                      <div
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                        *dropdownMenu
+                      >
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Another action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">
+                    <div class=" media align-items-center">
+                      <div class=" media-body">
+                        <span class=" name mb-0 text-sm">
+                          <a href="javascript:void(0)">2023-0001256</a>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+  
+                  <td class=" budget">Panerai</td>
+  
+                  <td>
+                    <span class=" badge badge-dot mr-4">
+                      <i class=" bg-success"> </i>
+  
+                      <span class=" status"> completed </span>
+                    </span>
+                  </td>
+  
+                  <td class=" budget">George Al Tajir</td>
+  
+                  <td>
+                    <div class=" d-flex align-items-center">
+                      <span class=" completion mr-2"> 100% </span>
+  
+                      <div>
+                        <div class=" progress">
+                          <progressbar type="success" [value]="100">
+                          </progressbar>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+  
+                  <td class=" text-right">
+                    <div class="dropdown no-caret" >
+                      <a
+                        aria-controls="dropdown-basic"
+                        class=" btn btn-sm btn-icon-only text-light dropdown-toggle"
+                        dropdownToggle
+                        href="javascript:void(0)"
+                        role="button"
+                      >
+                        <i class=" fas fa-ellipsis-v"> </i>
+                      </a>
+  
+                      <div
+                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow"
+                        *dropdownMenu
+                      >
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Another action
+                        </a>
+  
+                        <a href="javascript:void(0)" class="dropdown-item">
+                          Something else here
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class=" card-footer py-4">
+            <nav aria-label="...">
+              <pagination [totalItems]="25"
+                          class="justify-content-end mb-0"
+                          [customPreviousTemplate]="prevTemplate"
+                          [customNextTemplate]="nextTemplate">
+              </pagination>
+  
+              <ng-template #nextTemplate let-currentPage="currentPage">
+                <ng-container *ngIf="!disabled">
+                  <i class='fas fa-angle-right'></i>
+                </ng-container>
+              </ng-template>
+  
+              <ng-template #prevTemplate let-currentPage="currentPage">
+                <ng-container *ngIf="!disabled">
+                  <i class='fas fa-angle-left'></i>
+                </ng-container>
+              </ng-template>
+  
+            </nav>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

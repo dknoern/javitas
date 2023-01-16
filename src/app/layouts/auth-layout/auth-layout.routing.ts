@@ -5,6 +5,8 @@ import { PricingComponent } from "../../pages/examples/pricing/pricing.component
 import { LockComponent } from "../../pages/examples/lock/lock.component";
 import { RegisterComponent } from "../../pages/examples/register/register.component";
 import { HomeComponent } from "../../pages/examples/home/home.component";
+import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
+import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
 
 export const AuthLayoutRoutes: Routes = [
   {
@@ -49,6 +51,24 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "home",
         component: HomeComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "wizard",
+        component: WizardComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "repairs",
+        component: RepairsComponent
       }
     ]
   }

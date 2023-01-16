@@ -8,6 +8,7 @@ export class RegisterComponent implements OnInit {
   focus;
   focus1;
   focus2;
+  focus3;
   constructor() {}
 
   ngOnInit() {}
