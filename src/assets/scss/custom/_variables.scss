@@ -82,7 +82,8 @@ $colors: map-merge(
   $colors
 );
 
-$default: #172b4d !default;
+//$default: #172b4d !default; // argon default
+$default: #074333 !default;
 $primary: #5e72e4 !default;
 $secondary: #f7fafc !default;
 $success: $green !default;
