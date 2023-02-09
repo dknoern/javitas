@@ -10,11 +10,14 @@ import { TimelineComponent } from "./timeline/timeline.component";
 import { PaginationModule } from "ngx-bootstrap/pagination";
 import { RouterModule } from "@angular/router";
 import { ExamplesRoutes } from "./examples.routing";
+import { FormsModule } from '@angular/forms';
+import { WizardComponent } from "./wizard/wizard.component";
 
 @NgModule({
-  declarations: [ProfileComponent, RepairsComponent,  TimelineComponent],
+  declarations: [ProfileComponent, RepairsComponent,  TimelineComponent, WizardComponent],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(ExamplesRoutes),
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot(),

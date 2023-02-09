@@ -66,8 +66,7 @@
           </a>
         </li>
 
-
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isAuthenticated">
           <a
             class="nav-link"
             routerLinkActive="active"
@@ -77,20 +76,22 @@
           </a>
         </li>
 
-
       </ul>
       <hr class="d-lg-none" />
       <ul class="navbar-nav align-items-lg-center ml-lg-auto">
        
         <li class="nav-item d-none d-lg-block ml-lg-4">
           <a
-           [routerLink]="['/examples/login']"            class="btn btn-neutral btn-icon"
+           [routerLink]="['/examples/login']" class="btn btn-neutral btn-icon"  *ngIf="!isAuthenticated"
           >
             <span class="btn-inner--icon">
               <i class="ni ni-circle-08 mr-2"></i>
             </span>
             <span class="nav-link-inner--text">Login</span>
           </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="" (click)="signOut()" *ngIf="isAuthenticated">Sign out</a>
         </li>
       </ul>
     </div>
