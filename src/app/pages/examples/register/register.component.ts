@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     this.loading = true;
     this.cognitoService.confirmSignUp(this.user)
     .then(() => {
-      this.router.navigate(['/signIn']);
+      this.router.navigate(['/examples/login']);
     }).catch((e) => {
       this.loading = false;
       this.errorMessage = e.message;
