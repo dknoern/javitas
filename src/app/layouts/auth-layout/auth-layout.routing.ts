@@ -7,7 +7,6 @@ import { RegisterComponent } from "../../pages/examples/register/register.compon
 import { HomeComponent } from "../../pages/examples/home/home.component";
 import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
 import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
-import { AuthGuard } from '../../auth.guard';
 
 export const AuthLayoutRoutes: Routes = [
   {
@@ -60,8 +59,7 @@ export const AuthLayoutRoutes: Routes = [
     children: [
       {
         path: "wizard",
-        component: WizardComponent,
-        canActivate: [AuthGuard]
+        component: WizardComponent
       }
     ]
   },

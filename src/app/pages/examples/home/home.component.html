@@ -33,7 +33,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'cartier'}">
+                    <a (click)="gotoWizard('cartier')">
                       <img src="assets/img/watches/logo-cartier.png" class="img-fluid"
                         style="max-width: 65%;height: auto;" />
                       <img src="assets/img/watches/cartier-watch.png" class="img-fluid"
@@ -52,7 +52,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'panerai'}">
+                    <a (click)="gotoWizard('panerai')">
                       <img src="assets/img/watches/logo-panerai.png" class="img-fluid" />
                       <img src="assets/img/watches/panerai-watch.png" class="img-fluid"
                         style="max-width: 70%;height: auto;" />
@@ -70,7 +70,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'jaeger'}">
+                    <a (click)="gotoWizard('jaeger')">
                       <img src="assets/img/watches/logo-jaeger.png" class="img-fluid" />
                       <img src="assets/img/watches/jaeger-watch.png" class="img-fluid"
                         style="max-width: 70%;height: auto;" />
@@ -88,7 +88,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'iwc'}">
+                    <a (click)="gotoWizard('iwc')">
                       <img src="assets/img/watches/logo-iwc.png" class="img-fluid"
                         style="max-width: 90%;height: auto;" />
                       <img src="assets/img/watches/iwc-watch.png" class="img-fluid"
@@ -105,7 +105,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'baumemercier'}">
+                    <a (click)="gotoWizard('baumemercier')">
                       <img src="assets/img/watches/logo-baume-mercier.png" class="img-fluid"
                         style="max-width: 90%;height: auto;" />
                       <img src="assets/img/watches/baume-mercier-watch.png" class="img-fluid"
@@ -123,7 +123,7 @@
               <div class="card-body">
                 <div class="row justify-content-center">
                   <div style="text-align:center">
-                    <a [routerLink]="['/examples/wizard']" [queryParams]="{manufacturer: 'montblanc'}">
+                    <a (click)="gotoWizard('montblanc')">
                       <img src="assets/img/watches/logo-montblanc.png" class="img-fluid" />
                       <img src="assets/img/watches/montblanc-watch.png" class="img-fluid"
                         style="max-width: 95%;height: auto;" />

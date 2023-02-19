@@ -81,11 +81,6 @@
       <ul class="navbar-nav align-items-lg-center ml-lg-auto">
        
         <li class="nav-item d-none d-lg-block ml-lg-4">
-
-          <!--a
-          [routerLink]="['/examples/login']" class="btn btn-neutral btn-icon"  *ngIf="!isAuthenticated"
-          -->
-
           <button type="button" id="sendlogin" class="btn btn-neutral btn-icon" (click)="onLoginClick()"   *ngIf="!email">
             <span class="btn-inner--icon">
               <i class="ni ni-circle-08 mr-2"></i>
@@ -94,14 +89,10 @@
           </button>
         </li>
 
-        <li class="nav-item"  *ngIf="email">
-          <span> welcome {{email}} </span>
+        <li class="nav-item"  *ngIf="firstName">
+          <span class="text-white"> Welcome, {{firstName}} </span>&nbsp;
           <button class="btn btn-neutral my-2 my-sm-0" (click)="onLogoutClick()">Logout</button>
         </li>
-
-
-        
-
       </ul>
     </div>
   </div>

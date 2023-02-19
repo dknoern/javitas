@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
-import { Auth } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -10,19 +11,40 @@ import { Auth } from 'aws-amplify';
 export class HomeComponent implements OnInit {
   test: Date = new Date();
   isCollapsed = true;
-  constructor() {}
+  loggedIn: boolean = false;
+
+  constructor(private router: Router) {
+
+    // Used for listening to login events
+    Hub.listen("auth", ({ payload: { event, data } }) => {
+      console.log("IN HOME: auth event type", event);
+      if (event === "cognitoHostedUI" || event === "signedIn") {
+        console.log("cgnito event");
+        console.log("data is ", JSON.stringify(data));
+      }
+    });
+  }
 
   ngOnInit() {
 
     Auth.currentUserInfo()
     .then(user => {
 
-      console.log('user', JSON.stringify(user));
+      console.log('home: user', JSON.stringify(user));
 
-      console.log('user firstname', JSON.stringify(user.attributes.given_name));
+      console.log('home: user firstname', JSON.stringify(user.attributes.given_name));
+      this.loggedIn = true;
     })
     .catch(() => console.log("Not signed in"));
+  }
 
-
+  gotoWizard(manufacturer: string) {
+    if(!this.loggedIn){
+      console.log("not logged in");
+      Auth.federatedSignIn();
+    }else {
+      console.log("logged in");
+      this.router.navigate(['/examples/wizard'], { queryParams: { manufacturer: manufacturer } });
+    }
   }
 }

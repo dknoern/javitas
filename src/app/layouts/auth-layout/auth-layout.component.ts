@@ -1,8 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-
-import { Auth, Hub } from 'aws-amplify';
-//import { CognitoService } from '../../cognito.service';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: "app-auth-layout",
@@ -12,23 +10,37 @@ import { Auth, Hub } from 'aws-amplify';
 export class AuthLayoutComponent implements OnInit, OnDestroy {
 
   email: string;
+  firstName: string;
 
   isAuthenticated: boolean;
 
   test: Date = new Date();
   public isCollapsed = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+
+        //currentAuthenticatedUser: when user comes to login page again
+        Auth.currentAuthenticatedUser()
+        .then(() => {
+          console.log('auth user coming to login pager again');
+          this.router.navigate(['/examples/home'], { replaceUrl: true });
+        }).catch((err) => {
+          //this.spinner.hide();
+          console.log(err);
+        })
+  }
 
   ngOnInit() {
 
     this.email = "";
+    this.firstName = "";
 
     Auth.currentAuthenticatedUser()
     .then(user => {
       this.email = user.attributes.email;
+      this.firstName = user.attributes.given_name;
 
-      console.log('user', JSON.stringify(user));
+      console.log('auth-layout: user', user.attributes.given_name);
 
     })
     .catch(() => console.log("Not signed in"));
@@ -37,14 +49,9 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     Auth.currentUserInfo()
     .then(user => {
 
-      console.log('user', JSON.stringify(user));
-
-      console.log('user firstname', JSON.stringify(user.attributes.given_name));
+      console.log('auth-layout: user firstname', user.attributes.given_name);
     })
     .catch(() => console.log("Not signed in"));
-
-
-
 
     var html = document.getElementsByTagName("html")[0];
     // html.classList.add("auth-layout");
@@ -54,17 +61,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     navbar.classList.add("navbar-light");
     navbar.classList.add("navbar-transparent");
 
-    /*
-        this.cognitoService.isAuthenticated()
-    .then((success: boolean) => {
-      this.isAuthenticated = success;
-    });
-
-
-    this.cognitoService.authenticationSubject.subscribe(val => {
-      this.isAuthenticated = val;
-      })
-    */
   }
   ngOnDestroy() {
     var html = document.getElementsByTagName("html")[0];
