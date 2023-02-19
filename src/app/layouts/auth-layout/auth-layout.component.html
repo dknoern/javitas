@@ -81,18 +81,27 @@
       <ul class="navbar-nav align-items-lg-center ml-lg-auto">
        
         <li class="nav-item d-none d-lg-block ml-lg-4">
-          <a
-           [routerLink]="['/examples/login']" class="btn btn-neutral btn-icon"  *ngIf="!isAuthenticated"
-          >
+
+          <!--a
+          [routerLink]="['/examples/login']" class="btn btn-neutral btn-icon"  *ngIf="!isAuthenticated"
+          -->
+
+          <button type="button" id="sendlogin" class="btn btn-neutral btn-icon" (click)="onLoginClick()"   *ngIf="!email">
             <span class="btn-inner--icon">
               <i class="ni ni-circle-08 mr-2"></i>
             </span>
             <span class="nav-link-inner--text">Login</span>
-          </a>
+          </button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="" (click)="signOut()" *ngIf="isAuthenticated">Sign out</a>
+
+        <li class="nav-item"  *ngIf="email">
+          <span> welcome {{email}} </span>
+          <button class="btn btn-neutral my-2 my-sm-0" (click)="onLogoutClick()">Logout</button>
         </li>
+
+
+        
+
       </ul>
     </div>
   </div>

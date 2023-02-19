@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { ToastrModule } from "ngx-toastr";
@@ -12,11 +12,17 @@ import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ComponentsModule } from "./components/components.module";
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+
+// interceptors & auth-gaurd
+
+//import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,9 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     AmplifyAuthenticatorModule
   ],
-  providers: [],
+  providers: [
+    AmplifyAuthenticatorModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

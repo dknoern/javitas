@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-javitas-dev-04321-unauthRole",
       "StackName": "amplify-javitas-dev-04321",
       "StackId": "arn:aws:cloudformation:us-east-1:484951121041:stack/amplify-javitas-dev-04321/d65d3ed0-9579-11ed-9e62-12f8efe2fff3",
-      "AmplifyAppId": "d2qqstrwqw8l63"
+      "AmplifyAppId": "d2qqstrwqw8l63",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-javitas-dev-04321-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "hosting": {
@@ -17,6 +18,9 @@
           "appId": "d2qqstrwqw8l63",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "javitas6fa4cb22": {}
       }
     }
   }
