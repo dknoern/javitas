@@ -7,6 +7,7 @@
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.19.1",
+    "date-format": "4.0.14",
     "express": "^4.17.2"
   },
   "devDependencies": {
