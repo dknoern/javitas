@@ -21,6 +21,19 @@
       },
       "auth": {
         "javitas6fa4cb22": {}
+      },
+      "function": {
+        "orders": {
+          "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
+          "s3Key": "amplify-builds/orders-2f5530715177766c7869-build.zip"
+        }
+      },
+      "storage": {
+        "repairs": {},
+        "orders": {}
+      },
+      "api": {
+        "orders": {}
       }
     }
   }

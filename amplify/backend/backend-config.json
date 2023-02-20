@@ -1,4 +1,20 @@
 {
+  "api": {
+    "orders": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "orders"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "javitas6fa4cb22": {
       "customAuth": false,
@@ -31,6 +47,27 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "orders": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "orders"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "hosting": {
     "amplifyhosting": {
       "service": "amplifyhosting",
@@ -38,6 +75,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_orders_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "orders"
+        }
+      ]
+    },
+    "AMPLIFY_function_orders_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "orders"
+        }
+      ]
+    },
     "AMPLIFY_hosting_amplifyhosting_appId": {
       "usedBy": [
         {
@@ -53,6 +106,16 @@
           "resourceName": "amplifyhosting"
         }
       ]
+    }
+  },
+  "storage": {
+    "orders": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "repairs": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }
