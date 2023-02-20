@@ -11,8 +11,8 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "http://localhost:4200/",
-        "redirectSignOut": "http://localhost:4200/",
+        "redirectSignIn": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
+        "redirectSignOut": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
         "responseType": "code"
     }
 };
