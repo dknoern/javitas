@@ -23,12 +23,12 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
-const partitionKeyName = "email";
+const partitionKeyName = "id";
 const partitionKeyType = "S";
-const sortKeyName = "id";
-const sortKeyType = "S";
+const sortKeyName = "";
+const sortKeyType = "";
 const hasSortKey = sortKeyName !== "";
-const path = "/orders/:id";
+const path = "/orders";
 const UNAUTH = 'UNAUTH';
 const hashKeyPath = '/:' + partitionKeyName;
 const sortKeyPath = hasSortKey ? '/:' + sortKeyName : '';
@@ -82,6 +82,29 @@ app.get(path + hashKeyPath, function(req, res) {
   }
 
   dynamodb.query(queryParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: 'Could not load items: ' + err});
+    } else {
+      res.json(data.Items);
+    }
+  });
+});
+
+
+/********************************
+ * HTTP Get method for all objects *
+ ********************************/
+
+app.get(path, function(req, res) {
+  console.log('Updated Get method for all objects');
+  console.log('path',path);
+
+  let queryParams = {
+    TableName: tableName
+  }
+
+  dynamodb.scan(queryParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
       res.json({error: 'Could not load items: ' + err});

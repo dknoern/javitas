@@ -2,10 +2,6 @@
   "resourceName": "orders",
   "tableName": "orders",
   "partitionKey": {
-    "fieldName": "email",
-    "fieldType": "string"
-  },
-  "sortKey": {
     "fieldName": "id",
     "fieldType": "string"
   },

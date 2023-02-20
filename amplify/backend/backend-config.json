@@ -112,10 +112,6 @@
     "orders": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
-    },
-    "repairs": {
-      "providerPlugin": "awscloudformation",
-      "service": "DynamoDB"
     }
   }
 }

@@ -1,23 +1,11 @@
 {
   "version": 1,
   "paths": {
-    "/orders/{id}": {
-      "name": "/orders/{id}",
+    "/orders": {
+      "name": "/orders",
       "lambdaFunction": "orders",
       "permissions": {
-        "setting": "protected",
-        "auth": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ],
-        "guest": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ]
+        "setting": "open"
       }
     }
   }
