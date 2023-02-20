@@ -7,7 +7,7 @@ import { RegisterComponent } from "../../pages/examples/register/register.compon
 import { HomeComponent } from "../../pages/examples/home/home.component";
 import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
 import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
-
+import { RepairComponent } from "../../pages/examples/repair/repair.component";
 export const AuthLayoutRoutes: Routes = [
   {
     path: "",
@@ -69,6 +69,15 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "repairs",
         component: RepairsComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "repair",
+        component: RepairComponent
       }
     ]
   }

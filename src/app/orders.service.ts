@@ -15,13 +15,9 @@ export class OrdersService {
   };
 
   postOrder(order: any) {
-
-    console.log('posting order');
-
     let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders";
     return this.http.post(url, order, this.httpOptions);
   }
-
 
   getOrders() {
     console.log("getting orders");
@@ -29,5 +25,9 @@ export class OrdersService {
     return this.http.get(url, this.httpOptions);
   }
 
-
+  getOrder(id: any) {
+    console.log("getting order",id);
+    let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/object/"+id;
+    return this.http.get(url, this.httpOptions);
+  }
 }

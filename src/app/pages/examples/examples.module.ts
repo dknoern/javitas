@@ -5,6 +5,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { ProfileComponent } from "./profile/profile.component";
 import { RepairsComponent } from "./repairs/repairs.component";
+import { RepairComponent } from "./repair/repair.component";
 
 import { TimelineComponent } from "./timeline/timeline.component";
 import { PaginationModule } from "ngx-bootstrap/pagination";
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { WizardComponent } from "./wizard/wizard.component";
 
 @NgModule({
-  declarations: [ProfileComponent, RepairsComponent,  TimelineComponent, WizardComponent],
+  declarations: [ProfileComponent, RepairsComponent, RepairComponent, TimelineComponent, WizardComponent],
   imports: [
     CommonModule,
     FormsModule,
