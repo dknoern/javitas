@@ -72,16 +72,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     navbar.classList.remove("navbar-transparent");
   }
 
-  /*
-    public signOut(): void {
-    this.cognitoService.signOut()
-    .then(() => {
-      this.router.navigate(['/examples/home']);
-    });
-  */
-
   onLoginClick() {
-    console.log
    // this.spinner.show();
     Auth.federatedSignIn();
   }
