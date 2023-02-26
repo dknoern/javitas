@@ -13,6 +13,7 @@ import { RouterModule } from "@angular/router";
 import { ExamplesRoutes } from "./examples.routing";
 import { FormsModule } from '@angular/forms';
 import { WizardComponent } from "./wizard/wizard.component";
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, TimelineComponent, WizardComponent],
@@ -22,7 +23,8 @@ import { WizardComponent } from "./wizard/wizard.component";
     RouterModule.forChild(ExamplesRoutes),
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    NgxDropzoneModule
   ]
 })
 export class ExamplesModule {}
