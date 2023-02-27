@@ -26,13 +26,19 @@
         "orders": {
           "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
           "s3Key": "amplify-builds/orders-46594844676f64646d63-build.zip"
+        },
+        "estimates": {
+          "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
+          "s3Key": "amplify-builds/estimates-54623779736c3261372b-build.zip"
         }
       },
       "storage": {
-        "orders": {}
+        "orders": {},
+        "estimates": {}
       },
       "api": {
-        "orders": {}
+        "orders": {},
+        "estimates": {}
       }
     }
   }

@@ -1,0 +1,10 @@
+{
+  "resourceName": "estimates",
+  "tableName": "estimates",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

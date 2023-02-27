@@ -1,6 +1,8 @@
 {
   "version": "1",
   "cognitoConfig": {
+    "identityPoolName": "javitas6fa4cb22_identitypool_b73fffb8",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "javita6fa4cb22",
     "userPoolName": "javitas6fa4cb22_userpool_6fa4cb22",
     "autoVerifiedAttributes": [
@@ -45,7 +47,7 @@
     "userpoolClientSetAttributes": true,
     "sharedId": "6fa4cb22",
     "resourceName": "javitas6fa4cb22",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
     "usernameAttributes": [
       "email"
