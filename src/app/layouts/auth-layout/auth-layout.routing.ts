@@ -8,6 +8,7 @@ import { HomeComponent } from "../../pages/examples/home/home.component";
 import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
 import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
 import { RepairComponent } from "../../pages/examples/repair/repair.component";
+import { EstimateComponent } from "../../pages/examples/estimate/estimate.component";
 export const AuthLayoutRoutes: Routes = [
   {
     path: "",
@@ -78,6 +79,16 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "repair",
         component: RepairComponent
+      }
+    ]
+  }
+  ,
+  {
+    path: "",
+    children: [
+      {
+        path: "estimate",
+        component: EstimateComponent
       }
     ]
   }

@@ -91,6 +91,29 @@ app.get(path + hashKeyPath, function(req, res) {
   });
 });
 
+
+/********************************
+ * HTTP Get method for all objects *
+ ********************************/
+
+app.get(path, function(req, res) {
+  console.log('Updated Get method for all objects');
+  console.log('path',path);
+
+  let queryParams = {
+    TableName: tableName
+  }
+
+  dynamodb.scan(queryParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: 'Could not load items: ' + err});
+    } else {
+      res.json(data.Items);
+    }
+  });
+});
+
 /*****************************************
  * HTTP Get method for get single object *
  *****************************************/

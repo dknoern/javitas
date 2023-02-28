@@ -1,0 +1,39 @@
+<div class=" main-content">
+  <div class=" header bg-gradient-default py-7 py-lg-8 pt-lg-9">
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+  <div class=" container mt--8 pb-5">
+    <div class=" row justify-content-center">
+      <div class=" col-lg-6">
+        <div class=" card">
+          <div class=" card-body">
+            <h3 class=" card-title mb-3">Estimate</h3>
+            <div class=" table-responsive" *ngIf="estimate && estimate.necessaryServices">
+              <table class=" table align-items-center table-flush">
+                <thead class=" thead-light">
+                  <tr>
+                    <th class=" sort" data-sort="name" scope="col">Name</th>
+                    <th class=" sort" data-sort="budget" scope="col">Price</th>
+                    <th class=" sort" data-sort="status" scope="col">Approval</th>
+                  </tr>
+                </thead>
+                <tbody class=" list">
+                  <tr *ngFor='let necessaryService of estimate.necessaryServices'>
+                    <td class=" budget">{{necessaryService.name}}</td>
+                    <td class=" budget">{{necessaryService.price}}</td>
+                    <td class=" budget">{{necessaryService.approval}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
