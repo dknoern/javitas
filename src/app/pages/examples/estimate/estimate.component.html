@@ -13,24 +13,96 @@
         <div class=" card">
           <div class=" card-body">
             <h3 class=" card-title mb-3">Estimate</h3>
-            <div class=" table-responsive" *ngIf="estimate && estimate.necessaryServices">
-              <table class=" table align-items-center table-flush">
-                <thead class=" thead-light">
-                  <tr>
-                    <th class=" sort" data-sort="name" scope="col">Name</th>
-                    <th class=" sort" data-sort="budget" scope="col">Price</th>
-                    <th class=" sort" data-sort="status" scope="col">Approval</th>
-                  </tr>
-                </thead>
-                <tbody class=" list">
-                  <tr *ngFor='let necessaryService of estimate.necessaryServices'>
-                    <td class=" budget">{{necessaryService.name}}</td>
-                    <td class=" budget">{{necessaryService.price}}</td>
-                    <td class=" budget">{{necessaryService.approval}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+
+            <form class=" needs-validation" *ngIf="estimate && estimate.necessaryServices">
+
+
+
+
+              <div class=" form-row">
+                <div class=" col-md-6 mb-3">Necessary services</div>
+                <div class=" col-md-3 mb-3">Price</div>
+                <div class=" col-md-3 mb-3">
+                  <button class=" btn btn-outline-success" type="button" (click)="addNecessaryService()">
+                    Add new
+                  </button>
+                </div>
+              </div>
+
+              <div class=" form-row" *ngFor="let necessaryService of estimate.necessaryServices; let i = index" [attr.data-index]="i">
+                <div class=" col-md-6 mb-3">
+
+                  <input class=" form-control" id="firstName" name="firstName" placeholder="" required="" type="text"
+                    value="{{necessaryService.name}}" />
+                  <div class=" invalid-feedback">
+                    Please provide a valid service.
+                  </div>
+                </div>
+
+                <div class=" col-md-3 mb-3">
+
+                  <input class=" form-control" id="lastName" name="lastName" placeholder="" required="" type="text"
+                    value="{{necessaryService.price}}" />
+                  <div class=" invalid-feedback">
+                    Please provide a valid price.
+                  </div>
+                </div>
+
+                <div class=" col-md-3 mb-3">
+                  <button class=" btn btn-outline-danger" type="button" (click)="removeNecessaryService(i)">
+                    Remove
+                  </button>
+                </div>
+              </div>
+
+
+              
+              <div class=" form-row">
+                <div class=" col-md-6 mb-3">Optional services</div>
+                <div class=" col-md-3 mb-3">Price</div>
+                <div class=" col-md-3 mb-3">
+                  <button class=" btn btn-outline-success" type="button" (click)="addOptionalService()">
+                    Add new
+                  </button>
+                </div>
+              </div>
+
+              <div class=" form-row" *ngFor="let optionalService of estimate.optionalServices; let i = index" [attr.data-index]="i">
+                <div class=" col-md-6 mb-3">
+
+                  <input class=" form-control" id="firstName" name="firstName" placeholder="" required="" type="text"
+                    value="{{optionalService.name}}" />
+                  <div class=" invalid-feedback">
+                    Please provide a valid service.
+                  </div>
+                </div>
+
+                <div class=" col-md-3 mb-3">
+
+                  <input class=" form-control" id="lastName" name="lastName" placeholder="" required="" type="text"
+                    value="{{optionalService.price}}" />
+                  <div class=" invalid-feedback">
+                    Please provide a valid price.
+                  </div>
+                </div>
+
+                <div class=" col-md-3 mb-3">
+                  <button class=" btn btn-outline-danger" type="button" (click)="removeOptionalService(i)">
+                    Remove
+                  </button>
+                </div>
+              </div>
+
+              <div class=" form-row">
+                <div class=" col-md-12 mb-3 mt-3">
+
+                  <button class=" btn btn-block btn-primary" type="button">
+                    Save Estimate
+                  </button>
+                </div>
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
