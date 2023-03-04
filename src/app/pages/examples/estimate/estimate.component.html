@@ -17,7 +17,45 @@
             <form class=" needs-validation" *ngIf="estimate && estimate.necessaryServices">
 
 
-
+              <div *ngIf="order">
+                <h3 class=" card-title mb-3">Repair Info</h3>
+                <div *ngIf="order.manufacturer">
+                  <p class=" text-sm text-muted mb-0">Manufacturer</p>
+                  <p class=" card-text mb-4">
+                    {{order.manufacturer}}
+                  </p>
+                </div>
+                <div *ngIf="order.model">
+                  <p class=" text-sm text-muted mb-0">Model</p>
+                  <p class=" card-text mb-4">
+                    {{order.model}}
+                  </p>
+                </div>
+                <div *ngIf="order.serialNumber">
+                  <p class=" text-sm text-muted mb-0">Serial Number</p>
+                  <p class=" card-text mb-4">
+                    {{order.serialNumber}}
+                  </p>
+                </div>
+                <div *ngIf="order.age">
+                  <p class=" text-sm text-muted mb-0">Age</p>
+                  <p class=" card-text mb-4">
+                    {{order.age}} years
+                  </p>
+                </div>
+                <div *ngIf="order.createdDate">
+                  <p class=" text-sm text-muted mb-0">Requested</p>
+                  <p class=" card-text mb-4">
+                    {{order.createdDate}}
+                  </p>
+                </div>
+                <div *ngIf="order.status">
+                  <p class=" text-sm text-muted mb-0">Customer</p>
+                  <p class=" card-text mb-4">
+                    {{order.email}}
+                  </p>
+                </div>
+              </div>
 
               <div class=" form-row">
                 <div class=" col-md-6 mb-3">Necessary services</div>
@@ -32,8 +70,8 @@
               <div class=" form-row" *ngFor="let necessaryService of estimate.necessaryServices; let i = index" [attr.data-index]="i">
                 <div class=" col-md-6 mb-3">
 
-                  <input class=" form-control" id="firstName" name="firstName" placeholder="" required="" type="text"
-                    value="{{necessaryService.name}}" />
+                  <input class=" form-control" name="name_{{i}}" placeholder="" required="" type="text"
+                    [(ngModel)]="estimate.necessaryServices[i].name"/>
                   <div class=" invalid-feedback">
                     Please provide a valid service.
                   </div>
@@ -41,8 +79,8 @@
 
                 <div class=" col-md-3 mb-3">
 
-                  <input class=" form-control" id="lastName" name="lastName" placeholder="" required="" type="text"
-                    value="{{necessaryService.price}}" />
+                  <input class=" form-control" name="price_{{i}}" placeholder="" required="" type="text"
+                    [(ngModel)]="estimate.necessaryServices[i].price"/>
                   <div class=" invalid-feedback">
                     Please provide a valid price.
                   </div>
@@ -70,8 +108,8 @@
               <div class=" form-row" *ngFor="let optionalService of estimate.optionalServices; let i = index" [attr.data-index]="i">
                 <div class=" col-md-6 mb-3">
 
-                  <input class=" form-control" id="firstName" name="firstName" placeholder="" required="" type="text"
-                    value="{{optionalService.name}}" />
+                  <input class=" form-control" name="name_opt_{{i}}" placeholder="" required="" type="text"
+                  [(ngModel)]="estimate.optionalServices[i].name" />
                   <div class=" invalid-feedback">
                     Please provide a valid service.
                   </div>
@@ -79,8 +117,8 @@
 
                 <div class=" col-md-3 mb-3">
 
-                  <input class=" form-control" id="lastName" name="lastName" placeholder="" required="" type="text"
-                    value="{{optionalService.price}}" />
+                  <input class=" form-control" name="price_opt_{{i}}" placeholder="" required="" type="text"
+                  [(ngModel)]="estimate.optionalServices[i].price" />
                   <div class=" invalid-feedback">
                     Please provide a valid price.
                   </div>
@@ -96,7 +134,7 @@
               <div class=" form-row">
                 <div class=" col-md-12 mb-3 mt-3">
 
-                  <button class=" btn btn-block btn-primary" type="button">
+                  <button class=" btn btn-block btn-primary" type="button" (click)="saveEstimate()">
                     Save Estimate
                   </button>
                 </div>
