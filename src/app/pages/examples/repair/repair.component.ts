@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from "aws-amplify";
 
 @Component({
   selector: "app-repair",
@@ -27,7 +28,7 @@ export class RepairComponent implements OnInit {
     });
   }
 
-  onSelect(event) {
+  async onSelect(event) {
     console.log(event);
     this.files.push(...event.addedFiles);
 
@@ -37,11 +38,12 @@ export class RepairComponent implements OnInit {
       formData.append("file[]", this.files[i]);
     }
 
-    this.http.post('http://localhost:8001/upload.php', formData)
-      .subscribe(res => {
-        console.log(res);
-        alert('Uploaded Successfully.');
-      })
+    const fileName = this.order.id + "/" + event.addedFiles[0].name;
+
+    console.log("uploading file",fileName);
+    const result = await Storage.put(fileName,event.addedFiles[0],{
+      //level: "protected"
+    });
   }
 
   onRemove(event) {

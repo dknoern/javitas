@@ -64,10 +64,11 @@
             <div>
               <p class=" text-sm text-muted mb-0">Please add one or more picture of the watch to be repaired.</p>
 
-              <ngx-dropzone (change)="onSelect($event)">
+              <ngx-dropzone (change)="onSelect($event)" 
+              multiple="false"
+              accept="image/jpeg,image/jpg,image/png,image/gif">
                 <ngx-dropzone-label>Drop image here or click to select.</ngx-dropzone-label>
-                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-                  <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true">
                 </ngx-dropzone-image-preview>
               </ngx-dropzone>
             </div>

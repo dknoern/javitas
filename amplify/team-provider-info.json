@@ -34,7 +34,8 @@
       },
       "storage": {
         "orders": {},
-        "estimates": {}
+        "estimates": {},
+        "photos": {}
       },
       "api": {
         "orders": {},
