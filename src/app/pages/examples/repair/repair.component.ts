@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, TemplateRef } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from "aws-amplify";
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "app-repair",
@@ -13,9 +14,16 @@ export class RepairComponent implements OnInit {
   order = null;
   files: File[] = [];
 
+  defaultModal: BsModalRef;
+  default = {
+    keyboard: true,
+    class: "modal-dialog-centered"
+  };
+
   constructor(
     private ordersService: OrdersService,
     private activatedRoute: ActivatedRoute,
+    private modalService: BsModalService,
     private http: HttpClient) { }
 
   ngOnInit() {
@@ -50,4 +58,11 @@ export class RepairComponent implements OnInit {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
+  
+  openDefaultModal(modalDefault: TemplateRef<any>) {
+    this.defaultModal = this.modalService.show(modalDefault, this.default);
+  }
+
+
 }

@@ -17,6 +17,7 @@ import { ComponentsModule } from "./components/components.module";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import { BsModalService } from "ngx-bootstrap/modal";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
     AmplifyAuthenticatorModule
   ],
   providers: [
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule, BsModalService
   ],
   bootstrap: [AppComponent]
 })
