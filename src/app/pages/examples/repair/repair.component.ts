@@ -14,6 +14,8 @@ export class RepairComponent implements OnInit {
   order = null;
   files: File[] = [];
 
+  photoURLs = new Array();
+
   defaultModal: BsModalRef;
   default = {
     keyboard: true,
@@ -33,6 +35,32 @@ export class RepairComponent implements OnInit {
       this.ordersService.getOrder(id).subscribe((data) => {
         this.order = data;
       });
+
+
+      console.log("looging for photos");
+
+      console.log('yyyy',this.order);
+
+      Storage.list(id + '/') // for listing ALL files without prefix, pass '' instead
+      .then((result) => {
+        console.log('zzzz',this.order);
+        console.log('photo results',result);
+
+        result.results.forEach((value)=> {
+
+          var key = value.key;
+          console.log("key",key);
+
+          Storage.get(key).then((signedURL) =>{
+            console.log("signedURL",signedURL);
+            this.photoURLs.push(signedURL);
+          })
+        });
+      }
+      
+      )
+      .catch((err) => console.log(err));
+
     });
   }
 
