@@ -30,8 +30,8 @@ const awsmobile = {
         ],
         "redirectSignIn": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
         "redirectSignOut": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
-        //"redirectSignIn": "http://localhost:4200/",
-        //"redirectSignOut": "http://localhost:4200/",
+       // "redirectSignIn": "http://localhost:4200/",
+       // "redirectSignOut": "http://localhost:4200/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
@@ -67,7 +67,9 @@ const awsmobile = {
             "tableName": "estimates-dev",
             "region": "us-east-1"
         }
-    ]
+    ],
+    "aws_user_files_s3_bucket": "watch-photos04321-dev",
+    "aws_user_files_s3_bucket_region": "us-east-1"
 };
 
 export default awsmobile;
