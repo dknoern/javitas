@@ -81,6 +81,7 @@
             </div>
 
 
+            <!-- Image detail modal -->
 
             <ng-template #modalDefault>
               <div class=" modal-header">
@@ -98,7 +99,6 @@
                 <p>
                   Please upload one or more photo of your watch before you send it to us.
                 </p>
-
 
                 <div>
                   <p class=" text-sm text-muted mb-0">Please add one or more picture of the watch to be repaired.</p>
@@ -125,8 +125,27 @@
               </div>
             </ng-template>
 
+            <ng-template #modalPhotoDetail>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  Repair image
+                </h6>
+
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="photoDetailModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+
+              <div class=" modal-body">
+                <img src="{{selectedPhotoURL}}" />
+              </div>
+
+            </ng-template>
+
             <span *ngFor='let photoURL of photoURLs'>
-              <img src="{{photoURL}}" width="100px" />
+              <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL)">
+                <img src="{{photoURL}}" width="100px" /></a>
             </span>
           </div>
         </div>

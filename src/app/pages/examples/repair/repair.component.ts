@@ -15,9 +15,19 @@ export class RepairComponent implements OnInit {
   files: File[] = [];
 
   photoURLs = new Array();
+  selectedPhotoURL = null;
 
   defaultModal: BsModalRef;
+  photoDetailModal: BsModalRef;
+
+
+
   default = {
+    keyboard: true,
+    class: "modal-dialog-centered"
+  };
+
+  photoDetail = {
     keyboard: true,
     class: "modal-dialog-centered"
   };
@@ -92,5 +102,9 @@ export class RepairComponent implements OnInit {
     this.defaultModal = this.modalService.show(modalDefault, this.default);
   }
 
+  openPhotoDetailModal(modalPhotoDetail: TemplateRef<any>, photoURL: string) {
+    this.selectedPhotoURL = photoURL;
+    this.photoDetailModal = this.modalService.show(modalPhotoDetail, this.photoDetail);
+  }
 
 }
