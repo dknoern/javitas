@@ -1,9 +1,10 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import swal from "sweetalert2";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-repair",
@@ -13,14 +14,13 @@ export class RepairComponent implements OnInit {
 
   order = null;
   files: File[] = [];
-
   photoURLs = new Array();
+  photoKeys = new Array();
   selectedPhotoURL = null;
+  selectedPhotoIndex: number = null;
 
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
-
-
 
   default = {
     keyboard: true,
@@ -36,7 +36,8 @@ export class RepairComponent implements OnInit {
     private ordersService: OrdersService,
     private activatedRoute: ActivatedRoute,
     private modalService: BsModalService,
-    private http: HttpClient) { }
+    public toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -46,50 +47,24 @@ export class RepairComponent implements OnInit {
         this.order = data;
       });
 
-
-      console.log("looging for photos");
-
-      console.log('yyyy',this.order);
-
-      Storage.list(id + '/') // for listing ALL files without prefix, pass '' instead
+      Storage.list(id + '/') 
       .then((result) => {
-        console.log('zzzz',this.order);
-        console.log('photo results',result);
-
-        result.results.forEach((value)=> {
-
+  
+        result.results.forEach((value) => {
           var key = value.key;
-          console.log("key",key);
-
-          Storage.get(key).then((signedURL) =>{
-            console.log("signedURL",signedURL);
+          this.photoKeys.push(key);
+          Storage.get(key).then((signedURL) => {
             this.photoURLs.push(signedURL);
           })
         });
       }
-      
       )
       .catch((err) => console.log(err));
-
     });
   }
 
   async onSelect(event) {
-    console.log(event);
     this.files.push(...event.addedFiles);
-
-    const formData = new FormData();
-
-    for (var i = 0; i < this.files.length; i++) {
-      formData.append("file[]", this.files[i]);
-    }
-
-    const fileName = this.order.id + "/" + event.addedFiles[0].name;
-
-    console.log("uploading file",fileName);
-    const result = await Storage.put(fileName,event.addedFiles[0],{
-      //level: "protected"
-    });
   }
 
   onRemove(event) {
@@ -97,18 +72,75 @@ export class RepairComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  
   openDefaultModal(modalDefault: TemplateRef<any>) {
     this.defaultModal = this.modalService.show(modalDefault, this.default);
   }
 
-  openPhotoDetailModal(modalPhotoDetail: TemplateRef<any>, photoURL: string) {
+  openPhotoDetailModal(modalPhotoDetail: TemplateRef<any>, photoURL: string, i: number) {
     this.selectedPhotoURL = photoURL;
+    this.selectedPhotoIndex = i;
     this.photoDetailModal = this.modalService.show(modalPhotoDetail, this.photoDetail);
   }
 
   deleteSelectedImage() {
-    console.log('deleting', this.selectedPhotoURL);
+    this.photoDetailModal.hide();
+
+    swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to permanently delete the selected image?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      customClass: {
+        confirmButton: "btn btn-warning"
+      },
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        Storage.remove(this.photoKeys[this.selectedPhotoIndex]);
+
+        delete this.photoKeys[this.selectedPhotoIndex];
+        delete this.photoURLs[this.selectedPhotoIndex];
+        this.simpleToast('Image deleted');
+      }
+    });
+  }
+
+  async uploadFile() {
+
+    for (var i = 0; i < this.files.length; i++) {
+      const fileName = this.order.id + "/" + this.files[i].name;
+      const result = await Storage.put(fileName, this.files[i],{});
+
+      var key = result.key;
+      this.photoKeys.push(key);
+      Storage.get(key).then((signedURL) => {
+        this.photoURLs.push(signedURL);
+      })
+    }
+
+    this.simpleToast('Photo uploaded');
+    this.defaultModal.hide();
+    this.files = [];
+  }
+
+
+  simpleToast(message){
+    this.toastr.show(
+      message,
+      "",
+      {
+        timeOut: 3000,
+        closeButton: false,
+        enableHtml: false,
+        tapToDismiss: true,
+        titleClass: "alert-title",
+        positionClass: "toast-top-center",
+        toastClass:
+          "ngx-toastr alert alert-dismissible alert-default alert-notify"
+      }
+    );
   }
 
 }

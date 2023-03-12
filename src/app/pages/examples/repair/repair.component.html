@@ -107,7 +107,7 @@
                     accept="image/jpeg,image/jpg,image/png,image/gif">
                     <ngx-dropzone-label>Drop image here or click to select.</ngx-dropzone-label>
                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
-                      [removable]="true">
+                      [removable]="true" (removed)="onRemove(f)">
                     </ngx-dropzone-image-preview>
                   </ngx-dropzone>
                 </div>
@@ -115,7 +115,7 @@
               </div>
 
               <div class=" modal-footer">
-                <button class=" btn btn-primary" type="button">
+                <button class=" btn btn-primary" type="button" (click)="uploadFile()">
                   Upload
                 </button>
 
@@ -148,8 +148,8 @@
 
             </ng-template>
 
-            <span *ngFor='let photoURL of photoURLs'>
-              <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL)">
+            <span *ngFor='let photoURL of photoURLs; let i = index'>
+              <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img src="{{photoURL}}" width="100px" /></a>
             </span>
           </div>
