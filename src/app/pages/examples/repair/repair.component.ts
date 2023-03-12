@@ -107,4 +107,8 @@ export class RepairComponent implements OnInit {
     this.photoDetailModal = this.modalService.show(modalPhotoDetail, this.photoDetail);
   }
 
+  deleteSelectedImage() {
+    console.log('deleting', this.selectedPhotoURL);
+  }
+
 }

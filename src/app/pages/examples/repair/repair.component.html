@@ -138,7 +138,12 @@
               </div>
 
               <div class=" modal-body">
-                <img src="{{selectedPhotoURL}}" />
+              
+                <div class=" row justify-content-center">
+                  <img style="max-width: 100%" src="{{selectedPhotoURL}}" />
+                </div>
+                <div class=" row justify-content-center"><a href="javascript:void(0);" (click)="deleteSelectedImage()">Delete image</a></div>
+              
               </div>
 
             </ng-template>
