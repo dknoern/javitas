@@ -66,18 +66,18 @@
               </p>
             </div>
 
-            <div>
-              <p class=" card-text mb-4">
-                <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}"> See
-                  estimate details</a>
-              </p>
-            </div>
-
             <div class="mb-4">
-              <button class=" btn btn-block btn-primary mb-3" data-target="#modal-default" data-toggle="modal"
-                type="button" (click)="openDefaultModal(modalDefault)">
-                Add Photo
+
+              <button class=" btn btn-primary btn-sm" type="button" (click)="openDefaultModal(modalDefault)">
+                Add photo
               </button>
+
+              <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
+                <button class=" btn btn-secondary btn-sm" type="button">
+                  Edit Estimate
+                </button>
+              </a>
+
             </div>
 
 
@@ -138,12 +138,13 @@
               </div>
 
               <div class=" modal-body">
-              
+
                 <div class=" row justify-content-center">
                   <img style="max-width: 100%" src="{{selectedPhotoURL}}" />
                 </div>
-                <div class=" row justify-content-center"><a href="javascript:void(0);" (click)="deleteSelectedImage()">Delete image</a></div>
-              
+                <div class=" row justify-content-center"><a href="javascript:void(0);"
+                    (click)="deleteSelectedImage()">Delete image</a></div>
+
               </div>
 
             </ng-template>
@@ -152,6 +153,10 @@
               <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img src="{{photoURL}}" width="100px" /></a>
             </span>
+
+            <!-- estiate-->
+            <app-estimate-view [orderId]="order.id"></app-estimate-view>
+
           </div>
         </div>
       </div>

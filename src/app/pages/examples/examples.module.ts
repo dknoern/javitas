@@ -15,9 +15,11 @@ import { ExamplesRoutes } from "./examples.routing";
 import { FormsModule } from '@angular/forms';
 import { WizardComponent } from "./wizard/wizard.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
 
 @NgModule({
-  declarations: [ProfileComponent, RepairsComponent, RepairComponent, EstimateComponent, TimelineComponent, WizardComponent],
+  declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
+    EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent],
   imports: [
     CommonModule,
     FormsModule,

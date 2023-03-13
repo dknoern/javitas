@@ -1,0 +1,39 @@
+<div *ngIf="estimate">
+  <div class="row mt-4">
+    <div class="col">
+      <h3 class=" card-title mb-3">Estimate</h3>
+    </div>
+  </div>
+  <div class=" row">
+    <div class="col">
+      <table class=" table align-items-center table-flush">
+        <tr>
+          <td></td>
+          <td></td>
+          <td style="text-align: center">Approved</td>
+          <td style="text-align: center">Declined</td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>Necessary services:</b></td>
+          <td style="text-align: center"><input type="radio" name="necessary" disabled /></td>
+          <td style="text-align: center"><input type="radio" name="necessary" disabled /></td>
+        </tr>
+        <tr *ngFor="let service of estimate.necessaryServices; let i = index">
+          <td>{{service.name}}</td>
+          <td>{{service.price | currency}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4"><b>Optional services:</b></td>
+        </tr>
+        <tr *ngFor="let service of estimate.optionalServices; let i = index">
+          <td>{{service.name}}</td>
+          <td>{{service.price | currency}}</td>
+          <td style="text-align: center"><input type="radio" name="optional_{{i}}" disabled /></td>
+          <td style="text-align: center"><input type="radio" name="optional_{{i}}" disabled /></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
