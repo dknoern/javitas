@@ -15,6 +15,7 @@ import { ExamplesRoutes } from "./examples.routing";
 import { FormsModule } from '@angular/forms';
 import { WizardComponent } from "./wizard/wizard.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { NgxPrintElementModule } from 'ngx-print-element';
 import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
 
 @NgModule({
@@ -27,7 +28,8 @@ import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
     ProgressbarModule.forRoot(),
     PaginationModule.forRoot(),
     CollapseModule.forRoot(),
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NgxPrintElementModule
   ]
 })
 export class ExamplesModule {}

@@ -72,13 +72,57 @@
                 Add photo
               </button>
 
+              <button class=" btn btn-secondary btn-sm" type="button" [print]="['packing-slip']">
+                Print packing slip
+              </button>
+
               <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
-                <button class=" btn btn-secondary btn-sm" type="button">
-                  Edit Estimate
+                <button class=" btn btn-primary btn-sm" type="button">
+                  Edit estimate
                 </button>
               </a>
-
             </div>
+
+
+
+            
+            <div id="packing-slip-wrapper" hidden="hidden">
+              <table id="packing-slip" class="table table-bordered">
+                <tr>
+                  <th>No</th>
+                  <th>Company</th>
+                  <th>Contact</th>
+                  <th>Country</th>
+                </tr>
+                <tr class="print-none" style="background: greenyellow"><!-- No print -->
+                  <td>01</td>
+                  <td>Alfreds Futterkiste</td>
+                  <td>Maria Anders</td>
+                  <td>Germany</td>
+                </tr>
+                <tr>
+                  <td>02</td>
+                  <td>Centro comercial Moctezuma</td>
+                  <td>Francisco Chang</td>
+                  <td>Mexico</td>
+                </tr>
+                <tr>
+                  <td>03</td>
+                  <td>AIS Playground</td>
+                  <td>Nakhon Pathom</td>
+                  <td>Thailand</td>
+                </tr>
+                <tr class="print-none" style="background: greenyellow"> <!-- No print -->
+                  <td>04</td>
+                  <td>FPT Software</td>
+                  <td>Cau Giay</td>
+                  <td>Vietnamese</td>
+                </tr>
+              </table>
+            </div>
+
+
+
 
 
             <!-- Image detail modal -->
