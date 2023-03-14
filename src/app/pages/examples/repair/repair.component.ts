@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute } from '@angular/router';
-import { Storage } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import swal from "sweetalert2";
 import { ToastrService } from "ngx-toastr";
@@ -18,6 +18,7 @@ export class RepairComponent implements OnInit {
   photoKeys = new Array();
   selectedPhotoURL = null;
   selectedPhotoIndex: number = null;
+  user=null;
 
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
@@ -61,6 +62,12 @@ export class RepairComponent implements OnInit {
       )
       .catch((err) => console.log(err));
     });
+
+    Auth.currentUserInfo()
+    .then(user => {
+      this.user = user;
+    })
+    .catch(() => console.log("Not signed in"));
   }
 
   async onSelect(event) {
