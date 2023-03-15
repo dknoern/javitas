@@ -1,0 +1,60 @@
+<div *ngIf="estimate && estimate.necessaryServices.length > 0">
+  <div class=" row">
+    <div class="col">
+      <p>Please review the estimate for your repair. To have the repair made you must approve the "necessary services"
+        and may approve any of the "optional services" you would like.
+    </div>
+  </div>
+  <div class=" row">
+    <div class="col">
+      <table class=" table align-items-center table-flush">
+        <tr>
+          <td></td>
+          <td></td>
+          <td style="text-align: center">Approve</td>
+          <td style="text-align: center">Decline</td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>Necessary services:</b></td>
+          <td style="text-align: center"><input type="radio" name="necessary" value="approved" [(ngModel)]="estimate.approvalStatus" (change)="checkForm()" /></td>
+          <td style="text-align: center"><input type="radio" name="necessary" value="declined" [(ngModel)]="estimate.approvalStatus" (change)="checkForm()" /></td>
+        </tr>
+        <tr *ngFor="let service of estimate.necessaryServices; let i = index">
+          <td>{{service.name}}</td>
+          <td>{{service.price | currency}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2"><b>Optional services:</b></td>
+        </tr>
+        <tr *ngFor="let service of estimate.optionalServices; let i = index">
+          <td>{{service.name}}</td>
+          <td>{{service.price | currency}}</td>
+          <td style="text-align: center"><input type="radio" name="optional_{{i}}" value="approved" [(ngModel)]="estimate.optionalServices[i].approvalStatus" (change)="checkForm()" /></td>
+          <td style="text-align: center"><input type="radio" name="optional_{{i}}" value="declined" [(ngModel)]="estimate.optionalServices[i].approvalStatus" (change)="checkForm()"/></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" form-group">
+        <label class=" form-control-label" for="model">
+          Enter your name to approve estimate
+        </label>
+        <input class=" form-control" name="approvedBy" type="text" [(ngModel)]="estimate.approvedBy" (input)="checkForm()"/>
+      </div>
+    </div>
+  </div>
+
+  <div class=" form-row">
+    <div class=" col-md-12 mb-3 mt-3">
+      <button class=" btn btn-block btn-primary" type="button" [disabled]="!formValid"  (click)="saveEstimateApproval()">
+        Approve Estimate
+      </button>
+    </div>
+  </div>
+
+</div>

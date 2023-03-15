@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute } from '@angular/router';
-import { Auth, Storage } from "aws-amplify";
+import { API, Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import swal from "sweetalert2";
 import { ToastrService } from "ngx-toastr";
@@ -13,6 +13,8 @@ import { ToastrService } from "ngx-toastr";
 export class RepairComponent implements OnInit {
 
   order = null;
+  estimate = null;
+  estimateApproval = null;
   files: File[] = [];
   photoURLs = new Array();
   photoKeys = new Array();
@@ -22,16 +24,13 @@ export class RepairComponent implements OnInit {
 
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
+  estimateModal: BsModalRef;
 
-  default = {
+  modalOptions = {
     keyboard: true,
     class: "modal-dialog-centered"
   };
 
-  photoDetail = {
-    keyboard: true,
-    class: "modal-dialog-centered"
-  };
 
   constructor(
     private ordersService: OrdersService,
@@ -47,10 +46,10 @@ export class RepairComponent implements OnInit {
       this.ordersService.getOrder(id).subscribe((data) => {
         this.order = data;
       });
-
+    
+      // get iamges
       Storage.list(id + '/') 
       .then((result) => {
-  
         result.results.forEach((value) => {
           var key = value.key;
           this.photoKeys.push(key);
@@ -61,6 +60,14 @@ export class RepairComponent implements OnInit {
       }
       )
       .catch((err) => console.log(err));
+
+      // get estimate if any
+      API.get("estimates", "/estimates/object/" + id, {}).then(result => {
+        this.estimate = result;
+      }).catch(err => {
+        console.log(err);
+      });
+
     });
 
     Auth.currentUserInfo()
@@ -79,14 +86,18 @@ export class RepairComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  openDefaultModal(modalDefault: TemplateRef<any>) {
-    this.defaultModal = this.modalService.show(modalDefault, this.default);
+  openDefaultModal(modal: TemplateRef<any>) {
+    this.defaultModal = this.modalService.show(modal, this.modalOptions);
   }
 
-  openPhotoDetailModal(modalPhotoDetail: TemplateRef<any>, photoURL: string, i: number) {
+  openPhotoDetailModal(modal: TemplateRef<any>, photoURL: string, i: number) {
     this.selectedPhotoURL = photoURL;
     this.selectedPhotoIndex = i;
-    this.photoDetailModal = this.modalService.show(modalPhotoDetail, this.photoDetail);
+    this.photoDetailModal = this.modalService.show(modal, this.modalOptions);
+  }
+
+  openEstimateModal(modal: TemplateRef<any>) {
+    this.estimateModal = this.modalService.show(modal, this.modalOptions);
   }
 
   deleteSelectedImage() {

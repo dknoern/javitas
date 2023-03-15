@@ -17,10 +17,12 @@ import { WizardComponent } from "./wizard/wizard.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxPrintElementModule } from 'ngx-print-element';
 import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
+import { EstimateReviewComponent } from "./estimate-review/estimate-review.component";
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
-    EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent],
+    EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent,
+    EstimateReviewComponent],
   imports: [
     CommonModule,
     FormsModule,

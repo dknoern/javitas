@@ -8,20 +8,12 @@
     <div class="col">
       <table class=" table align-items-center table-flush">
         <tr>
-          <td></td>
-          <td></td>
-          <td style="text-align: center">Approved</td>
-          <td style="text-align: center">Declined</td>
-        </tr>
-        <tr>
           <td colspan="2"><b>Necessary services:</b></td>
-          <td style="text-align: center"><input type="radio" name="necessary" disabled /></td>
-          <td style="text-align: center"><input type="radio" name="necessary" disabled /></td>
+          <td style="text-align: center">{{estimate.approvalStatus}}</td>
         </tr>
         <tr *ngFor="let service of estimate.necessaryServices; let i = index">
           <td>{{service.name}}</td>
           <td>{{service.price | currency}}</td>
-          <td></td>
           <td></td>
         </tr>
         <tr>
@@ -30,8 +22,7 @@
         <tr *ngFor="let service of estimate.optionalServices; let i = index">
           <td>{{service.name}}</td>
           <td>{{service.price | currency}}</td>
-          <td style="text-align: center"><input type="radio" name="optional_{{i}}" disabled /></td>
-          <td style="text-align: center"><input type="radio" name="optional_{{i}}" disabled /></td>
+          <td style="text-align: center">{{service.approvalStatus}}</td>
         </tr>
       </table>
     </div>

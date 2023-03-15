@@ -16,6 +16,7 @@
         <div class=" card">
           <div class=" card-body" *ngIf="order">
 
+            <!-- repair info-->
             <div class="row">
               <div class="col">
                 <h3 class=" card-title mb-3">Repair Info</h3>
@@ -27,8 +28,6 @@
                   </button></a>
               </div>
             </div>
-
-
             <div *ngIf="order.manufacturer">
               <p class=" text-sm text-muted mb-0">Manufacturer</p>
               <p class=" card-text mb-4">
@@ -66,16 +65,17 @@
               </p>
             </div>
 
+            <!-- action buttons-->
             <div class="mb-4">
-
               <button class=" btn btn-primary btn-sm" type="button" (click)="openDefaultModal(modalDefault)">
                 Add photo
               </button>
-
-              <button class=" btn btn-secondary btn-sm" type="button" [print]="['packing-slip']">
+              <button class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
                 Print packing slip
               </button>
-
+              <button class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
+                Review estimate
+              </button>
               <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
                 <button class=" btn btn-primary btn-sm" type="button">
                   Edit estimate
@@ -83,6 +83,7 @@
               </a>
             </div>
 
+            <!-- packing slip-->
             <div id="packing-slip-wrapper" hidden="hidden">
               <div id="packing-slip" class="mb-4 mt-4 ml-4 mr-4">
                 <div>
@@ -94,9 +95,7 @@
                   Ship your watch for repair along with this packing slip.
                   Be sure to insure your shipment for the value of the contents.
                 </p>
-
                 <h4>Ship to:</h4>
-
                 <p>
                   Authorized Watch Repair<br />
                   123 Anystreet<br />
@@ -104,14 +103,12 @@
                   Dallas, TX 70051<br />
                 </p>
                 <h4 class="mt-4">Repair info:</h4>
-
                 <div>
                   <p class=" mb-0">Order Number</p>
                   <p class=" mb-4">
                     23-000123954332A3443
                   </p>
                 </div>
-
                 <div *ngIf="order.manufacturer">
                   <p class=" mb-0">Manufacturer</p>
                   <p class=" mb-4">
@@ -145,17 +142,13 @@
                 <div *ngIf="order.manufacturer">
                   <p class=" mb-0">Customer</p>
                   <p class=" mb-4">
-
                     {{user.attributes.given_name}} {{user.attributes.family_name}}<br />
                     {{user.attributes.address}}<br />
                     {{user.attributes.phone_number}}<br />
                     {{order.email}}<br />
-
                   </p>
                 </div>
-
                 <h4>Photos:</h4>
-
                 <span *ngFor='let photoURL of photoURLs; let i = index'>
                   <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                     <img src="{{photoURL}}" width="150px" /></a>
@@ -163,28 +156,23 @@
               </div>
             </div>
 
-            <!-- Image detail modal -->
-
+            <!-- Image upload modal -->
             <ng-template #modalDefault>
               <div class=" modal-header">
                 <h6 class=" modal-title" id="modal-title-default">
                   Image Upload
                 </h6>
-
                 <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
                   (click)="defaultModal.hide()">
                   <span aria-hidden="true"> × </span>
                 </button>
               </div>
-
               <div class=" modal-body">
                 <p>
                   Please upload one or more photo of your watch before you send it to us.
                 </p>
-
                 <div>
                   <p class=" text-sm text-muted mb-0">Please add one or more picture of the watch to be repaired.</p>
-
                   <ngx-dropzone (change)="onSelect($event)" multiple="false"
                     accept="image/jpeg,image/jpg,image/png,image/gif">
                     <ngx-dropzone-label>Drop image here or click to select.</ngx-dropzone-label>
@@ -193,51 +181,61 @@
                     </ngx-dropzone-image-preview>
                   </ngx-dropzone>
                 </div>
-
               </div>
-
               <div class=" modal-footer">
                 <button class=" btn btn-primary" type="button" (click)="uploadFile()">
                   Upload
                 </button>
-
                 <button class=" btn btn-link ml-auto" data-dismiss="modal" type="button" (click)="defaultModal.hide()">
                   Cancel
                 </button>
               </div>
             </ng-template>
 
+            <!-- Photo detail modal -->
             <ng-template #modalPhotoDetail>
               <div class=" modal-header">
                 <h6 class=" modal-title" id="modal-title-default">
                   Repair image
                 </h6>
-
                 <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
                   (click)="photoDetailModal.hide()">
                   <span aria-hidden="true"> × </span>
                 </button>
               </div>
-
               <div class=" modal-body">
-
                 <div class=" row justify-content-center">
                   <img style="max-width: 100%" src="{{selectedPhotoURL}}" />
                 </div>
                 <div class=" row justify-content-center"><a href="javascript:void(0);"
                     (click)="deleteSelectedImage()">Delete image</a></div>
-
               </div>
-
             </ng-template>
 
+            <!-- Estimate review modal -->
+            <ng-template #modalEstimate>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  Review estimate
+                </h6>
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="estimateModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+              <div class=" modal-body">
+                <app-estimate-review [estimate]="estimate" [modal]="estimateModal"></app-estimate-review>
+              </div>
+            </ng-template>
+
+            <!-- list photos -->
             <span *ngFor='let photoURL of photoURLs; let i = index'>
               <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img src="{{photoURL}}" width="100px" /></a>
             </span>
 
-            <!-- estimate-->
-            <app-estimate-view [orderId]="order.id"></app-estimate-view>
+            <!-- estimate view-->
+            <app-estimate-view [estimate]="estimate"></app-estimate-view>
           </div>
         </div>
       </div>
