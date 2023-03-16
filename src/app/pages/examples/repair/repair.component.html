@@ -73,10 +73,10 @@
               <button class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
                 Print packing slip
               </button>
-              <button class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
+              <button *ngIf="!isAdmin" class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
                 Review estimate
               </button>
-              <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
+              <a *ngIf="isAdmin" routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
                 <button class=" btn btn-primary btn-sm" type="button">
                   Edit estimate
                 </button>

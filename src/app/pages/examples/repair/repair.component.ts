@@ -21,6 +21,7 @@ export class RepairComponent implements OnInit {
   selectedPhotoURL = null;
   selectedPhotoIndex: number = null;
   user=null;
+  isAdmin = false;
 
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
@@ -30,7 +31,6 @@ export class RepairComponent implements OnInit {
     keyboard: true,
     class: "modal-dialog-centered"
   };
-
 
   constructor(
     private ordersService: OrdersService,
@@ -67,12 +67,12 @@ export class RepairComponent implements OnInit {
       }).catch(err => {
         console.log(err);
       });
-
     });
 
     Auth.currentUserInfo()
     .then(user => {
       this.user = user;
+      this.isUserAdmin(user.attributes.email)
     })
     .catch(() => console.log("Not signed in"));
   }
@@ -161,4 +161,8 @@ export class RepairComponent implements OnInit {
     );
   }
 
+  isUserAdmin(email) {
+    this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
+    return this.isAdmin;
+  }
 }
