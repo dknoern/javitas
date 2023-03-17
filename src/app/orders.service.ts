@@ -30,4 +30,10 @@ export class OrdersService {
     let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/object/"+id;
     return this.http.get(url, this.httpOptions);
   }
+
+  updateOrderStatus(id: string, status: string) {
+    let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/status";
+    return this.http.post(url,{"id":id, "status":status}, this.httpOptions);
+  }
+
 }

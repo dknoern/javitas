@@ -83,7 +83,6 @@ app.get(path + hashKeyPath, function(req, res) {
   });
 });
 
-
 /********************************
  * HTTP Get method for all objects *
  ********************************/
@@ -131,7 +130,7 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
       res.json({error: 'Wrong column type ' + err});
     }
   }
-
+  
   let getItemParams = {
     TableName: tableName,
     Key: params
@@ -150,7 +149,6 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   });
 });
-
 
 /************************************
 * HTTP put method for insert object *
@@ -189,7 +187,6 @@ app.post(path, function(req, res) {
   req.body.id = randomUUID();
   req.body.createdDate = dateFormat('yyyy-MM-dd', new Date());
 
-
   let putItemParams = {
     TableName: tableName,
     Item: req.body
@@ -200,6 +197,38 @@ app.post(path, function(req, res) {
       res.json({error: err, url: req.url, body: req.body});
     } else {
       res.json({success: 'post call succeed!', url: req.url, data: data, id: req.body.id})
+    }
+  });
+});
+
+/**********************************************
+* HTTP post method for updating orders status *
+***********************************************/
+
+app.post(path + '/status', function(req, res) {
+  
+  if (userIdPresent) {
+    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  }
+
+  let putItemParams = {
+    TableName: tableName,
+    Key: { 'id': req.body.id },
+    UpdateExpression: "set #xName = :x",
+    ExpressionAttributeValues: {
+      ":x": req.body.status
+    },
+    ExpressionAttributeNames: {
+      "#xName": "status"
+    }
+  };
+
+  dynamodb.update(putItemParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: err, url: req.url, body: req.body});
+    } else {
+      res.json({success: 'status update call!', url: req.url, data: data, id: req.body.id})
     }
   });
 });

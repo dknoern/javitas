@@ -28,6 +28,12 @@
                   </button></a>
               </div>
             </div>
+            <div *ngIf="order.orderNumber">
+              <p class=" text-sm text-muted mb-0">Order Number</p>
+              <p class=" card-text mb-4">
+                {{order.orderNumber}}
+              </p>
+            </div>
             <div *ngIf="order.manufacturer">
               <p class=" text-sm text-muted mb-0">Manufacturer</p>
               <p class=" card-text mb-4">
@@ -73,7 +79,7 @@
               <button class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
                 Print packing slip
               </button>
-              <button *ngIf="!isAdmin" class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
+              <button *ngIf="!isAdmin && estimate.necessaryServices" class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
                 Review estimate
               </button>
               <a *ngIf="isAdmin" routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
@@ -103,10 +109,10 @@
                   Dallas, TX 70051<br />
                 </p>
                 <h4 class="mt-4">Repair info:</h4>
-                <div>
+                <div *ngIf="order.orderNumber">
                   <p class=" mb-0">Order Number</p>
                   <p class=" mb-4">
-                    23-000123954332A3443
+                    {{order.orderNumber}}
                   </p>
                 </div>
                 <div *ngIf="order.manufacturer">

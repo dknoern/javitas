@@ -19,6 +19,7 @@
             <table class=" table align-items-center table-flush">
               <thead class=" thead-light">
                 <tr>
+                  <th class=" sort" data-sort="orderNumber" scope="col">Order Number</th>
                   <th class=" sort" data-sort="name" scope="col">Created Date</th>
                   <th class=" sort" data-sort="budget" scope="col">Brand</th>
                   <th class=" sort" data-sort="status" scope="col">Status</th>
@@ -32,11 +33,12 @@
                       <div class=" media-body">
                         <span class=" name mb-0 text-sm">
                           <a routerLinkActive="active" [routerLink]="['/examples/repair']"
-                            [queryParams]="{id: order.id}"> {{order.createdDate}}</a>
+                            [queryParams]="{id: order.id}"> {{order.orderNumber}}</a>
                         </span>
                       </div>
                     </div>
                   </th>
+                  <td class=" budget">{{order.createdDate}}</td>
                   <td class=" budget">{{order.manufacturer}}</td>
                   <td>
                     <span class=" badge badge-dot mr-4">

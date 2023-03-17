@@ -1,4 +1,4 @@
-<div *ngIf="estimate && estimate.necessaryServices.length > 0">
+<div *ngIf="estimate && estimate.necessaryServices && estimate.necessaryServices.length > 0">
   <div class="row mt-4">
     <div class="col">
       <h3 class=" card-title mb-3">Estimate</h3>
@@ -24,7 +24,20 @@
           <td>{{service.price | currency}}</td>
           <td style="text-align: center">{{service.approvalStatus}}</td>
         </tr>
+
       </table>
     </div>
   </div>
+
+  <div class=" row" *ngIf="estimate.approvedBy">
+    <div class="col">
+      Approved by<br/>
+      {{estimate.approvedBy}}
+    </div>
+    <div class="col">
+      Approved on<br/>
+      {{estimate.approvedDate}}
+    </div>
+  </div>
+  
 </div>

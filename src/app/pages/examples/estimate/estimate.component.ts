@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { API } from 'aws-amplify';
 import { OrdersService } from '../../../orders.service';
 import { Router } from "@angular/router"
@@ -20,7 +19,6 @@ export class EstimateComponent implements OnInit {
   order = null;
 
   constructor(
-    private http: HttpClient,
     private activatedRoute: ActivatedRoute,
     private ordersService: OrdersService,
     private router: Router
@@ -45,7 +43,7 @@ export class EstimateComponent implements OnInit {
 
       API.get("estimates", "/estimates/object/" + id, myInit)
         .then((response) => {
-          if(response.data != null && response.data.necessaryServices.length>0) {
+          if(response.data != null && response.data.necessaryServices !=null && response.data.necessaryServices.length>0) {
             this.estimate = response.data;
             if(this.estimate.optionalServices == null || this.estimate.optionalServices.length==0 ){
               this.estimate.optionalServices =  [{name:'',price:null}];
@@ -97,6 +95,13 @@ export class EstimateComponent implements OnInit {
   .then((response) => {
     // Add your code here
     console.log("estimate posted");
+
+    this.ordersService.updateOrderStatus(this.estimate.id, "Estimated").subscribe({
+      error: (err) => { console.error(err) },
+      complete: () => { console.log('order status updated') }
+    });
+
+
     this.router.navigate(['examples/repairs'])
   })
   .catch((error) => {
