@@ -35,11 +35,25 @@ export class WizardComponent implements OnInit {
   }
 
   postOrder() {
-    let order = { manufacturer: this.manufacturer, "email":this.email, "status": "new", "notes": this.notes, "age": this.age, "serialNumber": this.serialNumber, "model": this.model};
+
+    let order = { orderNumber: this.getOrderNumber(), manufacturer: this.manufacturer, 
+      "email":this.email, 
+      "status": "Requested",
+      "notes": this.notes, 
+      "age": this.age, 
+      "serialNumber": this.serialNumber, 
+      "model": this.model
+  };
 
     this.ordersService.postOrder(order).subscribe({
       error: (err) => { console.error(err) },
       complete: () => { this.router.navigate(['examples/repairs']) }
     });
+  }
+
+  getOrderNumber() {
+    const x = '1'+String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
+    const y = x.substring(0,4) + '-' + x.substring(4);
+    return y;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { API } from 'aws-amplify';
 import { ToastrService } from "ngx-toastr";
+import { OrdersService } from '../../../orders.service';
 
 @Component({
   selector: "app-estimate-review",
@@ -14,7 +15,8 @@ export class EstimateReviewComponent implements OnInit {
   formValid = this.checkForm();
 
   constructor(
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private ordersService: OrdersService
   ) { }
 
   ngOnInit() {
@@ -22,6 +24,8 @@ export class EstimateReviewComponent implements OnInit {
 
   saveEstimateApproval() {
     console.log(JSON.stringify(this.estimate));
+
+    this.estimate.approvedDate = new Date().toLocaleString();
 
     const myInit = {
       body: this.estimate, // replace this with attributes you need
@@ -31,6 +35,12 @@ export class EstimateReviewComponent implements OnInit {
     API.post("estimates", "/estimates", myInit)
   .then((response) => {
     console.log("estimate posted");
+
+    this.ordersService.updateOrderStatus(this.estimate.id, "Approved").subscribe({
+      error: (err) => { console.error(err) },
+      complete: () => { console.log('order status updated') }
+    });
+
     this.modal.hide();
 
     this.toastr.show(
