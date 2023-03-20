@@ -26,6 +26,7 @@ export class RepairComponent implements OnInit {
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
   estimateModal: BsModalRef;
+  messageModal: BsModalRef;
 
   modalOptions = {
     keyboard: true,
@@ -100,6 +101,9 @@ export class RepairComponent implements OnInit {
     this.estimateModal = this.modalService.show(modal, this.modalOptions);
   }
 
+  openMessageModal(modal: TemplateRef<any>) {
+    this.messageModal = this.modalService.show(modal, this.modalOptions);
+  }
   deleteSelectedImage() {
     this.photoDetailModal.hide();
 
@@ -142,7 +146,6 @@ export class RepairComponent implements OnInit {
     this.defaultModal.hide();
     this.files = [];
   }
-
 
   simpleToast(message){
     this.toastr.show(

@@ -1,0 +1,17 @@
+<div class=" card-body">
+  <form>
+    <div class=" form-group">
+      <label class=" form-control-label" for="exampleFormControlTextarea1">
+        <p *ngIf="!isAdmin">
+          Enter message below to send to Authorized Watch Repair
+        </p>
+        <p *ngIf="isAdmin">
+          Enter message below to send to customer
+        </p>
+      </label>
+      <textarea class=" form-control" id="exampleFormControlTextarea3" rows="3"></textarea>
+    </div>
+    <button class=" btn btn-primary" type="button" (click)="sendMessage()">Send</button>
+    <button class=" btn btn-secondary" type="button" (click)="cancelMessage()">Cancel</button>
+  </form>
+</div>

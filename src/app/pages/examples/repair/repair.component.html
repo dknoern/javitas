@@ -82,11 +82,15 @@
               <button *ngIf="!isAdmin && estimate.necessaryServices" class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
                 Review estimate
               </button>
+              <button class=" btn btn-primary btn-sm" type="button" (click)="openMessageModal(modalMessage)">
+                Send Message
+              </button>
               <a *ngIf="isAdmin" routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
                 <button class=" btn btn-primary btn-sm" type="button">
                   Edit estimate
                 </button>
               </a>
+
             </div>
 
             <!-- packing slip-->
@@ -231,6 +235,21 @@
               </div>
               <div class=" modal-body">
                 <app-estimate-review [estimate]="estimate" [modal]="estimateModal"></app-estimate-review>
+              </div>
+            </ng-template>
+            
+            <!-- Message modal -->
+            <ng-template #modalMessage>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  Send message
+                </h6>
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="messageModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+              <div class=" modal-body">
+                <app-message [modal]="messageModal" [user]="user"></app-message>
               </div>
             </ng-template>
 
