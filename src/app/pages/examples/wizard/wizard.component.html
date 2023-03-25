@@ -26,11 +26,8 @@
     <div class=" row justify-content-center">
       <div class=" col-lg-10">
 
-
         <div id="card-component" class="tab-pane tab-example-result fade show active" role="tabpanel"
           aria-labelledby="card-component-tab">
-
-
 
           <div class=" card">
             <div class=" card-header">
@@ -43,7 +40,6 @@
                   <label class=" form-control-label" for="manufacturer">
                     Select watch manufacturer
                   </label>
-
                   <select class=" form-control" name="manufacturer" [(ngModel)]="manufacturer">
                     <option> - Select one - </option>
                     <option value="cartier"> Cartier </option>
@@ -56,54 +52,38 @@
                   </select>
                 </div>
 
-                <div class=" row">
-                  <div class=" col-md-4">
-                    <div class=" form-group">
-                      <label class=" form-control-label" for="model">
-                        Model
-                      </label>
-                      <input class=" form-control" name="model" [(ngModel)]="model" type="text"/>
-                    </div>
-                  </div>
-  
-                  <div class=" col-md-4">
-                    <div class=" form-group">
-                      <label class=" form-control-label" for="serialNumber">
-                        Serial Number
-                      </label>
-                      <input class=" form-control" name="serialNumber" type="text"  [(ngModel)]="serialNumber"/>
-                    </div>
-                  </div>
-  
-                  <div class=" col-md-4">
-                    <div class=" form-group">
-                      <label class=" form-control-label" for="age">
-                        Age of watch (years)
-                      </label>
-                      <input class=" form-control" name="age" type="text"  [(ngModel)]="age"/>
-                    </div>
-                  </div>
+                <div class=" form-group">
+                  <label class=" form-control-label" for="model">
+                    Model
+                  </label>
+                  <input class=" form-control" name="model" [(ngModel)]="model" type="text" />
                 </div>
 
                 <div class=" form-group">
-                  <div class=" form-group">
-                    <label class=" form-control-label" for="notes" [(ngModel)]="notes">
-                      Notes
-                    </label>
-                    <textarea class=" form-control" name="notes" rows="3"></textarea>
-                  </div>
-
+                  <label class=" form-control-label" for="serialNumber">
+                    Serial Number
+                  </label>
+                  <input class=" form-control" name="serialNumber" type="text" [(ngModel)]="serialNumber" />
                 </div>
-
+                <div class=" form-group">
+                  <label class=" form-control-label" for="age">
+                    Age of watch or time since last service if known (years)
+                  </label>
+                  <input class=" form-control" name="age" type="text" [(ngModel)]="age" />
+                </div>
+                <div class=" form-group">
+                  <label class=" form-control-label" for="notes" [(ngModel)]="notes">
+                    Description of problem
+                  </label>
+                  <textarea class=" form-control" name="notes" rows="3"></textarea>
+                </div>
               </form>
             </div>
 
             <div class=" row justify-content-center">
-
               <div class=" card-header">
 
-                
-                  <button class=" btn btn-primary" (click)="postOrder()" type="button">Submit</button>
+                <button class=" btn btn-primary" (click)="postOrder()" type="button">Submit</button>
                 &nbsp;
                 <a href="/#/examples/home"> <button class=" btn btn-icon btn-secondary" type="button">
                     Cancel
