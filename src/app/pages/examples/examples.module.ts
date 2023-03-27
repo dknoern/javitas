@@ -19,12 +19,14 @@ import { NgxPrintElementModule } from 'ngx-print-element';
 import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
 import { EstimateReviewComponent } from "./estimate-review/estimate-review.component";
 import { MessageComponent } from './message/message.component';
+import { NewuserComponent } from './newuser/newuser.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
     EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent,
     EstimateReviewComponent,
-    MessageComponent],
+    MessageComponent,
+    NewuserComponent],
   imports: [
     CommonModule,
     FormsModule,

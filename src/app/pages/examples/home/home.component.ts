@@ -40,10 +40,9 @@ export class HomeComponent implements OnInit {
 
   gotoWizard(manufacturer: string) {
     if(!this.loggedIn){
-      console.log("not logged in");
-      Auth.federatedSignIn();
+      this.router.navigate(['/examples/newuser'], { queryParams: { manufacturer: manufacturer } });
+
     }else {
-      console.log("logged in");
       this.router.navigate(['/examples/wizard'], { queryParams: { manufacturer: manufacturer } });
     }
   }

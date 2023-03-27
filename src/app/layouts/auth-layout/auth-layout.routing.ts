@@ -9,6 +9,7 @@ import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
 import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
 import { RepairComponent } from "../../pages/examples/repair/repair.component";
 import { EstimateComponent } from "../../pages/examples/estimate/estimate.component";
+import { NewuserComponent } from "../../pages/examples/newuser/newuser.component";
 export const AuthLayoutRoutes: Routes = [
   {
     path: "",
@@ -89,6 +90,16 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "estimate",
         component: EstimateComponent
+      }
+    ]
+  }
+  ,
+  {
+    path: "",
+    children: [
+      {
+        path: "newuser",
+        component: NewuserComponent
       }
     ]
   }
