@@ -80,7 +80,7 @@
                 <div class=" col-md-3 mb-3">
 
                   <input class=" form-control" name="price_{{i}}" placeholder="" required="" type="text"
-                    [(ngModel)]="estimate.necessaryServices[i].price"/>
+                    [(ngModel)]="estimate.necessaryServices[i].price" (change)="updateTotals()"/>
                   <div class=" invalid-feedback">
                     Please provide a valid price.
                   </div>
@@ -93,8 +93,13 @@
                 </div>
               </div>
 
+              <div class=" form-row">
+                <div class=" col-md-6 mb-5">Necessary Total</div>
+                <div class=" col-md-3 mb-5">{{necessaryTotal}}</div>
+                <div class=" col-md-3 mb-5">
+                </div>
+              </div>
 
-              
               <div class=" form-row">
                 <div class=" col-md-6 mb-3">Optional services</div>
                 <div class=" col-md-3 mb-3">Price</div>
@@ -118,7 +123,7 @@
                 <div class=" col-md-3 mb-3">
 
                   <input class=" form-control" name="price_opt_{{i}}" placeholder="" required="" type="text"
-                  [(ngModel)]="estimate.optionalServices[i].price" />
+                  [(ngModel)]="estimate.optionalServices[i].price" (change)="updateTotals()"/>
                   <div class=" invalid-feedback">
                     Please provide a valid price.
                   </div>
@@ -128,6 +133,13 @@
                   <button class=" btn btn-outline-danger" type="button" (click)="removeOptionalService(i)">
                     Remove
                   </button>
+                </div>
+              </div>
+
+              <div class=" form-row">
+                <div class=" col-md-6 mb-5">Optional Total</div>
+                <div class=" col-md-3 mb-5">{{optionalTotal}}</div>
+                <div class=" col-md-3 mb-5">
                 </div>
               </div>
 

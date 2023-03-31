@@ -17,6 +17,8 @@ export class EstimateComponent implements OnInit {
   };
 
   order = null;
+  necessaryTotal = 0.0;
+  optionalTotal = 0.0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,6 +51,7 @@ export class EstimateComponent implements OnInit {
               this.estimate.optionalServices =  [{name:'',price:null}];
             }
           }
+          this.updateTotals();
         })
         .catch((error) => {
           console.log('got error');
@@ -107,5 +110,16 @@ export class EstimateComponent implements OnInit {
   .catch((error) => {
     console.log(error.response);
   });
+  }
+
+  public updateTotals(): void{
+    this.necessaryTotal = this.estimate.necessaryServices.reduce(
+      (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
+      parseFloat('0')
+    );
+    this.optionalTotal = this.estimate.optionalServices.reduce(
+      (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
+      0.0
+    );
   }
 }
