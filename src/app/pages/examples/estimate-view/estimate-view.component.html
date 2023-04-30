@@ -1,7 +1,15 @@
 <div *ngIf="estimate && estimate.necessaryServices && estimate.necessaryServices.length > 0">
   <div class="row mt-4">
     <div class="col">
-      <h3 class=" card-title mb-3">Estimate</h3>
+      <div class=" card-title mb-3">Estimate
+        <span style="float: right;">
+          <a *ngIf="isAdmin" routerLinkActive="active" [routerLink]="['/examples/estimate']"
+            [queryParams]="{id: estimate.id}">
+            <button class=" btn btn-primary btn-sm" type="button">
+              Edit estimate
+            </button>
+          </a></span>
+      </div>
     </div>
   </div>
   <div class=" row">

@@ -8,6 +8,7 @@ import { EstimateService } from '../../../estimate.service';
 export class EstimateViewComponent implements OnInit {
 
   @Input() estimate = null;
+  @Input() isAdmin = false;
   grandTotal = 0.0;
 
   constructor(
