@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from "@angular/core";
+import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute } from '@angular/router';
 import { API, Auth, Storage } from "aws-amplify";
@@ -23,6 +23,8 @@ export class RepairComponent implements OnInit {
   user=null;
   isAdmin = false;
 
+  @ViewChild('#modalDefault') modalDefault: TemplateRef<any>;
+
   defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
   estimateModal: BsModalRef;
@@ -30,8 +32,11 @@ export class RepairComponent implements OnInit {
 
   modalOptions = {
     keyboard: true,
-    class: "modal-dialog-centered"
+    class: "modal-dialog-centered",
   };
+
+
+
 
   constructor(
     private ordersService: OrdersService,
@@ -47,6 +52,17 @@ export class RepairComponent implements OnInit {
       this.ordersService.getOrder(id).subscribe((data) => {
         this.order = data;
       });
+
+
+      let showImageModal = params['showImageModal'];
+      //if(showImageModal==='true'){
+        //this.defaultModal.show;
+
+        //this.openDefaultModal('modalEstiamte');
+
+        this.openDefaultModal(this.modalDefault);
+      //  this.modalService.show(this.modalDefault, this.modalOptions);
+      //}
     
       // get iamges
       Storage.list(id + '/') 

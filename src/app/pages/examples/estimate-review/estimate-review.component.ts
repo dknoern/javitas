@@ -12,6 +12,10 @@ export class EstimateReviewComponent implements OnInit {
   @Input() estimate = null;
   @Input() modal = null;
 
+  necessaryTotal = 0.0;
+  optionalTotal = 0.0;
+  approvedTotal = 0.0;
+
   formValid = this.checkForm();
 
   constructor(
@@ -20,6 +24,7 @@ export class EstimateReviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.updateTotals();
   }
 
   saveEstimateApproval() {
@@ -66,10 +71,25 @@ export class EstimateReviewComponent implements OnInit {
   checkForm() {
     var isValid = false;
     if (this.estimate != null) {
+
+      this.necessaryTotal = 0.0;
+      this.optionalTotal = 0.0;
+      this.approvedTotal = 0.0;
+
       isValid = true;
+
+      if(this.estimate.approvalStatus==='approved'){
+        this.necessaryTotal = this.estimate.necessaryServices.reduce(
+          (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
+          parseFloat('0')
+        );
+      }
+
       this.estimate.optionalServices.forEach((service) => {
         if(service.approvalStatus==null){
           isValid = false;
+        }else if (service.approvalStatus==='approved'){
+          this.optionalTotal +=  parseFloat(service.price);
         }
       });
       if(this.estimate.approvalStatus !='approved'){
@@ -78,8 +98,29 @@ export class EstimateReviewComponent implements OnInit {
       if(this.estimate.approvedBy == null ||this.estimate.approvedBy =='' ){
         isValid = false;
       }
+
+      this.approvedTotal = this.necessaryTotal + this.optionalTotal;
+   
     }
     this.formValid = isValid;
     return isValid;
+  }
+
+  public updateTotals(): void{
+
+    console.log("updating totals");
+
+    if(this.estimate != null) {
+    this.necessaryTotal = this.estimate.necessaryServices.reduce(
+      (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
+      parseFloat('0')
+    );
+    this.optionalTotal = this.estimate.optionalServices.reduce(
+      (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
+      0.0
+    );
+    this.approvedTotal = this.necessaryTotal + this.optionalTotal;
+    console.log("total updated");
+    }
   }
 }

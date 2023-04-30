@@ -18,9 +18,11 @@ export class EstimateViewComponent implements OnInit {
     this.updateTotals();
   }
 
-  public updateTotals(): void{
+  public updateTotals(): void {
 
     console.log("updatint totals on view");
+
+    if(this.estimate!=null && this.estimate.necessaryServices!=null){
 
     const necessaryTotal = this.estimate.necessaryServices.reduce(
       (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
@@ -28,9 +30,20 @@ export class EstimateViewComponent implements OnInit {
     );
 
     const optionalTotal = this.estimate.optionalServices.reduce(
-      (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
-      0.0
+      (accumulator, currentValue) =>
+        //if (currentValue.approvalStatus != 'approved') {
+          accumulator + this.getOptionalValue(currentValue), parseFloat('0')
+        //}
+    
     );
-    this.grandTotal = necessaryTotal + optionalTotal;
+    this.grandTotal = parseFloat(necessaryTotal + optionalTotal);
+    }
+  }
+
+  getOptionalValue(service){
+    if(service.approvalStatus==='approved'){
+      return parseFloat(service.price);
+    }
+    return 0.0;
   }
 }
