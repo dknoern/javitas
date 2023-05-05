@@ -20,13 +20,15 @@ import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
 import { EstimateReviewComponent } from "./estimate-review/estimate-review.component";
 import { MessageComponent } from './message/message.component';
 import { NewuserComponent } from './newuser/newuser.component';
+import { TrackingNumberComponent } from './tracking-number/tracking-number.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
     EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent,
     EstimateReviewComponent,
     MessageComponent,
-    NewuserComponent],
+    NewuserComponent,
+    TrackingNumberComponent],
   imports: [
     CommonModule,
     FormsModule,

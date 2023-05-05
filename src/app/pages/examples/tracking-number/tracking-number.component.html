@@ -1,0 +1,29 @@
+<div class=" card-body">
+  <form>
+    <div>
+        Once you ship your watch to Authorized Watch Repair, enter the tracking information below
+    </div>
+
+    <div class=" form-group">
+      <label class=" form-control-label" for="shipper">
+        Select shipper
+      </label>
+      <select class=" form-control" name="shipper" [(ngModel)]="shipper" (change)="checkForm()">
+        <option value=""> - Select one - </option>
+        <option value="ups"> UPS </option>
+        <option value="fedex"> FedEx </option>
+        <option value="usps"> USPS </option>
+        <option value="other"> Other </option>
+      </select>
+    </div>
+
+    <div class=" form-group">
+      <label class=" form-control-label" for="shipper">
+        Enter tracking number
+      </label>
+      <input class=" form-control" id="shipper" [(ngModel)]="trackingNumber" (input)="checkForm()"/>
+    </div>
+    <button class=" btn btn-primary" type="button" [disabled]="!formValid"  (click)="saveTrackingNumber()">Save</button>
+    <button class=" btn btn-secondary" type="button" (click)="cancelMessage()">Cancel</button>
+  </form>
+</div>

@@ -36,4 +36,8 @@ export class OrdersService {
     return this.http.post(url,{"id":id, "status":status}, this.httpOptions);
   }
 
+  updateTracking(id: string, shipper: string, trackingNumber: string) {
+    let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/tracking";
+    return this.http.post(url,{"id":id, "shipper":shipper, "trackingNumber":trackingNumber}, this.httpOptions);
+  }
 }

@@ -185,7 +185,13 @@ app.post(path, function(req, res) {
   }
   
   req.body.id = randomUUID();
-  req.body.createdDate = dateFormat('yyyy-MM-dd', new Date());
+  req.body.createdDate = Date.now();
+
+  req.body.timeline = [{
+    title: 'Repair requested',
+    date: req.body.createdDate ,
+    description: 'Repair form was submitted for review by Advanced Watch Repair.'
+  }];
 
   let putItemParams = {
     TableName: tableName,
@@ -220,6 +226,48 @@ app.post(path + '/status', function(req, res) {
     },
     ExpressionAttributeNames: {
       "#xName": "status"
+    }
+  };
+
+  dynamodb.update(putItemParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: err, url: req.url, body: req.body});
+    } else {
+      res.json({success: 'status update call!', url: req.url, data: data, id: req.body.id})
+    }
+  });
+});
+
+/**********************************************
+* HTTP post method for updating tracking info *
+***********************************************/
+
+app.post(path + '/tracking', function(req, res) {
+  
+  if (userIdPresent) {
+    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  }
+
+  let putItemParams = {
+    TableName: tableName,
+    Key: { 'id': req.body.id },
+    UpdateExpression: "set #xName = :x, #yName = :y, #zName = :z, #c = list_append(#c, :vals)",
+    ExpressionAttributeValues: {
+      ":x": req.body.shipper,
+      ":y": req.body.trackingNumber,
+      ":z": Date.now(),
+      ":vals": [{
+        title: 'Watch shipped',
+        date: Date.now() ,
+        description: 'Watch was shipped via ' + req.body.shipper + ' with tracking number ' + req.body.trackingNumber + '.'
+      }]
+    },
+    ExpressionAttributeNames: {
+      "#xName": "shipper",
+      "#yName": "trackingNumber",
+      "#zName": "shippedDate",
+      "#c": "timeline"
     }
   };
 

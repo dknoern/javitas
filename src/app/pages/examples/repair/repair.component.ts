@@ -29,14 +29,12 @@ export class RepairComponent implements OnInit {
   photoDetailModal: BsModalRef;
   estimateModal: BsModalRef;
   messageModal: BsModalRef;
+  trackingNumberModal: BsModalRef;
 
   modalOptions = {
     keyboard: true,
     class: "modal-dialog-centered",
   };
-
-
-
 
   constructor(
     private ordersService: OrdersService,
@@ -60,7 +58,7 @@ export class RepairComponent implements OnInit {
 
         //this.openDefaultModal('modalEstiamte');
 
-        this.openDefaultModal(this.modalDefault);
+     //   this.openDefaultModal(this.modalDefault);
       //  this.modalService.show(this.modalDefault, this.modalOptions);
       //}
     
@@ -119,6 +117,10 @@ export class RepairComponent implements OnInit {
 
   openMessageModal(modal: TemplateRef<any>) {
     this.messageModal = this.modalService.show(modal, this.modalOptions);
+  }
+
+  openTrackingNumberModal(modal: TemplateRef<any>) {
+    this.trackingNumberModal = this.modalService.show(modal, this.modalOptions);
   }
   deleteSelectedImage() {
     this.photoDetailModal.hide();
