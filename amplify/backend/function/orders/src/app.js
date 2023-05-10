@@ -186,6 +186,7 @@ app.post(path, function(req, res) {
   
   req.body.id = randomUUID();
   req.body.createdDate = Date.now();
+  req.body.status = 'Repair requested';
 
   req.body.timeline = [{
     title: 'Repair requested',
@@ -220,12 +221,17 @@ app.post(path + '/status', function(req, res) {
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #xName = :x",
+    UpdateExpression: "set #xName = :x, #c = list_append(#c, :vals)",
     ExpressionAttributeValues: {
-      ":x": req.body.status
+      ":x": req.body.status,
+      ":vals": [{
+        title: req.body.status,
+        date: Date.now()
+      }]
     },
     ExpressionAttributeNames: {
-      "#xName": "status"
+      "#xName": "status",
+      "#c": "timeline"
     }
   };
 
@@ -249,25 +255,29 @@ app.post(path + '/tracking', function(req, res) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  // status should be "Watch shipped" or "Watch shipped back"
+
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #xName = :x, #yName = :y, #zName = :z, #c = list_append(#c, :vals)",
+    UpdateExpression: "set #xName = :x, #yName = :y, #zName = :z, #c = list_append(#c, :vals), #statusName = :statusValue",
     ExpressionAttributeValues: {
       ":x": req.body.shipper,
       ":y": req.body.trackingNumber,
       ":z": Date.now(),
       ":vals": [{
-        title: 'Watch shipped',
+        title: req.body.status,
         date: Date.now() ,
-        description: 'Watch was shipped via ' + req.body.shipper + ' with tracking number ' + req.body.trackingNumber + '.'
-      }]
+        description: req.body.status + ' via ' + req.body.shipper + ' with tracking number ' + req.body.trackingNumber + '.'
+      }],
+      ":statusValue": req.body.status
     },
     ExpressionAttributeNames: {
       "#xName": "shipper",
       "#yName": "trackingNumber",
       "#zName": "shippedDate",
-      "#c": "timeline"
+      "#c": "timeline",
+      "#statusName": "status"
     }
   };
 

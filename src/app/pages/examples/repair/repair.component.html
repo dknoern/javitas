@@ -1,7 +1,6 @@
 <div class=" main-content">
   <div class=" header bg-gradient-default py-7 py-lg-8 pt-lg-9">
 
-
     <div class="separator separator-bottom separator-skew zindex-100">
       <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
         xmlns="http://www.w3.org/2000/svg">
@@ -28,18 +27,102 @@
                   </button></a>
               </div>
             </div>
-            <div *ngIf="order.orderNumber">
-              <p class=" text-sm text-muted mb-0">Order Number</p>
-              <p class=" card-text mb-4">
-                {{order.orderNumber}}
-              </p>
+
+            <div class="row">
+              <div class="col" *ngIf="order.orderNumber">
+                <p class=" text-sm text-muted mb-0">Order Number</p>
+                <p class=" card-text mb-4">
+                  {{order.orderNumber}}
+                </p>
+              </div>
+              <div class="col" *ngIf="order.status">
+                <p class=" text-sm text-muted mb-0">Order Status</p>
+                <p class=" card-text mb-4">
+                  {{order.status}}
+                </p>
+              </div>
             </div>
-            <div *ngIf="order.manufacturer">
-              <p class=" text-sm text-muted mb-0">Manufacturer</p>
-              <p class=" card-text mb-4">
-                {{order.manufacturer}}
-              </p>
+
+            <div class="row">
+              <div class="col" *ngIf="order.manufacturer">
+                <p class=" text-sm text-muted mb-0">Manufacturer</p>
+                <p class=" card-text mb-4">
+                  {{order.manufacturer}}
+                </p>
+              </div>
+
+              <div *ngIf="nextStep" class="col">
+                <p class=" text-sm text-muted mb-0">Next Step</p>
+
+                <!-- NEXT STEP, ADMIN -->
+                <div *ngIf="isStatusAndAdmin('Repair requested', true)">
+                  Waiting for customer to {{ nextStep | lowercase }}
+                </div>
+                <div *ngIf="isStatusAndAdmin('Watch shipped', true)">
+                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
+                    {{ nextStep}}
+                  </button>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Watch received', true)">
+                  <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
+                    <button class=" btn btn-outline-primary btn" type="button">
+                      {{ nextStep}}
+                    </button>
+                  </a>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Estimate created', true)">
+                  Wait for customer to approve estimate
+                </div>
+                <div *ngIf="isStatusAndAdmin('Estimate approved', true)">
+                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
+                    {{ nextStep}}
+                  </button>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Parts ordered, service started', true)">
+                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
+                    {{ nextStep}}
+                  </button>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Service completed', true)">
+                  <button class=" btn btn-outline-primary btn" type="button"
+                    (click)="openTrackingNumberModal(modalTrackingNumber)">
+                    {{ nextStep}}
+                  </button>
+                </div>
+
+
+                <!-- NEXT STEP, CUSTOMER -->
+
+                <div *ngIf="isStatusAndAdmin('Repair requested', false)">
+                  <button class=" btn btn-outline-primary btn" type="button"
+                    (click)="openTrackingNumberModal(modalTrackingNumber)">
+                    {{ nextStep}}
+                  </button>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Watch shipped', false)">
+                  Waiting for Advanced Watch Repair to {{ nextStep | lowercase }}
+                </div>
+                <div *ngIf="isStatusAndAdmin('Watch received', false)">
+                  Waiting for Advanced Watch Repair to {{ nextStep | lowercase }}
+                </div>
+                <div *ngIf="isStatusAndAdmin('Estimate created', false)">
+                  <button *ngIf="!isAdmin && estimate != null && estimate.necessaryServices"
+                    class=" btn btn-outline-primary btn" type="button" (click)="openEstimateModal(modalEstimate)">
+                    Review estimate
+                  </button>
+                </div>
+                <div *ngIf="isStatusAndAdmin('Estimate approved', false)">
+                  Waiting for Advanced Watch Repair to {{ nextStep | lowercase }}
+                </div>
+                <div *ngIf="isStatusAndAdmin('Parts ordered, service started', false)">
+                  Waiting for Advanced Watch Repair to {{ nextStep | lowercase }}
+                </div>
+                <div *ngIf="isStatusAndAdmin('Service completed', false)">
+                  Waiting for Advanced Watch Repair to {{ nextStep | lowercase }}
+                </div>
+              </div>
             </div>
+
             <div *ngIf="order.model">
               <p class=" text-sm text-muted mb-0">Model</p>
               <p class=" card-text mb-4">
@@ -65,50 +148,22 @@
               </p>
             </div>
 
-
             <div *ngIf="order.shipper">
               <p class=" text-sm text-muted mb-0">Shipper</p>
               <p class=" card-text mb-4">
                 {{order.shipper}}
-              </p>
-            </div> 
-            <div *ngIf="order.trackingNumber">
-              <p class=" text-sm text-muted mb-0">Tracking Number</p>
-              <p class=" card-text mb-4">
-                {{order.trackingNumber}}
-              </p>
-            </div>
-
-            <div *ngIf="order.shippedDate">
-              <p class=" text-sm text-muted mb-0">Shipped Date</p>
-              <p class=" card-text mb-4">
-                {{order.shippedDate |  date:'medium' }}
-              </p>
-            </div>
-
-            <div *ngIf="order.status">
-              <p class=" text-sm text-muted mb-0">Order Status</p>
-              <p class=" card-text mb-4">
-                {{order.status}}
               </p>
             </div>
 
             <!-- action buttons-->
             <div class="mb-4">
 
-              <button class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
+              <button  *ngIf="'Repair requested'===order.status" class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
                 Print packing slip
-              </button>
-              <button *ngIf="!isAdmin" class=" btn btn-primary btn-sm" type="button" (click)="openTrackingNumberModal(modalTrackingNumber)">
-                Enter tracking information
-              </button>
-              <button *ngIf="!isAdmin && estimate.necessaryServices" class=" btn btn-primary btn-sm" type="button" (click)="openEstimateModal(modalEstimate)">
-                Review estimate
               </button>
               <button class=" btn btn-primary btn-sm" type="button" (click)="openMessageModal(modalMessage)">
                 Send Message
               </button>
-
             </div>
 
             <!-- packing slip-->
@@ -164,16 +219,16 @@
                 <div *ngIf="order.createdDate">
                   <p class=" mb-0">Requested</p>
                   <p class=" mb-4">
-                    {{order.createdDate}}
+                    {{order.createdDate | date}}
                   </p>
                 </div>
                 <div *ngIf="order.manufacturer">
                   <p class=" mb-0">Customer</p>
                   <p class=" mb-4">
-                    {{user.attributes.given_name}} {{user.attributes.family_name}}<br />
-                    {{user.attributes.address}}<br />
-                    {{user.attributes.phone_number}}<br />
-                    {{order.email}}<br />
+                    {{ customerName }}<br />
+                    {{ customerAddress }}<br />
+                    {{ customerPhone }}<br />
+                    {{ order.email }}<br />
                   </p>
                 </div>
                 <h4>Photos:</h4>
@@ -255,14 +310,15 @@
                 <app-estimate-review [estimate]="estimate" [modal]="estimateModal"></app-estimate-review>
               </div>
             </ng-template>
-            
+
             <!-- Message modal -->
             <ng-template #modalMessage>
               <div class=" modal-header">
                 <h6 class=" modal-title" id="modal-title-default">
                   Send message
                 </h6>
-                <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="messageModal.hide()">
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="messageModal.hide()">
                   <span aria-hidden="true"> × </span>
                 </button>
               </div>
@@ -275,14 +331,33 @@
             <ng-template #modalTrackingNumber>
               <div class=" modal-header">
                 <h6 class=" modal-title" id="modal-title-default">
-                    Enter tracking number
+                  Enter tracking number
                 </h6>
-                <button aria-label="Close" class=" close" data-dismiss="modal" type="button" (click)="trackingNumberModal.hide()">
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="trackingNumberModal.hide()">
                   <span aria-hidden="true"> × </span>
                 </button>
               </div>
               <div class=" modal-body">
-                <app-tracking-number [modal]="trackingNumberModal" [user]="user" [orderId]="order.id"></app-tracking-number>
+                <app-tracking-number [modal]="trackingNumberModal" [user]="user" [order]="order"
+                  [nextStatus]="nextStatus"></app-tracking-number>
+              </div>
+            </ng-template>
+
+            <!--Next step modal -->
+            <ng-template #modalNextStep>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  {{nextStep}}
+                </h6>
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="nextStepModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+              <div class=" modal-body">
+                <app-next-step [modal]="nextStepModal" [user]="user" [order]="order" [nextStep]="nextStep"
+                  [nextStatus]="nextStatus"></app-next-step>
               </div>
             </ng-template>
 
@@ -291,8 +366,8 @@
               <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img src="{{photoURL}}" width="100px" /></a>
             </span>
-            <button class=" btn btn-outline-primary btn" type="button" (click)="openDefaultModal(modalDefault)">
-              Add<br/>photo
+            <button *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin && ('Watch received'===order.status || 'Estimate created'===order.status))" class=" btn btn-outline-primary btn" type="button" (click)="openDefaultModal(modalDefault)">
+              Add<br />photo
             </button>
 
             <!-- estimate view-->
@@ -301,159 +376,38 @@
         </div>
       </div>
 
-
-
-
       <div class=" col-lg-5">
         <div class=" card">
           <div class=" card-header bg-transparent">
             <h3 class=" mb-0">Timeline</h3>
           </div>
-  
+
           <div class=" card-body">
-            <div
-              class=" timeline timeline-one-side"
-              data-timeline-axis-style="dashed"
-              data-timeline-content="axis"
-            >
+            <div class=" timeline timeline-one-side" data-timeline-axis-style="dashed" data-timeline-content="axis">
 
+              <div *ngIf="order!=null && order.timeline!=null">
+                <div class=" timeline-block" *ngFor='let timelineEvent of order.timeline; let i=index;'>
+                  <span class=" timeline-step badge-success">
+                    <i class=" ni ni-check-bold"> </i>
+                  </span>
 
-              <div class=" timeline-block" *ngFor='let timelineEvent of order.timeline'>
-                <span class=" timeline-step badge-success">
-                  <i class=" ni ni-check-bold"> </i>
-                </span>
-  
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold">
-                    <div>{{ timelineEvent.date | date:'medium' }}</div>
+                  <div class=" timeline-content">
+                    <small class=" text-muted font-weight-bold">
+                      <div>{{ order.timeline[order.timeline.length - i - 1].date | date:'medium' }}</div>
                     </small>
-  
-                  <h5 class=" mt-3 mb-0">{{timelineEvent.title}}</h5>
-  
-                  <p class=" text-sm mt-1 mb-0">
-                    {{ timelineEvent.description}}
-                  </p>
-                </div>
-              </div>
 
+                    <h5 class=" mt-3 mb-0">{{order.timeline[order.timeline.length - i - 1].title}}</h5>
 
-
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-success">
-                  <i class=" ni ni-check-bold"> </i>
-                </span>
-  
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold">
-
-                    <div *ngIf="order">{{ order.createdDate}}</div>
-                    <div *ngIf="!order">Todo</div>
-                    </small>
-  
-                  <h5 class=" mt-3 mb-0">Repair requested</h5>
-  
-                  <p class=" text-sm mt-1 mb-0">
-                    Repair form was submitted for review by Advanced Watch Repair.
-                  </p>
-                </div>
-              </div>
-  
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Watch shipped</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    After you have completed the repair request, print out the packing slip
-                    and send it along with the watch to Advanced Watch Repair.
-                  </p>
-                </div>
-              </div>
-       
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Watch received</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    Advanced Watch Repair will notify you when the watch is received.
-                  </p>
-                </div>
-              </div>
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Estimate created</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    An estimate will be created for your review.
-                  </p>
-                </div>
-              </div>
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Estimate appvoved</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    You will review the estimate approving the services you would like performed.
-                  </p>
-                </div>
-              </div>
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Parts ordered, service started</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    We will order parts and begin the service.
-                  </p>
-                </div>
-              </div>
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Service completed</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    We will notify you when the service is completed.
-                  </p>
-                </div>
-              </div>
-
-              <div class=" timeline-block">
-                <span class=" timeline-step badge-danger">
-                </span>
-                <div class=" timeline-content">
-                  <small class=" text-muted font-weight-bold"> Todo </small>
-                  <h5 class=" mt-3 mb-0">Watch shipped back</h5>
-                  <p class=" text-sm mt-1 mb-0">
-                    Finally, we will let you know when your repaired watch is on its way back to you.
-                  </p>
+                    <p class=" text-sm mt-1 mb-0">
+                      {{ order.timeline[order.timeline.length - i - 1].description}}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
     </div>
   </div>
 </div>

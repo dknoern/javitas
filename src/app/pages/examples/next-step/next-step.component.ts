@@ -1,25 +1,24 @@
 import { Component, Input } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { API } from 'aws-amplify';
 import { OrdersService } from '../../../orders.service';
 import { Router } from "@angular/router"
 
 @Component({
-  selector: 'app-tracking-number',
-  templateUrl: './tracking-number.component.html',
-  styleUrls: ['./tracking-number.component.scss']
+  selector: 'app-next-step',
+  templateUrl: './next-step.component.html',
+  styleUrls: ['./next-step.component.scss']
 })
-export class TrackingNumberComponent {
+export class NextStepComponent {
 
   @Input() modal = null;
   @Input() user = null;
-  @Input() order= null;
-  @Input() nextStatus = null;
 
+  @Input() order= null;
+  @Input() nextStep = null;
+  @Input() nextStatus = null;
   isAdmin = false;
   formValid = false;
-  shipper = null;
-  trackingNumber = null;
+  ready = false;
 
   constructor(
     public toastr: ToastrService,
@@ -64,17 +63,18 @@ export class TrackingNumberComponent {
   }
 
   checkForm() {
-    this.formValid = this.trackingNumber != null && this.trackingNumber != "" && this.shipper != null && this.shipper != "";
+    console.log("ready",this.ready);
+    this.formValid = this.ready === true;
     return this.formValid;
   }
 
-  saveTrackingNumber() {
-    this.ordersService.updateTracking(this.order.id, this.shipper, this.trackingNumber, this.nextStatus).subscribe({
+  saveNextStep() {
+    this.ordersService.updateOrderStatus(this.order.id, this.nextStatus).subscribe({
       error: (err) => { console.error(err) },
       complete: () => { 
 
         this.modal.hide();
-        this.simpleToast('Tracking info saved')  ;
+        this.simpleToast('Status updated successfully')  ;
         this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}}) 
       }
     });

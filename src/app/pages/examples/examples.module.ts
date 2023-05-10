@@ -21,6 +21,7 @@ import { EstimateReviewComponent } from "./estimate-review/estimate-review.compo
 import { MessageComponent } from './message/message.component';
 import { NewuserComponent } from './newuser/newuser.component';
 import { TrackingNumberComponent } from './tracking-number/tracking-number.component';
+import { NextStepComponent } from './next-step/next-step.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -28,7 +29,8 @@ import { TrackingNumberComponent } from './tracking-number/tracking-number.compo
     EstimateReviewComponent,
     MessageComponent,
     NewuserComponent,
-    TrackingNumberComponent],
+    TrackingNumberComponent,
+    NextStepComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -29,7 +29,7 @@
         <div id="card-component" class="tab-pane tab-example-result fade show active" role="tabpanel"
           aria-labelledby="card-component-tab">
 
-          <div class=" card">
+          <div *ngIf="!isAdmin" class=" card">
             <div class=" card-header">
               <h3 class=" mb-0">Watch Information</h3>
             </div>
@@ -87,6 +87,23 @@
                 &nbsp;
                 <a href="/#/examples/home"> <button class=" btn btn-icon btn-secondary" type="button">
                     Cancel
+                  </button></a>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="isAdmin" class=" card">
+            <div class=" card-header">
+              <h3 class=" mb-0">Oops</h3>
+            </div>
+
+            <div class=" card-body">
+              You are logged in as an administrator, repairs can only be requested by registered customers.
+            </div>
+            <div class=" row justify-content-center">
+              <div class=" card-header">
+                <a href="/#/examples/home"> <button class=" btn btn-icon btn-secondary" type="button">
+                    OK
                   </button></a>
               </div>
             </div>

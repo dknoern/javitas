@@ -99,7 +99,7 @@ export class EstimateComponent implements OnInit {
     // Add your code here
     console.log("estimate posted");
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Estimated").subscribe({
+    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate created").subscribe({
       error: (err) => { console.error(err) },
       complete: () => { console.log('order status updated') }
     });

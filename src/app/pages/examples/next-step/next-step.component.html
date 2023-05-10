@@ -1,0 +1,22 @@
+<div class=" card-body">
+  <form>
+    <div>
+        Are you ready to {{nextStep | lowercase}}?
+    </div>
+
+    <div class=" custom-control custom-checkbox mb-3">
+      <input
+        class=" custom-control-input"
+        id="customCheck1"
+        type="checkbox"
+        [(ngModel)]="ready" (change)="checkForm()"
+      />
+      <label class=" custom-control-label" for="customCheck1">
+       yes
+      </label>
+    </div>
+
+    <button class=" btn btn-primary" type="button" [disabled]="!formValid"  (click)="saveNextStep()">Save</button>
+    <button class=" btn btn-secondary" type="button" (click)="cancelMessage()">Cancel</button>
+  </form>
+</div>

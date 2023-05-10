@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { API } from 'aws-amplify';
 import { ToastrService } from "ngx-toastr";
 import { OrdersService } from '../../../orders.service';
+import { Router } from "@angular/router"
 
 @Component({
   selector: "app-estimate-review",
@@ -20,7 +21,8 @@ export class EstimateReviewComponent implements OnInit {
 
   constructor(
     public toastr: ToastrService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class EstimateReviewComponent implements OnInit {
   .then((response) => {
     console.log("estimate posted");
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Approved").subscribe({
+    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate approved").subscribe({
       error: (err) => { console.error(err) },
       complete: () => { console.log('order status updated') }
     });
@@ -62,6 +64,9 @@ export class EstimateReviewComponent implements OnInit {
           "ngx-toastr alert alert-dismissible alert-default alert-notify"
       }
     );
+
+    this.router.navigate(['examples/repair'], { queryParams: { id: this.estimate.id, _t: Date.now().toString()}}) 
+
   })
   .catch((error) => {
     console.log(error.response);

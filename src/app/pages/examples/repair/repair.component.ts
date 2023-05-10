@@ -22,6 +22,12 @@ export class RepairComponent implements OnInit {
   selectedPhotoIndex: number = null;
   user=null;
   isAdmin = false;
+  nextStep = null;
+  nextStatus = null;
+  customerName = '';
+  customerAddress = '';
+  customerEmail = '';
+  customerPhone = '';
 
   @ViewChild('#modalDefault') modalDefault: TemplateRef<any>;
 
@@ -30,6 +36,7 @@ export class RepairComponent implements OnInit {
   estimateModal: BsModalRef;
   messageModal: BsModalRef;
   trackingNumberModal: BsModalRef;
+  nextStepModal: BsModalRef;
 
   modalOptions = {
     keyboard: true,
@@ -49,19 +56,24 @@ export class RepairComponent implements OnInit {
       let id = params['id'];
       this.ordersService.getOrder(id).subscribe((data) => {
         this.order = data;
+
+        Auth.currentUserInfo()
+        .then(user => {
+          this.user = user;
+          this.isUserAdmin(user.attributes.email);
+
+
+          this.customerName = user.attributes.given_name + ' ' + user.attributes.family_name;
+          this.customerAddress = user.attributes.address;
+          this.customerEmail = user.attributes.email;
+          this.customerPhone = user.attributes.phone_number;
+          this.getNextStep();
+        })
+        .catch(() => console.log("Not signed in"));
       });
 
-
       let showImageModal = params['showImageModal'];
-      //if(showImageModal==='true'){
-        //this.defaultModal.show;
 
-        //this.openDefaultModal('modalEstiamte');
-
-     //   this.openDefaultModal(this.modalDefault);
-      //  this.modalService.show(this.modalDefault, this.modalOptions);
-      //}
-    
       // get iamges
       Storage.list(id + '/') 
       .then((result) => {
@@ -84,12 +96,34 @@ export class RepairComponent implements OnInit {
       });
     });
 
-    Auth.currentUserInfo()
-    .then(user => {
-      this.user = user;
-      this.isUserAdmin(user.attributes.email)
-    })
-    .catch(() => console.log("Not signed in"));
+  }
+
+  getNextStep() {
+    if ('Repair requested' == this.order.status) {
+      this.nextStep = 'Enter tracking information';
+      this.nextStatus = 'Watch shipped';
+    } else if ('Watch shipped' == this.order.status) {
+      this.nextStep = 'Receive watch';
+      this.nextStatus = 'Watch received';
+    } else if ('Watch received' == this.order.status) {
+      this.nextStep = 'Create estimate';
+      this.nextStatus = 'Estimate created';
+    } else if ('Estimate created' == this.order.status) {
+      this.nextStep = 'Review estimate';
+      this.nextStatus = 'Estimate approved';
+    } else if ('Estimate approved' == this.order.status) {
+      this.nextStep = 'Start service';
+      this.nextStatus = 'Parts ordered, service started';
+    } else if ('Parts ordered, service started' == this.order.status) {
+      this.nextStep = 'Complete service';
+      this.nextStatus = 'Service completed';
+    } else if ('Service completed' == this.order.status) {
+      this.nextStep = 'Return completed watch';
+      this.nextStatus = 'Watch shipped back';
+    } else {
+      this.nextStep = null;
+      this.nextStatus = null;
+    }
   }
 
   async onSelect(event) {
@@ -121,6 +155,10 @@ export class RepairComponent implements OnInit {
 
   openTrackingNumberModal(modal: TemplateRef<any>) {
     this.trackingNumberModal = this.modalService.show(modal, this.modalOptions);
+  }
+
+  openNextStepModal(modal: TemplateRef<any>) {
+    this.nextStepModal = this.modalService.show(modal, this.modalOptions);
   }
   deleteSelectedImage() {
     this.photoDetailModal.hide();
@@ -185,5 +223,11 @@ export class RepairComponent implements OnInit {
   isUserAdmin(email) {
     this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
     return this.isAdmin;
+  }
+
+  isStatusAndAdmin(status, admin) {
+    console.log('checking status',status,'admin',admin);
+    console.log('order status is',this.order.status);
+    return this.order!=null && this.order.status != null &&status === this.order.status && admin === this.isAdmin;
   }
 }

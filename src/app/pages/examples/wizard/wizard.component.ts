@@ -16,6 +16,7 @@ export class WizardComponent implements OnInit {
   serialNumber = '';
   notes = '';
   age = '';
+  isAdmin = false;
 
   constructor(private activatedRoute: ActivatedRoute, private ordersService: OrdersService, private router: Router) {}
 
@@ -30,6 +31,7 @@ export class WizardComponent implements OnInit {
     Auth.currentAuthenticatedUser()
     .then(user => {
       this.email = user.attributes.email;
+      this.isUserAdmin(this.email);
     })
     .catch(() => console.log("Not signed in"));
   }
@@ -38,7 +40,6 @@ export class WizardComponent implements OnInit {
 
     let order = { orderNumber: this.getOrderNumber(), manufacturer: this.manufacturer, 
       "email":this.email, 
-      "status": "Requested",
       "notes": this.notes, 
       "age": this.age, 
       "serialNumber": this.serialNumber, 
@@ -59,5 +60,10 @@ export class WizardComponent implements OnInit {
     const x = '1'+String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
     const y = x.substring(0,4) + '-' + x.substring(4);
     return y;
+  }
+
+  isUserAdmin(email) {
+    this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
+    return this.isAdmin;
   }
 }
