@@ -50,7 +50,7 @@ export class WizardComponent implements OnInit {
       data2 => { 
         console.log("data returned is " + JSON.stringify(data2));
         console.log("new id is " + data2['id']);
-        this.router.navigate(['examples/repair'], { queryParams: { id: data2['id'],showImageModal: 'true' }}) 
+        this.router.navigate(['examples/image-upload'], { queryParams: { id: data2['id'] }}) 
       },
       err =>  console.error(err) 
     );

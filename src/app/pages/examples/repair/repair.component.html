@@ -148,20 +148,13 @@
               </p>
             </div>
 
-            <div *ngIf="order.shipper">
-              <p class=" text-sm text-muted mb-0">Shipper</p>
-              <p class=" card-text mb-4">
-                {{order.shipper}}
-              </p>
-            </div>
-
             <!-- action buttons-->
             <div class="mb-4">
 
-              <button  *ngIf="'Repair requested'===order.status" class=" btn btn-primary btn-sm" type="button" [print]="['packing-slip']">
+              <button  *ngIf="'Repair requested'===order.status" class=" btn btn-outline-primary btn-sm" type="button" [print]="['packing-slip']">
                 Print packing slip
               </button>
-              <button class=" btn btn-primary btn-sm" type="button" (click)="openMessageModal(modalMessage)">
+              <button class=" btn btn-outline-primary btn-sm" type="button" (click)="openMessageModal(modalMessage)">
                 Send Message
               </button>
             </div>
@@ -239,42 +232,6 @@
               </div>
             </div>
 
-            <!-- Image upload modal -->
-            <ng-template #modalDefault>
-              <div class=" modal-header">
-                <h6 class=" modal-title" id="modal-title-default">
-                  Image Upload
-                </h6>
-                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
-                  (click)="defaultModal.hide()">
-                  <span aria-hidden="true"> × </span>
-                </button>
-              </div>
-              <div class=" modal-body">
-                <p>
-                  Please upload one or more photo of your watch before you send it to us.
-                </p>
-                <div>
-                  <p class=" text-sm text-muted mb-0">Please add one or more picture of the watch to be repaired.</p>
-                  <ngx-dropzone (change)="onSelect($event)" multiple="false"
-                    accept="image/jpeg,image/jpg,image/png,image/gif">
-                    <ngx-dropzone-label>Drop image here or click to select.</ngx-dropzone-label>
-                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
-                      [removable]="true" (removed)="onRemove(f)">
-                    </ngx-dropzone-image-preview>
-                  </ngx-dropzone>
-                </div>
-              </div>
-              <div class=" modal-footer">
-                <button class=" btn btn-primary" type="button" (click)="uploadFile()">
-                  Upload
-                </button>
-                <button class=" btn btn-link ml-auto" data-dismiss="modal" type="button" (click)="defaultModal.hide()">
-                  Cancel
-                </button>
-              </div>
-            </ng-template>
-
             <!-- Photo detail modal -->
             <ng-template #modalPhotoDetail>
               <div class=" modal-header">
@@ -323,7 +280,7 @@
                 </button>
               </div>
               <div class=" modal-body">
-                <app-message [modal]="messageModal" [user]="user"></app-message>
+                <app-message [modal]="messageModal" [user]="user" [orderId]="order.id"></app-message>
               </div>
             </ng-template>
 
@@ -366,9 +323,13 @@
               <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img src="{{photoURL}}" width="100px" /></a>
             </span>
-            <button *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin && ('Watch received'===order.status || 'Estimate created'===order.status))" class=" btn btn-outline-primary btn" type="button" (click)="openDefaultModal(modalDefault)">
+
+            &nbsp;
+              <a *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin && ('Watch received'===order.status || 'Estimate created'===order.status))" routerLinkActive="active" [routerLink]="['/examples/image-upload']" [queryParams]="{id: order.id}">
+                <button  class=" btn btn-outline-primary btn" type="button">
               Add<br />photo
             </button>
+          </a>
 
             <!-- estimate view-->
             <app-estimate-view [estimate]="estimate" [isAdmin]="isAdmin"></app-estimate-view>
@@ -387,7 +348,11 @@
 
               <div *ngIf="order!=null && order.timeline!=null">
                 <div class=" timeline-block" *ngFor='let timelineEvent of order.timeline; let i=index;'>
-                  <span class=" timeline-step badge-success">
+                  <span *ngIf="order.timeline[order.timeline.length - i - 1].title.startsWith('Message')" class=" timeline-step badge-info">
+                    <i class=" ni ni-chat-round"> </i>
+                  </span>
+
+                  <span *ngIf="!order.timeline[order.timeline.length - i - 1].title.startsWith('Message')" class=" timeline-step badge-success">
                     <i class=" ni ni-check-bold"> </i>
                   </span>
 

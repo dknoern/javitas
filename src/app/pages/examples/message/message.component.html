@@ -9,7 +9,7 @@
           Enter message below to send to customer
         </p>
       </label>
-      <textarea class=" form-control" id="exampleFormControlTextarea3" rows="3"></textarea>
+      <textarea [(ngModel)]="message" class=" form-control" id="exampleFormControlTextarea3" rows="3"></textarea>
     </div>
     <button class=" btn btn-primary" type="button" (click)="sendMessage()">Send</button>
     <button class=" btn btn-secondary" type="button" (click)="cancelMessage()">Cancel</button>

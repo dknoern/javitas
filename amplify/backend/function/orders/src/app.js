@@ -246,6 +246,42 @@ app.post(path + '/status', function(req, res) {
 });
 
 /**********************************************
+* HTTP post method for sending message        *
+***********************************************/
+
+app.post(path + '/message', function(req, res) {
+  
+  if (userIdPresent) {
+    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  }
+
+  let putItemParams = {
+    TableName: tableName,
+    Key: { 'id': req.body.id },
+    UpdateExpression: "set #c = list_append(#c, :vals)",
+    ExpressionAttributeValues: {
+      ":vals": [{
+        title: "Message from " + req.body.from,
+        date: Date.now(),
+        description: req.body.message
+      }]
+    },
+    ExpressionAttributeNames: {
+      "#xName": "status"
+    }
+  };
+
+  dynamodb.update(putItemParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: err, url: req.url, body: req.body});
+    } else {
+      res.json({success: 'status update call!', url: req.url, data: data, id: req.body.id})
+    }
+  });
+});
+
+/**********************************************
 * HTTP post method for updating tracking info *
 ***********************************************/
 

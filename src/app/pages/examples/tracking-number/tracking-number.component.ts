@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
-import { API } from 'aws-amplify';
 import { OrdersService } from '../../../orders.service';
 import { Router } from "@angular/router"
 

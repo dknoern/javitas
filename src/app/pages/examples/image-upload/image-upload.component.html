@@ -1,0 +1,75 @@
+<div class=" main-content">
+  <div class=" header bg-gradient-default py-7 py-lg-6 pt-lg-7">
+    <div class=" container">
+      <div class=" header-body text-center mb-7">
+        <div class=" row justify-content-center">
+          <div class=" col-xl-5 col-lg-6 col-md-8 px-5">
+            <h1 class=" text-white">Add Images</h1>
+
+            <p class="text-white mt-4">
+              Please add one of more image of your watch to be repaired.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+
+  <div class=" container mt--8 pb-5">
+    <div class=" row justify-content-center">
+      <div class=" col-lg-10">
+
+        <div id="card-component" class="tab-pane tab-example-result fade show active" role="tabpanel"
+          aria-labelledby="card-component-tab">
+
+          <div class=" card">
+            <div class=" card-header">
+              <h3 class=" mb-0">Add Images</h3>
+            </div>
+
+            <div class=" card-body">
+
+              <p>Please upload one or more photo of your watch before you send it to us.</p>
+
+              <div>
+                <p class=" text-sm text-muted mb-0">Please add one or more picture of the watch to be repaired.</p>
+                <ngx-dropzone (change)="onSelect($event)" multiple="false"
+                  accept="image/jpeg,image/jpg,image/png,image/gif">
+                  <ngx-dropzone-label>Drop image here or click to select.</ngx-dropzone-label>
+                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                    [removable]="true" (removed)="onRemove(f)">
+                  </ngx-dropzone-image-preview>
+                </ngx-dropzone>
+              </div>
+
+            </div>
+
+            <div class=" row justify-content-center">
+              <div class=" card-header">
+
+                <button class=" btn btn-primary" type="button" (click)="uploadFile()">
+                  Upload
+                  </button>
+                  &nbsp;
+
+
+                  <a [routerLink]="['/examples/repair']" [queryParams]="{id: id}">
+                    <button class=" btn btn-icon btn-secondary" type="button">
+                      Not now
+                    </button>
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

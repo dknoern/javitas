@@ -22,6 +22,8 @@ import { MessageComponent } from './message/message.component';
 import { NewuserComponent } from './newuser/newuser.component';
 import { TrackingNumberComponent } from './tracking-number/tracking-number.component';
 import { NextStepComponent } from './next-step/next-step.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { ApprovalStatusComponent } from './approval-status/approval-status.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -30,7 +32,9 @@ import { NextStepComponent } from './next-step/next-step.component';
     MessageComponent,
     NewuserComponent,
     TrackingNumberComponent,
-    NextStepComponent],
+    NextStepComponent,
+    ImageUploadComponent,
+    ApprovalStatusComponent],
   imports: [
     CommonModule,
     FormsModule,

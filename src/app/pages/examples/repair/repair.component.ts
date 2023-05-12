@@ -29,9 +29,6 @@ export class RepairComponent implements OnInit {
   customerEmail = '';
   customerPhone = '';
 
-  @ViewChild('#modalDefault') modalDefault: TemplateRef<any>;
-
-  defaultModal: BsModalRef;
   photoDetailModal: BsModalRef;
   estimateModal: BsModalRef;
   messageModal: BsModalRef;
@@ -74,7 +71,9 @@ export class RepairComponent implements OnInit {
 
       let showImageModal = params['showImageModal'];
 
-      // get iamges
+      // get images
+      this.photoURLs = new Array();
+      this.photoKeys = new Array();
       Storage.list(id + '/') 
       .then((result) => {
         result.results.forEach((value) => {
@@ -126,19 +125,6 @@ export class RepairComponent implements OnInit {
     }
   }
 
-  async onSelect(event) {
-    this.files.push(...event.addedFiles);
-  }
-
-  onRemove(event) {
-    console.log(event);
-    this.files.splice(this.files.indexOf(event), 1);
-  }
-
-  openDefaultModal(modal: TemplateRef<any>) {
-    this.defaultModal = this.modalService.show(modal, this.modalOptions);
-  }
-
   openPhotoDetailModal(modal: TemplateRef<any>, photoURL: string, i: number) {
     this.selectedPhotoURL = photoURL;
     this.selectedPhotoIndex = i;
@@ -185,24 +171,6 @@ export class RepairComponent implements OnInit {
     });
   }
 
-  async uploadFile() {
-
-    for (var i = 0; i < this.files.length; i++) {
-      const fileName = this.order.id + "/" + this.files[i].name;
-      const result = await Storage.put(fileName, this.files[i],{});
-
-      var key = result.key;
-      this.photoKeys.push(key);
-      Storage.get(key).then((signedURL) => {
-        this.photoURLs.push(signedURL);
-      })
-    }
-
-    this.simpleToast('Photo uploaded');
-    this.defaultModal.hide();
-    this.files = [];
-  }
-
   simpleToast(message){
     this.toastr.show(
       message,
@@ -226,8 +194,6 @@ export class RepairComponent implements OnInit {
   }
 
   isStatusAndAdmin(status, admin) {
-    console.log('checking status',status,'admin',admin);
-    console.log('order status is',this.order.status);
     return this.order!=null && this.order.status != null &&status === this.order.status && admin === this.isAdmin;
   }
 }

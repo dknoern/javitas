@@ -15,15 +15,15 @@
             <h3 *ngIf="isAdmin" class=" mb-0">Repairs</h3>
             <h3 *ngIf="!isAdmin" class=" mb-0">My Repairs</h3>
           </div>
-          <div class=" table-responsive">
+          <div class=" table-responsive" id="first-list">
             <table class=" table align-items-center table-flush">
               <thead class=" thead-light">
                 <tr>
                   <th class=" sort" data-sort="orderNumber" scope="col">Order Number</th>
-                  <th class=" sort" data-sort="name" scope="col">Created Date</th>
-                  <th class=" sort" data-sort="budget" scope="col">Brand</th>
+                  <th class=" sort" data-sort="createdDate" scope="col">Created Date</th>
+                  <th class=" sort" data-sort="manufacturer" scope="col">Brand</th>
                   <th class=" sort" data-sort="status" scope="col">Status</th>
-                  <th *ngIf="isAdmin" scope="col">Customer</th>
+                  <th *ngIf="isAdmin" class=" sort" data-sort="customer" scope="col">Customer</th>
                 </tr>
               </thead>
               <tbody class=" list">
@@ -33,20 +33,20 @@
                       <div class=" media-body">
                         <span class=" name mb-0 text-sm">
                           <a routerLinkActive="active" [routerLink]="['/examples/repair']"
-                            [queryParams]="{id: order.id}"> {{order.orderNumber}}</a>
+                            [queryParams]="{id: order.id}"><span class=" orderNumber"></span> {{order.orderNumber}}</a>
                         </span>
                       </div>
                     </div>
                   </th>
-                  <td class=" budget">{{order.createdDate  | date:'medium'}}</td>
-                  <td class=" budget">{{order.manufacturer}}</td>
+                  <td class=" createdDate">{{order.createdDate  | date:'medium'}}</td>
+                  <td class=" manufacturer">{{order.manufacturer}}</td>
                   <td>
                     <span class=" badge badge-dot mr-4">
                       <i class=" bg-warning"> </i>
                       <span class=" status">{{order.status}} </span>
                     </span>
                   </td>
-                  <td *ngIf="isAdmin" class=" budget">{{order.email}}</td>
+                  <td *ngIf="isAdmin" class=" customer">{{order.email}}</td>
                 </tr>
               </tbody>
             </table>

@@ -10,6 +10,7 @@ import { RepairsComponent } from "../../pages/examples/repairs/repairs.component
 import { RepairComponent } from "../../pages/examples/repair/repair.component";
 import { EstimateComponent } from "../../pages/examples/estimate/estimate.component";
 import { NewuserComponent } from "../../pages/examples/newuser/newuser.component";
+import { ImageUploadComponent } from "../../pages/examples/image-upload/image-upload.component";
 export const AuthLayoutRoutes: Routes = [
   {
     path: "",
@@ -100,6 +101,15 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "newuser",
         component: NewuserComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "image-upload",
+        component: ImageUploadComponent
       }
     ]
   }

@@ -40,4 +40,10 @@ export class OrdersService {
     let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/tracking";
     return this.http.post(url,{"id":id, "shipper":shipper, "trackingNumber":trackingNumber, "status":nextStatus}, this.httpOptions);
   }
+
+  sendMessage(id: string, from: string, message: string) {
+    let url = "https://6o8gemz2j0.execute-api.us-east-1.amazonaws.com/dev/orders/message";
+    return this.http.post(url,{"id":id, "from":from, "message": message}, this.httpOptions);
+  }
+
 }
