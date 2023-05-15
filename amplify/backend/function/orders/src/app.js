@@ -267,7 +267,7 @@ app.post(path + '/message', function(req, res) {
       }]
     },
     ExpressionAttributeNames: {
-      "#xName": "status"
+      "#c": "timeline"
     }
   };
 
