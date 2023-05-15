@@ -28,10 +28,10 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
-        "redirectSignOut": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
-       // "redirectSignIn": "http://localhost:4200/",
-       // "redirectSignOut": "http://localhost:4200/",
+        "redirectSignIn": "https://www.authorizedwatchrepair.com/",
+        "redirectSignOut": "https://www.authorizedwatchrepair.com/",
+        //"redirectSignIn": "http://localhost:4200/",
+        //"redirectSignOut": "http://localhost:4200/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
