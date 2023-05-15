@@ -52,6 +52,7 @@
             class="nav-link"
             routerLinkActive="active"
             [routerLink]="['/examples/home']"
+            (click)="isCollapsed = true"
           >
             <span class="nav-link-inner--text">Home</span>
           </a>
@@ -61,6 +62,7 @@
             class="nav-link"
             routerLinkActive="active"
             [routerLink]="['/examples/pricing']"
+            (click)="isCollapsed = true"
           >
             <span class="nav-link-inner--text">Services</span>
           </a>
@@ -71,6 +73,7 @@
             class="nav-link"
             routerLinkActive="active"
             [routerLink]="['/examples/repairs']"
+            (click)="isCollapsed = true"
           >
             <span class="nav-link-inner--text">Repairs</span>
           </a>
