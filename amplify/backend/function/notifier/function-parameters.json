@@ -1,0 +1,9 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "siteUrl",
+      "environmentVariableName": "SITE_URL"
+    }
+  ]
+}

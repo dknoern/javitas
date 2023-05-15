@@ -81,6 +81,20 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "notifier": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "orders"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "orders": {
       "build": true,
       "dependsOn": [
@@ -121,6 +135,30 @@
         {
           "category": "function",
           "resourceName": "estimates"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_siteUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
         }
       ]
     },
