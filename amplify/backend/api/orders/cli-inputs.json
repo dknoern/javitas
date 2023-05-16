@@ -5,7 +5,13 @@
       "name": "/orders",
       "lambdaFunction": "orders",
       "permissions": {
-        "setting": "open"
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
       }
     }
   }
