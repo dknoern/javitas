@@ -25,7 +25,7 @@ exports.handler = event => {
       },
       Message: {
         Body: {
-          Html: { Data: "Hello, you have a new update from Authorized Watch Repair. Please visit the site at https://main.d2qqstrwqw8l63.amplifyapp.com/ to view your update." }
+          Html: { Data: "Hello, you have a new update from Authorized Watch Repair. Please visit the site at https://authorizedwatchrepair.com/ to view your update." }
         },
         Subject: {
           Data: 'Message from Authorized Watch Repair'
