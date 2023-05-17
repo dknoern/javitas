@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { API } from 'aws-amplify';
 import { ToastrService } from "ngx-toastr";
 import { OrdersService } from '../../../orders.service';
 import { Router } from "@angular/router"
@@ -34,18 +33,11 @@ export class EstimateReviewComponent implements OnInit {
 
     this.estimate.approvedDate = new Date().toLocaleString();
 
-    const myInit = {
-      body: this.estimate, // replace this with attributes you need
-      headers: {} // OPTIONAL
-    };
-
-    API.post("estimates", "/estimates", myInit)
-  .then((response) => {
+    this.ordersService.saveEstimate(this.estimate.id, this.estimate)
+  .then(() => {
     console.log("estimate posted");
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate approved").then(_=>{
-
-      this.modal.hide();
+    this.modal.hide();
 
     this.toastr.show(
       "Estimate approved",
@@ -65,12 +57,6 @@ export class EstimateReviewComponent implements OnInit {
     this.router.navigate(['examples/repair'], { queryParams: { id: this.estimate.id, _t: Date.now().toString()}}) 
 
     });
-
-    
-  })
-  .catch((error) => {
-    console.log(error.response);
-  });
   }
 
   checkForm() {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from '@angular/router';
-import { API } from 'aws-amplify';
 import { OrdersService } from '../../../orders.service';
 import { Router } from "@angular/router"
 
@@ -12,6 +11,7 @@ export class EstimateComponent implements OnInit {
 
   estimate = {
     id: null,
+    approvalStatus: null,
     necessaryServices: [{name:'',price:null}],
     optionalServices: [{name:'',price:null}]
   };
@@ -29,39 +29,14 @@ export class EstimateComponent implements OnInit {
   ngOnInit() {
 
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log("ngOnInit");
       let id = params['id'];
-      console.log('on init, id is', id);
-
-      this.estimate.id = id;
-
-      const myInit = {
-        headers: {}, // OPTIONAL
-        response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-        // queryStringParameters: {
-        //   name: 'param' // OPTIONAL
-        // }
-      };
-
-      API.get("estimates", "/estimates/object/" + id, myInit)
-        .then((response) => {
-          if(response.data != null && response.data.necessaryServices !=null && response.data.necessaryServices.length>0) {
-            this.estimate = response.data;
-            if(this.estimate.optionalServices == null || this.estimate.optionalServices.length==0 ){
-              this.estimate.optionalServices =  [{name:'',price:null}];
-            }
-          }
-          this.updateTotals();
-        })
-        .catch((error) => {
-          console.log('got error');
-        });
-    });
-
-    this.activatedRoute.queryParams.subscribe(params => {
-      console.log("ngOnInit");
-      let id = params['id'];
-      this.ordersService.getOrder(id).then(response=>{this.order = response.data;});
+      this.ordersService.getOrder(id).then(response=>{
+        this.order = response;
+        if(this.order.estimate != null){
+          this.estimate = this.order.estimate;
+          this.estimate.id = id;
+        }
+      });
     });
   }
 
@@ -86,21 +61,11 @@ export class EstimateComponent implements OnInit {
   }
 
   public saveEstimate(): void {
-
-    const myInit = {
-      body: this.estimate, // replace this with attributes you need
-      headers: {} // OPTIONAL
-    };
-
-    API.post("estimates", "/estimates", myInit)
-  .then((response) => {
-    // Add your code here
+    this.estimate.approvalStatus = null;
+    this.ordersService.saveEstimate(this.order.id, this.estimate).then((response) => {
     console.log("estimate posted");
+    this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate created");
-
-
-    this.router.navigate(['examples/repairs'])
   })
   .catch((error) => {
     console.log(error.response);

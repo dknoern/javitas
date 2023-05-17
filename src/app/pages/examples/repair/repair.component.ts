@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { ActivatedRoute } from '@angular/router';
-import { API, Auth, Storage } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import swal from "sweetalert2";
 import { ToastrService } from "ngx-toastr";
@@ -51,14 +51,18 @@ export class RepairComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("ngOnInit");
       let id = params['id'];
-      this.ordersService.getOrder(id).then(response=> {
-        this.order = response.data;
+      this.ordersService.getOrder(id).then(data=> {
+        this.order = data;
+
+        if(this.order.estimate != null){
+          this.estimate = this.order.estimate;
+          this.estimate.id = id; // sometimes missing need to clean this up.
+        }
 
         Auth.currentUserInfo()
         .then(user => {
           this.user = user;
           this.isUserAdmin(user.attributes.email);
-
 
           this.customerName = user.attributes.given_name + ' ' + user.attributes.family_name;
           this.customerAddress = user.attributes.address;
@@ -86,13 +90,6 @@ export class RepairComponent implements OnInit {
       }
       )
       .catch((err) => console.log(err));
-
-      // get estimate if any
-      API.get("estimates", "/estimates/object/" + id, {}).then(result => {
-        this.estimate = result;
-      }).catch(err => {
-        console.log(err);
-      });
     });
 
   }

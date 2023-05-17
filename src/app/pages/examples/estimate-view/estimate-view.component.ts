@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { EstimateService } from '../../../estimate.service';
+
 
 @Component({
   selector: "app-estimate-view",
@@ -11,9 +11,7 @@ export class EstimateViewComponent implements OnInit {
   @Input() isAdmin = false;
   grandTotal = 0.0;
 
-  constructor(
-    private estimateService: EstimateService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
     this.updateTotals();

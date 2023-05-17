@@ -27,10 +27,6 @@
           "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
           "s3Key": "amplify-builds/orders-6f4a517a79786d2f4f50-build.zip"
         },
-        "estimates": {
-          "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
-          "s3Key": "amplify-builds/estimates-4847312b73636f467064-build.zip"
-        },
         "notifier": {
           "siteUrl": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
           "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
@@ -43,8 +39,7 @@
         "photos": {}
       },
       "api": {
-        "orders": {},
-        "estimates": {}
+        "orders": {}
       }
     }
   }

@@ -47,9 +47,9 @@ const convertUrlType = (param, type) => {
   }
 }
 
-/********************************
+/************************************
  * HTTP Get method for list objects *
- ********************************/
+ ************************************/
 
 app.get(path + hashKeyPath, function(req, res) {
   const condition = {}
@@ -174,9 +174,9 @@ app.put(path, function(req, res) {
   });
 });
 
-/************************************
+/*************************************
 * HTTP post method for insert object *
-*************************************/
+**************************************/
 
 app.post(path, function(req, res) {
 
@@ -204,6 +204,48 @@ app.post(path, function(req, res) {
       res.json({error: err, url: req.url, body: req.body});
     } else {
       res.json({success: 'post call succeed!', url: req.url, data: data, id: req.body.id})
+    }
+  });
+});
+
+
+/**********************************************
+* HTTP post estimate (create or update)       *
+***********************************************/
+
+app.post(path + '/estimate', function(req, res) {
+  
+  if (userIdPresent) {
+    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  }
+  
+  let newStatus = 'approved' === req.body.estimate.approvalStatus ? 'Estimate approved' : 'Estimate created' ;
+
+  let putItemParams = {
+    TableName: tableName,
+    Key: { 'id': req.body.id },
+    UpdateExpression: "set #xName = :x, #yName = :y, #c = list_append(#c, :vals)",
+    ExpressionAttributeValues: {
+      ":x": req.body.estimate,
+      ":y": newStatus,
+      ":vals": [{
+        title: newStatus,
+        date: Date.now()
+      }]
+    },
+    ExpressionAttributeNames: {
+      "#xName": "estimate",
+      "#yName": "status",
+      "#c": "timeline"
+    }
+  };
+
+  dynamodb.update(putItemParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: err, url: req.url, body: req.body});
+    } else {
+      res.json({success: 'estimate updated', url: req.url, data: data, id: req.body.id})
     }
   });
 });

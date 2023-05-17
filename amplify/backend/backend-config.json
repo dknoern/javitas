@@ -1,19 +1,5 @@
 {
   "api": {
-    "estimates": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "estimates"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    },
     "orders": {
       "dependsOn": [
         {
@@ -62,25 +48,6 @@
     }
   },
   "function": {
-    "estimates": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributeEnvMap": {
-            "Arn": "TABLE_ARN",
-            "Name": "TABLE_NAME"
-          },
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "storage",
-          "resourceName": "estimates"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "notifier": {
       "build": true,
       "dependsOn": [
@@ -122,22 +89,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_estimates_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "estimates"
-        }
-      ]
-    },
-    "AMPLIFY_function_estimates_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "estimates"
-        }
-      ]
-    },
     "AMPLIFY_function_notifier_deploymentBucketName": {
       "usedBy": [
         {
