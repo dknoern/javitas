@@ -51,8 +51,8 @@ export class RepairComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("ngOnInit");
       let id = params['id'];
-      this.ordersService.getOrder(id).subscribe((data) => {
-        this.order = data;
+      this.ordersService.getOrder(id).then(response=> {
+        this.order = response.data;
 
         Auth.currentUserInfo()
         .then(user => {

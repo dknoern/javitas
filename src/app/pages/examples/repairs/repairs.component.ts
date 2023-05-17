@@ -17,11 +17,11 @@ export class RepairsComponent implements OnInit {
       .then(user => {
         this.user = user;
         var email = user.attributes.email;
-        this.ordersService.getOrders().subscribe((data: Array<any>) => {
+        this.ordersService.getOrders().then(response =>  {
           if (this.isUserAdmin(email)) {
-            this.orders = data;
+            this.orders = response.data;
           } else {
-            this.orders = data.filter(order => order.email === email);
+            this.orders = response.data.filter(order => order.email === email);
           }
         });
       })

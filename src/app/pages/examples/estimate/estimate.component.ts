@@ -61,9 +61,7 @@ export class EstimateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log("ngOnInit");
       let id = params['id'];
-      this.ordersService.getOrder(id).subscribe((data) => {
-        this.order = data;
-      });
+      this.ordersService.getOrder(id).then(response=>{this.order = response.data;});
     });
   }
 
@@ -99,10 +97,7 @@ export class EstimateComponent implements OnInit {
     // Add your code here
     console.log("estimate posted");
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate created").subscribe({
-      error: (err) => { console.error(err) },
-      complete: () => { console.log('order status updated') }
-    });
+    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate created");
 
 
     this.router.navigate(['examples/repairs'])

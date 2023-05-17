@@ -68,14 +68,10 @@ export class TrackingNumberComponent {
   }
 
   saveTrackingNumber() {
-    this.ordersService.updateTracking(this.order.id, this.shipper, this.trackingNumber, this.nextStatus).subscribe({
-      error: (err) => { console.error(err) },
-      complete: () => { 
-
-        this.modal.hide();
-        this.simpleToast('Tracking info saved')  ;
-        this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}}) 
-      }
-    });
+    this.ordersService.updateTracking(this.order.id, this.shipper, this.trackingNumber, this.nextStatus).then(res =>{
+      this.modal.hide();
+      this.simpleToast('Tracking info saved')  ;
+      this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}}) 
+    })
   }
 }

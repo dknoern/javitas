@@ -34,7 +34,7 @@
         "notifier": {
           "siteUrl": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
           "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
-          "s3Key": "amplify-builds/notifier-54315676482b56666c7a-build.zip"
+          "s3Key": "amplify-builds/notifier-53396e2f537158313965-build.zip"
         }
       },
       "storage": {

@@ -43,12 +43,9 @@ export class EstimateReviewComponent implements OnInit {
   .then((response) => {
     console.log("estimate posted");
 
-    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate approved").subscribe({
-      error: (err) => { console.error(err) },
-      complete: () => { console.log('order status updated') }
-    });
+    this.ordersService.updateOrderStatus(this.estimate.id, "Estimate approved").then(_=>{
 
-    this.modal.hide();
+      this.modal.hide();
 
     this.toastr.show(
       "Estimate approved",
@@ -67,6 +64,9 @@ export class EstimateReviewComponent implements OnInit {
 
     this.router.navigate(['examples/repair'], { queryParams: { id: this.estimate.id, _t: Date.now().toString()}}) 
 
+    });
+
+    
   })
   .catch((error) => {
     console.log(error.response);

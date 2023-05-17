@@ -40,18 +40,14 @@ export class MessageComponent {
   sendMessage() {
 
     console.log("sending message");
-
     let firstName = this.user.attributes.given_name;
     console.log('firstName',firstName);
-    this.ordersService.sendMessage(this.orderId, firstName, this.message).subscribe({
-      error: (err) => { console.error(err) },
-      complete: () => { 
+    this.ordersService.sendMessage(this.orderId, firstName, this.message).then(()=>{
+      this.modal.hide();
+      this.simpleToast('Message sent')  ;
+      this.router.navigate(['examples/repair'], { queryParams: { id: this.orderId, _t: Date.now().toString()}}) 
+    })
 
-        this.modal.hide();
-        this.simpleToast('Message sent')  ;
-        this.router.navigate(['examples/repair'], { queryParams: { id: this.orderId, _t: Date.now().toString()}}) 
-      }
-    });
   }
 
   simpleToast(message){

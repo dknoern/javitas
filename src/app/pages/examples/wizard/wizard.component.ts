@@ -46,8 +46,7 @@ export class WizardComponent implements OnInit {
       "model": this.model
   };
 
-    this.ordersService.postOrder(order).subscribe(
-      data2 => { 
+    this.ordersService.postOrder(order).then( data2 => { 
         console.log("data returned is " + JSON.stringify(data2));
         console.log("new id is " + data2['id']);
         this.router.navigate(['examples/image-upload'], { queryParams: { id: data2['id'] }}) 

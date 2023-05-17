@@ -121,6 +121,80 @@
       "type": "cicd"
     }
   },
+  "parameters": {
+    "AMPLIFY_function_estimates_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "estimates"
+        }
+      ]
+    },
+    "AMPLIFY_function_estimates_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "estimates"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
+        }
+      ]
+    },
+    "AMPLIFY_function_notifier_siteUrl": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "notifier"
+        }
+      ]
+    },
+    "AMPLIFY_function_orders_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "orders"
+        }
+      ]
+    },
+    "AMPLIFY_function_orders_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "orders"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    }
+  },
   "storage": {
     "estimates": {
       "providerPlugin": "awscloudformation",
