@@ -24,6 +24,9 @@ export class RepairComponent implements OnInit {
   isAdmin = false;
   nextStep = null;
   nextStatus = null;
+  nextStepWidget = null;
+  nextStepWaitText = null;
+
   customerName = '';
   customerAddress = '';
   customerEmail = '';
@@ -34,6 +37,83 @@ export class RepairComponent implements OnInit {
   messageModal: BsModalRef;
   trackingNumberModal: BsModalRef;
   nextStepModal: BsModalRef;
+
+  workflow = [
+    {
+      'status': 'Repair requested',
+      'nextStep': 'Enter tracking information',
+      'isAdmin': false,
+      'widget':'trackingInfo'
+    },
+    {
+      'status': 'Watch shipped',
+      'nextStep': 'Receive watch',
+      'isAdmin': true,
+      'widget':'nextStatus'
+    },
+    {
+      'status': 'Watch received',
+      'nextStep': 'Create estimate',
+      'isAdmin': true,
+      'widget':'createEstimate'
+    },
+    {
+      'status': 'Estimate created',
+      'nextStep': 'Review estimate',
+      'isAdmin': false,
+      'widget':'reviewEstimate'
+    },
+    {
+      'status': 'Estimate approved',
+      'nextStep': 'Accept payment',
+      'isAdmin': true,
+      'widget':'nextStatus'
+    },
+    {
+      'status': 'Payment accepted',
+      'nextStep': 'Order parts',
+      'isAdmin': true,
+      'widget':'nextStatus'
+    },
+    {
+      'status': 'Parts ordered',
+      'nextStep': 'Receive all parts, start service',
+      'isAdmin': true,
+      'widget':'nextStatus'
+    },
+    {
+      'status': 'All parts received, service started',
+      'nextStep': 'Complete service',
+      'isAdmin': true,
+      'widget':'nextStatus'
+    },
+    {
+      'status': 'Service completed',
+      'nextStep': 'Return completed watch',
+      'isAdmin': true,
+      'widget':'trackingInfo'
+    },
+    {
+      'status': 'Watch shipped back',
+      'nextStep': '',
+      'isAdmin': false,
+      'widget':''
+    }
+  ]
+
+  workflowStatuses = this.workflow.map(x => x.status);
+
+  getNextStep() {
+    var statusInfo = this.workflow.find(x => x.status === this.order.status);
+    let nextUserType =  statusInfo.isAdmin ? 'Authorized Watch Repair' : 'customer';
+
+    this.nextStep = statusInfo.nextStep;
+    this.nextStepWidget = statusInfo.isAdmin === this.isAdmin ? statusInfo.widget : null;
+    this.nextStepWaitText = statusInfo.isAdmin != this.isAdmin ? 'Waiting for ' + nextUserType + ' to ' + this.nextStep.toLowerCase() :null;
+
+    let i  = this.workflowStatuses.indexOf(this.order.status);
+    this.nextStatus = i < this.workflowStatuses.length - 1 ? this.workflowStatuses[i + 1] : '';
+  }
 
   modalOptions = {
     keyboard: true,
@@ -91,35 +171,6 @@ export class RepairComponent implements OnInit {
       )
       .catch((err) => console.log(err));
     });
-
-  }
-
-  getNextStep() {
-    if ('Repair requested' == this.order.status) {
-      this.nextStep = 'Enter tracking information';
-      this.nextStatus = 'Watch shipped';
-    } else if ('Watch shipped' == this.order.status) {
-      this.nextStep = 'Receive watch';
-      this.nextStatus = 'Watch received';
-    } else if ('Watch received' == this.order.status) {
-      this.nextStep = 'Create estimate';
-      this.nextStatus = 'Estimate created';
-    } else if ('Estimate created' == this.order.status) {
-      this.nextStep = 'Review estimate';
-      this.nextStatus = 'Estimate approved';
-    } else if ('Estimate approved' == this.order.status) {
-      this.nextStep = 'Start service';
-      this.nextStatus = 'Parts ordered, service started';
-    } else if ('Parts ordered, service started' == this.order.status) {
-      this.nextStep = 'Complete service';
-      this.nextStatus = 'Service completed';
-    } else if ('Service completed' == this.order.status) {
-      this.nextStep = 'Return completed watch';
-      this.nextStatus = 'Watch shipped back';
-    } else {
-      this.nextStep = null;
-      this.nextStatus = null;
-    }
   }
 
   openPhotoDetailModal(modal: TemplateRef<any>, photoURL: string, i: number) {

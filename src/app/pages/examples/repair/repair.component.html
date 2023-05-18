@@ -53,74 +53,36 @@
 
               <div *ngIf="nextStep" class="col">
                 <p class=" text-sm text-muted mb-0">Next Step</p>
-
-                <!-- NEXT STEP, ADMIN -->
-                <div *ngIf="isStatusAndAdmin('Repair requested', true)">
-                  Waiting for customer to {{ nextStep | lowercase }}
+                <div *ngIf="nextStepWaitText">
+                 {{ nextStepWaitText }}
                 </div>
-                <div *ngIf="isStatusAndAdmin('Watch shipped', true)">
+
+                <div *ngIf="nextStepWidget === 'nextStatus'">
                   <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
                     {{ nextStep}}
                   </button>
                 </div>
-                <div *ngIf="isStatusAndAdmin('Watch received', true)">
+                <div *ngIf="nextStepWidget === 'createEstimate'">
                   <a routerLinkActive="active" [routerLink]="['/examples/estimate']" [queryParams]="{id: order.id}">
                     <button class=" btn btn-outline-primary btn" type="button">
                       {{ nextStep}}
                     </button>
                   </a>
                 </div>
-                <div *ngIf="isStatusAndAdmin('Estimate created', true)">
-                  Wait for customer to approve estimate
-                </div>
-                <div *ngIf="isStatusAndAdmin('Estimate approved', true)">
-                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
-                    {{ nextStep}}
-                  </button>
-                </div>
-                <div *ngIf="isStatusAndAdmin('Parts ordered, service started', true)">
-                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
-                    {{ nextStep}}
-                  </button>
-                </div>
-                <div *ngIf="isStatusAndAdmin('Service completed', true)">
-                  <button class=" btn btn-outline-primary btn" type="button"
-                    (click)="openTrackingNumberModal(modalTrackingNumber)">
-                    {{ nextStep}}
-                  </button>
-                </div>
-
-
-                <!-- NEXT STEP, CUSTOMER -->
-
-                <div *ngIf="isStatusAndAdmin('Repair requested', false)">
-                  <button class=" btn btn-outline-primary btn" type="button"
-                    (click)="openTrackingNumberModal(modalTrackingNumber)">
-                    {{ nextStep}}
-                  </button>
-                </div>
-                <div *ngIf="isStatusAndAdmin('Watch shipped', false)">
-                  Waiting for Authorized Watch Repair to {{ nextStep | lowercase }}
-                </div>
-                <div *ngIf="isStatusAndAdmin('Watch received', false)">
-                  Waiting for Authorized Watch Repair to {{ nextStep | lowercase }}
-                </div>
-                <div *ngIf="isStatusAndAdmin('Estimate created', false)">
+                <div *ngIf="nextStepWidget === 'reviewEstimate'">
                   <button *ngIf="!isAdmin && estimate != null && estimate.necessaryServices"
                     class=" btn btn-outline-primary btn" type="button" (click)="openEstimateModal(modalEstimate)">
                     Review estimate
                   </button>
                 </div>
-                <div *ngIf="isStatusAndAdmin('Estimate approved', false)">
-                  Waiting for Authorized Watch Repair to {{ nextStep | lowercase }}
-                </div>
-                <div *ngIf="isStatusAndAdmin('Parts ordered, service started', false)">
-                  Waiting for Authorized Watch Repair to {{ nextStep | lowercase }}
-                </div>
-                <div *ngIf="isStatusAndAdmin('Service completed', false)">
-                  Waiting for Authorized Watch Repair to {{ nextStep | lowercase }}
+                <div *ngIf="nextStepWidget === 'trackingInfo'">
+                  <button class=" btn btn-outline-primary btn" type="button"
+                    (click)="openTrackingNumberModal(modalTrackingNumber)">
+                    {{ nextStep}}
+                  </button>
                 </div>
               </div>
+
             </div>
 
             <div *ngIf="order.model">

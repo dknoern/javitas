@@ -25,7 +25,7 @@
       "function": {
         "orders": {
           "deploymentBucketName": "amplify-javitas-dev-04321-deployment",
-          "s3Key": "amplify-builds/orders-6f4a517a79786d2f4f50-build.zip"
+          "s3Key": "amplify-builds/orders-55314b594c6955733033-build.zip"
         },
         "notifier": {
           "siteUrl": "https://main.d2qqstrwqw8l63.amplifyapp.com/",
