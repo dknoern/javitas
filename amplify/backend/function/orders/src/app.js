@@ -2,7 +2,6 @@ const AWS = require('aws-sdk')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 const bodyParser = require('body-parser')
 const express = require('express')
-const dateFormat = require('date-format');
 
 AWS.config.update({ region: process.env.TABLE_REGION });
 
@@ -150,30 +149,6 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
   });
 });
 
-/************************************
-* HTTP put method for insert object *
-*************************************/
-
-app.put(path, function(req, res) {
-
-  if (userIdPresent) {
-    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body
-  }
-  dynamodb.put(putItemParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({ error: err, url: req.url, body: req.body });
-    } else{
-      res.json({ success: 'put call succeed!', url: req.url, data: data })
-    }
-  });
-});
-
 /*************************************
 * HTTP post method for insert object *
 **************************************/
@@ -186,6 +161,7 @@ app.post(path, function(req, res) {
   
   req.body.id = randomUUID();
   req.body.createdDate = Date.now();
+  req.body.modifiedDate = Date.now();
   req.body.status = 'Repair requested';
 
   req.body.timeline = [{
@@ -224,19 +200,21 @@ app.post(path + '/estimate', function(req, res) {
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #xName = :x, #yName = :y, #c = list_append(#c, :vals)",
+    UpdateExpression: "set #xName = :x, #yName = :y, #c = list_append(#c, :vals), #mName = :mValue",
     ExpressionAttributeValues: {
       ":x": req.body.estimate,
       ":y": newStatus,
       ":vals": [{
         title: newStatus,
         date: Date.now()
-      }]
+      }],
+      ":mValue": Date.now()
     },
     ExpressionAttributeNames: {
       "#xName": "estimate",
       "#yName": "status",
-      "#c": "timeline"
+      "#c": "timeline",
+      "#mName": "modifiedDate"
     }
   };
 
@@ -263,17 +241,19 @@ app.post(path + '/status', function(req, res) {
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #xName = :x, #c = list_append(#c, :vals)",
+    UpdateExpression: "set #xName = :x, #c = list_append(#c, :vals), #mName = :mValue",
     ExpressionAttributeValues: {
       ":x": req.body.status,
       ":vals": [{
         title: req.body.status,
         date: Date.now()
-      }]
+      }],
+      ":mValue": Date.now()
     },
     ExpressionAttributeNames: {
       "#xName": "status",
-      "#c": "timeline"
+      "#c": "timeline",
+      "#mName": "modifiedDate"
     }
   };
 
@@ -300,16 +280,18 @@ app.post(path + '/message', function(req, res) {
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #c = list_append(#c, :vals)",
+    UpdateExpression: "set #c = list_append(#c, :vals), #mName = :mValue",
     ExpressionAttributeValues: {
       ":vals": [{
         title: "Message from " + req.body.from,
         date: Date.now(),
         description: req.body.message
-      }]
+      }],
+      ":mValue": Date.now()
     },
     ExpressionAttributeNames: {
-      "#c": "timeline"
+      "#c": "timeline",
+      "#mName": "modifiedDate"
     }
   };
 
@@ -338,7 +320,7 @@ app.post(path + '/tracking', function(req, res) {
   let putItemParams = {
     TableName: tableName,
     Key: { 'id': req.body.id },
-    UpdateExpression: "set #xName = :x, #yName = :y, #zName = :z, #c = list_append(#c, :vals), #statusName = :statusValue",
+    UpdateExpression: "set #xName = :x, #yName = :y, #zName = :z, #c = list_append(#c, :vals), #statusName = :statusValue, #mName = :mValue",
     ExpressionAttributeValues: {
       ":x": req.body.shipper,
       ":y": req.body.trackingNumber,
@@ -348,14 +330,16 @@ app.post(path + '/tracking', function(req, res) {
         date: Date.now() ,
         description: req.body.status + ' via ' + req.body.shipper + ' with tracking number ' + req.body.trackingNumber + '.'
       }],
-      ":statusValue": req.body.status
+      ":statusValue": req.body.status,
+      ":mValue": Date.now()
     },
     ExpressionAttributeNames: {
       "#xName": "shipper",
       "#yName": "trackingNumber",
       "#zName": "shippedDate",
       "#c": "timeline",
-      "#statusName": "status"
+      "#statusName": "status",
+      "#mName": "modifiedDate"
     }
   };
 

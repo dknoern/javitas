@@ -103,6 +103,13 @@
                 {{order.age}} years
               </p>
             </div>
+            <div *ngIf="order.notes">
+              <p class=" text-sm text-muted mb-0">Notes</p>
+              <p class=" card-text mb-4">
+                {{order.notes}}
+              </p>
+            </div>
+
             <div *ngIf="order.createdDate">
               <p class=" text-sm text-muted mb-0">Requested</p>
               <p class=" card-text mb-4">

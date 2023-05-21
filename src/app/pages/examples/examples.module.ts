@@ -24,6 +24,10 @@ import { TrackingNumberComponent } from './tracking-number/tracking-number.compo
 import { NextStepComponent } from './next-step/next-step.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ApprovalStatusComponent } from './approval-status/approval-status.component';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -43,7 +47,8 @@ import { ApprovalStatusComponent } from './approval-status/approval-status.compo
     PaginationModule.forRoot(),
     CollapseModule.forRoot(),
     NgxDropzoneModule,
-    NgxPrintElementModule
+    NgxPrintElementModule,
+    TableModule, TagModule, ButtonModule, InputTextModule
   ]
 })
 export class ExamplesModule {}

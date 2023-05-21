@@ -15,42 +15,45 @@
             <h3 *ngIf="isAdmin" class=" mb-0">Repairs</h3>
             <h3 *ngIf="!isAdmin" class=" mb-0">My Repairs</h3>
           </div>
-          <div class=" table-responsive" id="first-list">
-            <table class=" table align-items-center table-flush">
-              <thead class=" thead-light">
-                <tr>
-                  <th class=" sort" data-sort="orderNumber" scope="col">Order Number</th>
-                  <th class=" sort" data-sort="createdDate" scope="col">Created Date</th>
-                  <th class=" sort" data-sort="manufacturer" scope="col">Brand</th>
-                  <th class=" sort" data-sort="status" scope="col">Status</th>
-                  <th *ngIf="isAdmin" class=" sort" data-sort="customer" scope="col">Customer</th>
-                </tr>
-              </thead>
-              <tbody class=" list">
-                <tr *ngFor='let order of orders'>
-                  <th scope="row">
-                    <div class=" media align-items-center">
-                      <div class=" media-body">
-                        <span class=" name mb-0 text-sm">
-                          <a routerLinkActive="active" [routerLink]="['/examples/repair']"
-                            [queryParams]="{id: order.id}"><span class=" orderNumber"></span> {{order.orderNumber}}</a>
-                        </span>
-                      </div>
-                    </div>
-                  </th>
-                  <td class=" createdDate">{{order.createdDate  | date:'medium'}}</td>
-                  <td class=" manufacturer">{{order.manufacturer}}</td>
-                  <td>
-                    <span class=" badge badge-dot mr-4">
-                      <i class=" bg-warning"> </i>
-                      <span class=" status">{{order.status}} </span>
-                    </span>
-                  </td>
-                  <td *ngIf="isAdmin" class=" customer">{{order.email}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          <p-table #repairsTable [value]="orders" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+            tableStyleClass="prime-table" [showCurrentPageReport]="true"
+            [globalFilterFields]="['orderNumber', 'modifiedDate', 'manufacturer', 'status', 'customer']">
+
+            <ng-template pTemplate="caption">
+              <div class="flex">
+                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash"
+                  (click)="clear(repairsTable)"></button>
+                <span style="float:right" class="p-input-icon-left ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" [(ngModel)]='input' (input)="repairsTable.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Search" />
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="orderNumber">Order <p-sortIcon field="orderNumber"></p-sortIcon></th>
+                <th pSortableColumn="modifiedDate">Modified <p-sortIcon field="modifiedDate"></p-sortIcon></th>
+                <th pSortableColumn="manufacturer">Brand <p-sortIcon field="manufacturer"></p-sortIcon></th>
+                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="email" *ngIf="isAdmin">Customer <p-sortIcon field="email"></p-sortIcon></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order>
+              <tr>
+                <td><a routerLinkActive="active" [routerLink]="['/examples/repair']" [queryParams]="{id: order.id}">{{
+                    order.orderNumber }}</a></td>
+                <td>{{ order.modifiedDate | date:'medium' }}</td>
+                <td>{{ order.manufacturer }}</td>
+                <td nowrap><p-tag [value]="order.status" [severity]="danger"></p-tag></td>
+                <td *ngIf="isAdmin">{{ order.email }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="paginatorleft" />
+            <ng-template pTemplate="paginatorright" />
+          </p-table>
+
           <div class=" card-footer py-4">
           </div>
         </div>

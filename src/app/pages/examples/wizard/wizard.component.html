@@ -72,10 +72,10 @@
                   <input class=" form-control" name="age" type="text" [(ngModel)]="age" />
                 </div>
                 <div class=" form-group">
-                  <label class=" form-control-label" for="notes" [(ngModel)]="notes">
+                  <label class=" form-control-label" for="notes">
                     Description of problem
                   </label>
-                  <textarea class=" form-control" name="notes" rows="3"></textarea>
+                  <textarea class=" form-control" [value]="notes" (input)="onValueChange($event)"  name="notes" rows="3"></textarea>
                 </div>
               </form>
             </div>

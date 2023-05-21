@@ -65,4 +65,11 @@ export class WizardComponent implements OnInit {
     this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
     return this.isAdmin;
   }
+
+  // hack for text area
+  public onValueChange(event: Event): void {
+    console.log(event.target);
+    const value = (event.target as any).value;
+    this.notes = value;
+  }
 }
