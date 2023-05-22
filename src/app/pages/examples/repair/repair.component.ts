@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
+import { WorkflowService } from '../../../workflow.service';
 import { ActivatedRoute } from '@angular/router';
 import { Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
@@ -38,81 +39,14 @@ export class RepairComponent implements OnInit {
   trackingNumberModal: BsModalRef;
   nextStepModal: BsModalRef;
 
-  workflow = [
-    {
-      'status': 'Repair requested',
-      'nextStep': 'Enter tracking information',
-      'isAdmin': false,
-      'widget':'trackingInfo'
-    },
-    {
-      'status': 'Watch shipped',
-      'nextStep': 'Receive watch',
-      'isAdmin': true,
-      'widget':'nextStatus'
-    },
-    {
-      'status': 'Watch received',
-      'nextStep': 'Create estimate',
-      'isAdmin': true,
-      'widget':'createEstimate'
-    },
-    {
-      'status': 'Estimate created',
-      'nextStep': 'Review estimate',
-      'isAdmin': false,
-      'widget':'reviewEstimate'
-    },
-    {
-      'status': 'Estimate approved',
-      'nextStep': 'Accept payment',
-      'isAdmin': true,
-      'widget':'nextStatus'
-    },
-    {
-      'status': 'Payment accepted',
-      'nextStep': 'Order parts',
-      'isAdmin': true,
-      'widget':'nextStatus'
-    },
-    {
-      'status': 'Parts ordered',
-      'nextStep': 'Receive all parts, start service',
-      'isAdmin': true,
-      'widget':'nextStatus'
-    },
-    {
-      'status': 'All parts received, service started',
-      'nextStep': 'Complete service',
-      'isAdmin': true,
-      'widget':'nextStatus'
-    },
-    {
-      'status': 'Service completed',
-      'nextStep': 'Return completed watch',
-      'isAdmin': true,
-      'widget':'trackingInfo'
-    },
-    {
-      'status': 'Watch shipped back',
-      'nextStep': '',
-      'isAdmin': false,
-      'widget':''
-    }
-  ]
-
-  workflowStatuses = this.workflow.map(x => x.status);
-
   getNextStep() {
-    var statusInfo = this.workflow.find(x => x.status === this.order.status);
+    var statusInfo = this.workflowService.getStatusInfo(this.order.status);
     let nextUserType =  statusInfo.isAdmin ? 'Authorized Watch Repair' : 'customer';
 
     this.nextStep = statusInfo.nextStep;
     this.nextStepWidget = statusInfo.isAdmin === this.isAdmin ? statusInfo.widget : null;
     this.nextStepWaitText = statusInfo.isAdmin != this.isAdmin ? 'Waiting for ' + nextUserType + ' to ' + this.nextStep.toLowerCase() :null;
-
-    let i  = this.workflowStatuses.indexOf(this.order.status);
-    this.nextStatus = i < this.workflowStatuses.length - 1 ? this.workflowStatuses[i + 1] : '';
+    this.nextStatus = this.workflowService.getNextStatus(this.order.status);
   }
 
   modalOptions = {
@@ -122,6 +56,7 @@ export class RepairComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
+    private workflowService: WorkflowService,
     private activatedRoute: ActivatedRoute,
     private modalService: BsModalService,
     public toastr: ToastrService
@@ -244,4 +179,8 @@ export class RepairComponent implements OnInit {
   isStatusAndAdmin(status, admin) {
     return this.order!=null && this.order.status != null &&status === this.order.status && admin === this.isAdmin;
   }
+
+  orderSeverity(status) {
+    return this.workflowService.getOrderSeverity(status,this.isAdmin);
+   }
 }

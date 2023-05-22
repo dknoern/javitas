@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Auth } from "aws-amplify";
 import { OrdersService } from '../../../orders.service';
+import { WorkflowService } from '../../../workflow.service';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -13,7 +14,9 @@ export class RepairsComponent implements OnInit {
   user = null;
   input = '';
   isAdmin = false;
-  constructor(private ordersService: OrdersService) { }
+  constructor(
+    private ordersService: OrdersService,
+    private workflowService: WorkflowService) { }
 
   ngOnInit() {
     Auth.currentUserInfo()
@@ -43,4 +46,8 @@ export class RepairsComponent implements OnInit {
     table.clear();
     this.input='';
  } 
+
+ orderSeverity(status) {
+  return this.workflowService.getOrderSeverity(status,this.isAdmin);
+ }
 }

@@ -46,7 +46,7 @@
                     order.orderNumber }}</a></td>
                 <td>{{ order.modifiedDate | date:'medium' }}</td>
                 <td>{{ order.manufacturer }}</td>
-                <td nowrap><p-tag [value]="order.status" [severity]="danger"></p-tag></td>
+                <td nowrap><p-tag [value]="order.status" [severity]='orderSeverity(order.status)'></p-tag></td>
                 <td *ngIf="isAdmin">{{ order.email }}</td>
               </tr>
             </ng-template>
