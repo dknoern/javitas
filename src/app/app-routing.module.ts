@@ -37,10 +37,6 @@ const routes: Routes = [
         loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule)
       },
       {
-        path: "maps",
-        loadChildren: () => import('./pages/maps/maps.module').then(m => m.MapsModule)
-      },
-      {
         path: "widgets",
         loadChildren: () => import('./pages/widgets/widgets.module').then(m => m.WidgetsModule)
       },
