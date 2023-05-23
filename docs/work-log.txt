@@ -4,13 +4,13 @@ Todo 5/19
 - Port to prime ng table (style) --- DONE
 - Implement smart tag for status on repair list --- DONE
 - Sorting/search/pagination on list --- DONE
+- Add new admin --- DONE
+- Progress spinner on repairs --- DONE
+
 
 
 - Counts for complete, pending customer, pending admin with link to sorted list
 - Fix direct access problem
-
-
-- Add new admin
 - Enhance email to say the right thing and link to actual page
 
 

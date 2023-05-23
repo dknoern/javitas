@@ -3,6 +3,7 @@ import { Auth } from "aws-amplify";
 import { OrdersService } from '../../../orders.service';
 import { WorkflowService } from '../../../workflow.service';
 import { Table } from 'primeng/table';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: "app-repairs",
@@ -14,6 +15,8 @@ export class RepairsComponent implements OnInit {
   user = null;
   input = '';
   isAdmin = false;
+  loading = true;
+
   constructor(
     private ordersService: OrdersService,
     private workflowService: WorkflowService) { }
@@ -32,7 +35,9 @@ export class RepairsComponent implements OnInit {
             this.orders = data.filter(order => order.email === user.attributes.email);
           }
 
-          this.orders = this.orders.sort((a,b) => (a.modifiedDate < b.modifiedDate) ? 1 : -1)
+          this.orders = this.orders.sort((a,b) => (a.modifiedDate < b.modifiedDate) ? 1 : -1);
+
+          this.loading = false;
         });
       })
       .catch(() => console.log("Not signed in"));

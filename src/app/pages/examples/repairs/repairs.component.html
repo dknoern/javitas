@@ -12,11 +12,14 @@
       <div class=" col-lg-10">
         <div class=" card">
           <div class=" card-header border-0">
-            <h3 *ngIf="isAdmin" class=" mb-0">Repairs</h3>
-            <h3 *ngIf="!isAdmin" class=" mb-0">My Repairs</h3>
+            <h3 class=" mb-0">Repairs</h3>
           </div>
 
-          <p-table #repairsTable [value]="orders" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+          <div *ngIf="loading" class=" row justify-content-center">
+            <p-progressSpinner></p-progressSpinner>
+          </div>
+          
+          <p-table *ngIf="!loading" #repairsTable [value]="orders" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
             tableStyleClass="prime-table" [showCurrentPageReport]="true"
             [globalFilterFields]="['orderNumber', 'modifiedDate', 'manufacturer', 'status', 'customer']">
 

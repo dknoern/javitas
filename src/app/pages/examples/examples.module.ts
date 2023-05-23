@@ -28,6 +28,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -48,7 +49,7 @@ import { InputTextModule } from 'primeng/inputtext';
     CollapseModule.forRoot(),
     NgxDropzoneModule,
     NgxPrintElementModule,
-    TableModule, TagModule, ButtonModule, InputTextModule
+    TableModule, TagModule, ButtonModule, InputTextModule, ProgressSpinnerModule
   ]
 })
 export class ExamplesModule {}
