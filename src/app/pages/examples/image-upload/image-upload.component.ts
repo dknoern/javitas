@@ -33,7 +33,9 @@ export class ImageUploadComponent {
 
       this.id = params['id'];
       console.log("id is", this.id);
-      this.ordersService.getOrder(this.id).then(response => {this.order = response.data});
+      this.ordersService.getOrder(this.id).then(response => {
+        this.order = response;
+      });
     });
 
   }
