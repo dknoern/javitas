@@ -31,7 +31,7 @@ exports.handler = event => {
           Data: 'Message from Authorized Watch Repair'
         },
       },
-      Source: 'david@seattleweb.com'
+      Source: 'noreply.authorizedwatchrepair.com'
     };
 
     // Create the promise and SES service object

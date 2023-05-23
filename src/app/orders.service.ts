@@ -36,4 +36,8 @@ export class OrdersService {
     console.log('saving estimate...');
     return API.post("orders", "/orders/estimate", { body: { "id": id, "estimate": estimate } });
   }
+
+  isUserAdmin(email) {
+    return email === 'oroszlan67@yahoo.com' || email == 'david@seattleweb.com' || email === 'authorizedwatchrepair@gmail.com';
+  }
 }

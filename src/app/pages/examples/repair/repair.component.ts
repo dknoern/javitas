@@ -77,8 +77,7 @@ export class RepairComponent implements OnInit {
         Auth.currentUserInfo()
         .then(user => {
           this.user = user;
-          this.isUserAdmin(user.attributes.email);
-
+          this.isAdmin = this.ordersService.isUserAdmin(user.attributes.email);
           this.customerName = user.attributes.given_name + ' ' + user.attributes.family_name;
           this.customerAddress = user.attributes.address;
           this.customerEmail = user.attributes.email;
@@ -169,11 +168,6 @@ export class RepairComponent implements OnInit {
           "ngx-toastr alert alert-dismissible alert-default alert-notify"
       }
     );
-  }
-
-  isUserAdmin(email) {
-    this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
-    return this.isAdmin;
   }
 
   isStatusAndAdmin(status, admin) {

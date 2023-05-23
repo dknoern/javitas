@@ -27,17 +27,11 @@ export class NextStepComponent {
   ) { }
 
   ngOnInit() {
-    this.isAdmin = this.isUserAdmin();
+    this.isAdmin = this.ordersService.isUserAdmin(this.user.attributes.email);
   }
 
   cancelMessage() {
     this.modal.hide();
-  }
-
-  isUserAdmin() {
-    var email = this.user.attributes.email
-    const isAdmin = email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
-    return isAdmin;
   }
 
   sendMessage() {

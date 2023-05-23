@@ -30,8 +30,7 @@ export class WizardComponent implements OnInit {
 
     Auth.currentAuthenticatedUser()
     .then(user => {
-      this.email = user.attributes.email;
-      this.isUserAdmin(this.email);
+      this.isAdmin = this.ordersService.isUserAdmin( user.attributes.email);
     })
     .catch(() => console.log("Not signed in"));
   }
@@ -59,11 +58,6 @@ export class WizardComponent implements OnInit {
     const x = '1'+String(Math.floor(Math.random() * 100000000)).padStart(8, '0');
     const y = x.substring(0,4) + '-' + x.substring(4);
     return y;
-  }
-
-  isUserAdmin(email) {
-    this.isAdmin =  email === "oroszlan67@yahoo.com" || email == "david@seattleweb.com";
-    return this.isAdmin;
   }
 
   // hack for text area
