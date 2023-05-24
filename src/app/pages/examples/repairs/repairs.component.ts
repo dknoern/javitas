@@ -4,7 +4,7 @@ import { OrdersService } from '../../../orders.service';
 import { WorkflowService } from '../../../workflow.service';
 import { Table } from 'primeng/table';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-
+import { Router } from '@angular/router';
 @Component({
   selector: "app-repairs",
   templateUrl: "repairs.component.html",
@@ -19,7 +19,8 @@ export class RepairsComponent implements OnInit {
 
   constructor(
     private ordersService: OrdersService,
-    private workflowService: WorkflowService) { }
+    private workflowService: WorkflowService,
+    private router: Router) { }
 
   ngOnInit() {
     Auth.currentUserInfo()
@@ -40,7 +41,10 @@ export class RepairsComponent implements OnInit {
           this.loading = false;
         });
       })
-      .catch(() => console.log("Not signed in"));
+      .catch(() => 
+      {
+        this.router.navigate(['/examples/home'], { replaceUrl: true });
+      });
   }
 
   clear(table: Table) {      

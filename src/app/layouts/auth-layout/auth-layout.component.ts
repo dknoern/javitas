@@ -23,9 +23,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
         Auth.currentAuthenticatedUser()
         .then(() => {
           console.log('auth user coming to login pager again');
-          this.router.navigate(['/examples/home'], { replaceUrl: true });
         }).catch((err) => {
-          //this.spinner.hide();
           console.log(err);
         })
   }

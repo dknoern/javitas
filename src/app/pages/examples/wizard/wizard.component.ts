@@ -32,7 +32,10 @@ export class WizardComponent implements OnInit {
     .then(user => {
       this.isAdmin = this.ordersService.isUserAdmin( user.attributes.email);
     })
-    .catch(() => console.log("Not signed in"));
+    .catch(() => {
+      console.log("Not signed in");
+      this.router.navigate(['/examples/home'], { replaceUrl: true });
+  });
   }
 
   postOrder() {

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { OrdersService } from '../../../orders.service';
 import { WorkflowService } from '../../../workflow.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import swal from "sweetalert2";
@@ -57,6 +57,7 @@ export class RepairComponent implements OnInit {
   constructor(
     private ordersService: OrdersService,
     private workflowService: WorkflowService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private modalService: BsModalService,
     public toastr: ToastrService
@@ -64,46 +65,56 @@ export class RepairComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log("ngOnInit");
-      let id = params['id'];
-      this.ordersService.getOrder(id).then(data=> {
-        this.order = data;
+      console.log("xxxx-> ngOnInit");
 
-        if(this.order.estimate != null){
-          this.estimate = this.order.estimate;
-          this.estimate.id = id; // sometimes missing need to clean this up.
-        }
 
         Auth.currentUserInfo()
         .then(user => {
           this.user = user;
+          if(user === null){
+            this.router.navigate(['/examples/home'], { replaceUrl: true });
+            return;
+          }
           this.isAdmin = this.ordersService.isUserAdmin(user.attributes.email);
           this.customerName = user.attributes.given_name + ' ' + user.attributes.family_name;
           this.customerAddress = user.attributes.address;
           this.customerEmail = user.attributes.email;
           this.customerPhone = user.attributes.phone_number;
-          this.getNextStep();
+
+
+          let id = params['id'];
+          this.ordersService.getOrder(id).then(data=> {
+            this.order = data;
+    
+            if(this.order.estimate != null){
+              this.estimate = this.order.estimate;
+              this.estimate.id = id; // sometimes missing need to clean this up.
+            }
+
+            this.getNextStep();
+
+            // get images
+            this.photoURLs = new Array();
+            this.photoKeys = new Array();
+            Storage.list(id + '/') 
+            .then((result) => {
+              result.results.forEach((value) => {
+                var key = value.key;
+                this.photoKeys.push(key);
+                Storage.get(key).then((signedURL) => {
+                  this.photoURLs.push(signedURL);
+                })
+              });
+            }
+            )
+            .catch((err) => console.log(err));
+
         })
-        .catch(() => console.log("Not signed in"));
-      });
-
-      let showImageModal = params['showImageModal'];
-
-      // get images
-      this.photoURLs = new Array();
-      this.photoKeys = new Array();
-      Storage.list(id + '/') 
-      .then((result) => {
-        result.results.forEach((value) => {
-          var key = value.key;
-          this.photoKeys.push(key);
-          Storage.get(key).then((signedURL) => {
-            this.photoURLs.push(signedURL);
-          })
+        .catch(() => 
+        {
+          this.router.navigate(['/examples/home'], { replaceUrl: true });
         });
-      }
-      )
-      .catch((err) => console.log(err));
+      });
     });
   }
 
