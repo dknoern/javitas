@@ -65,9 +65,6 @@ export class RepairComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log("xxxx-> ngOnInit");
-
-
         Auth.currentUserInfo()
         .then(user => {
           this.user = user;

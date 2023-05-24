@@ -18,9 +18,6 @@ export class EstimateViewComponent implements OnInit {
   }
 
   public updateTotals(): void {
-
-    console.log("updatint totals on view");
-
     if(this.estimate!=null && this.estimate.necessaryServices!=null){
 
     const necessaryTotal = this.estimate.necessaryServices.reduce(

@@ -35,8 +35,6 @@ export class EstimateReviewComponent implements OnInit {
 
     this.ordersService.saveEstimate(this.estimate.id, this.estimate)
   .then(() => {
-    console.log("estimate posted");
-
     this.modal.hide();
 
     this.toastr.show(
@@ -99,8 +97,6 @@ export class EstimateReviewComponent implements OnInit {
 
   public updateTotals(): void{
 
-    console.log("updating totals");
-
     if(this.estimate != null) {
     this.necessaryTotal = this.estimate.necessaryServices.reduce(
       (accumulator, currentValue) => accumulator + parseFloat(currentValue.price),
@@ -111,7 +107,6 @@ export class EstimateReviewComponent implements OnInit {
       0.0
     );
     this.approvedTotal = this.necessaryTotal + this.optionalTotal;
-    console.log("total updated");
     }
   }
 }

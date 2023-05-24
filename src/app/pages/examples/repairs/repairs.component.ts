@@ -29,7 +29,6 @@ export class RepairsComponent implements OnInit {
         this.isAdmin = this.ordersService.isUserAdmin(user.attributes.email);
         this.ordersService.getOrders().then(data =>  {
 
-          console.log("response", data);
           if (this.isAdmin) {
             this.orders = data;
           } else {
@@ -53,7 +52,6 @@ export class RepairsComponent implements OnInit {
  } 
 
  orderSeverity(status) {
-  console.log("order severity, is admin: ",this.isAdmin);
   return this.workflowService.getOrderSeverity(status,this.isAdmin);
  }
 }

@@ -57,7 +57,6 @@ export class NextStepComponent {
   }
 
   checkForm() {
-    console.log("ready",this.ready);
     this.formValid = this.ready === true;
     return this.formValid;
   }

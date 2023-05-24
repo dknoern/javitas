@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
       console.log("IN HOME: auth event type", event);
       if (event === "cognitoHostedUI" || event === "signedIn") {
         console.log("cgnito event");
-        console.log("data is ", JSON.stringify(data));
       }
     });
   }
@@ -29,10 +28,6 @@ export class HomeComponent implements OnInit {
 
     Auth.currentUserInfo()
     .then(user => {
-
-      console.log('home: user', JSON.stringify(user));
-
-      console.log('home: user firstname', JSON.stringify(user.attributes.given_name));
       this.loggedIn = true;
     })
     .catch(() => console.log("Not signed in"));

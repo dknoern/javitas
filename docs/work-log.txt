@@ -6,11 +6,10 @@ Todo 5/19
 - Sorting/search/pagination on list --- DONE
 - Add new admin --- DONE
 - Progress spinner on repairs --- DONE
-
+- Fix direct access problem --- DONE
 
 
 - Counts for complete, pending customer, pending admin with link to sorted list
-- Fix direct access problem
 - Enhance email to say the right thing and link to actual page
 
 

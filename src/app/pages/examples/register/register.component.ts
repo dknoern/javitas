@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
     window.addEventListener(
       "load",
       function() {
-       // console.log(JSON.stringify(this));
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName("needs-validation");
         // Loop over them and prevent submission
@@ -34,7 +33,6 @@ export class RegisterComponent implements OnInit {
           form.addEventListener(
             "click",
             function(event) {
-              console.log("stringify",JSON.stringify(event));
               if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -52,14 +50,9 @@ export class RegisterComponent implements OnInit {
   public signUp(): void {
   }
 
-
-
-
   public confirmSignUp(): void {
   }
 
-
   onSubmit(): void {
-    console.log("onSubmit called");
   }
 }

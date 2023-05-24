@@ -81,7 +81,6 @@ export class WorkflowService {
   }
 
   isAdminStatus(status){
-    console.log('status',JSON.stringify(this.getStatusInfo(status)));
     return this.getStatusInfo(status).isAdmin;
   }
 

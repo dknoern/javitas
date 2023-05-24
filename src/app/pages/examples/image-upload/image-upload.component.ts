@@ -29,10 +29,7 @@ export class ImageUploadComponent {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log("ngOnInit");
-
       this.id = params['id'];
-      console.log("id is", this.id);
       this.ordersService.getOrder(this.id).then(response => {
         this.order = response;
       });
@@ -51,7 +48,6 @@ export class ImageUploadComponent {
 
   async uploadFile() {
 
-    console.log('uploading file...');
     for (var i = 0; i < this.files.length; i++) {
       const fileName = this.order.id + "/" + this.files[i].name;
       const result = await Storage.put(fileName, this.files[i],{});

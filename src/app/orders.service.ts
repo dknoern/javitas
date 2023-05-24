@@ -33,7 +33,6 @@ export class OrdersService {
   }
 
   saveEstimate(id: string,estimate: any) {
-    console.log('saving estimate...');
     return API.post("orders", "/orders/estimate", { body: { "id": id, "estimate": estimate } });
   }
 

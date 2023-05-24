@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Router } from "@angular/router";
 import { Auth } from 'aws-amplify';
 
 @Component({
@@ -17,17 +16,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   test: Date = new Date();
   public isCollapsed = true;
 
-  constructor(private router: Router) {
-
-        //currentAuthenticatedUser: when user comes to login page again
-        Auth.currentAuthenticatedUser()
-        .then(() => {
-          console.log('auth user coming to login pager again');
-        }).catch((err) => {
-          console.log(err);
-        })
-  }
-
   ngOnInit() {
 
     this.email = "";
@@ -37,17 +25,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
     .then(user => {
       this.email = user.attributes.email;
       this.firstName = user.attributes.given_name;
-
-      console.log('auth-layout: user', user.attributes.given_name);
-
-    })
-    .catch(() => console.log("Not signed in"));
-
-
-    Auth.currentUserInfo()
-    .then(user => {
-
-      console.log('auth-layout: user firstname', user.attributes.given_name);
     })
     .catch(() => console.log("Not signed in"));
 
@@ -76,14 +53,8 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   }
 
   onLogoutClick() {
-
-    console.log("Logout Clicked");
-
     Auth.signOut({ global: true })
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
-
-
-
 }

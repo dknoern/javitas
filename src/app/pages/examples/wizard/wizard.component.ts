@@ -23,7 +23,6 @@ export class WizardComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {
      this.manufacturer = params['manufacturer'];
-      console.log('on init, manufacturer is',this.manufacturer);
     });
 
     this.email = "";
@@ -34,7 +33,6 @@ export class WizardComponent implements OnInit {
       this.isAdmin = this.ordersService.isUserAdmin( user.attributes.email);
     })
     .catch(() => {
-      console.log("Not signed in");
       this.router.navigate(['/home'], { replaceUrl: true });
   });
   }
@@ -50,8 +48,6 @@ export class WizardComponent implements OnInit {
   };
 
     this.ordersService.postOrder(order).then( data2 => { 
-        console.log("data returned is " + JSON.stringify(data2));
-        console.log("new id is " + data2['id']);
         this.router.navigate(['image-upload'], { queryParams: { id: data2['id'] }}) 
       },
       err =>  console.error(err) 

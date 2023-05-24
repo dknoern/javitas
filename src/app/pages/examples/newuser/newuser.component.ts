@@ -11,10 +11,7 @@ export class NewuserComponent {
 
   onLoginClick() {
 
-    console.log("on login click....");
     Auth.federatedSignIn();
-    // this.spinner.show();
-     //Auth.federatedSignIn();
    }
 
    onSignupClick(){
