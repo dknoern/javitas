@@ -64,7 +64,7 @@ export class EstimateComponent implements OnInit {
     this.estimate.approvalStatus = null;
     this.ordersService.saveEstimate(this.order.id, this.estimate).then((response) => {
     console.log("estimate posted");
-    this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
+    this.router.navigate(['repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
 
   })
   .catch((error) => {

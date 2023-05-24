@@ -65,7 +65,7 @@ export class ImageUploadComponent {
 
     this.simpleToast('Photo uploaded');
     this.files = [];
-    this.router.navigate(['examples/repair'], { queryParams: { id: this.id, showImageModal: 'true' }}) 
+    this.router.navigate(['repair'], { queryParams: { id: this.id, showImageModal: 'true' }}) 
   }
 
 

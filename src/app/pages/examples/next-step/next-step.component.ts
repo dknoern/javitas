@@ -66,7 +66,7 @@ export class NextStepComponent {
     this.ordersService.updateOrderStatus(this.order.id, this.nextStatus).then(_ => {
       this.modal.hide();
       this.simpleToast('Status updated successfully')  ;
-      this.router.navigate(['examples/repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
+      this.router.navigate(['repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
     })
   }
 }

@@ -45,7 +45,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-order>
               <tr>
-                <td><a routerLinkActive="active" [routerLink]="['/examples/repair']" [queryParams]="{id: order.id}">{{
+                <td><a routerLinkActive="active" [routerLink]="['/repair']" [queryParams]="{id: order.id}">{{
                     order.orderNumber }}</a></td>
                 <td>{{ order.modifiedDate | date:'medium' }}</td>
                 <td>{{ order.manufacturer }}</td>

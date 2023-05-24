@@ -9,7 +9,6 @@ import { TagInputModule } from "ngx-chips";
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppComponent } from "./app.component";
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,7 +21,6 @@ import { BsModalService } from "ngx-bootstrap/modal";
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
     AuthLayoutComponent
   ],
   imports: [

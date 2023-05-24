@@ -39,7 +39,7 @@ export class MessageComponent {
     this.ordersService.sendMessage(this.orderId, firstName, this.message).then(()=>{
       this.modal.hide();
       this.simpleToast('Message sent')  ;
-      this.router.navigate(['examples/repair'], { queryParams: { id: this.orderId, _t: Date.now().toString()}}) 
+      this.router.navigate(['repair'], { queryParams: { id: this.orderId, _t: Date.now().toString()}}) 
     })
 
   }

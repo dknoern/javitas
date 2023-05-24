@@ -72,7 +72,7 @@ export class RepairComponent implements OnInit {
         .then(user => {
           this.user = user;
           if(user === null){
-            this.router.navigate(['/examples/home'], { replaceUrl: true });
+            this.router.navigate(['/home'], { replaceUrl: true });
             return;
           }
           this.isAdmin = this.ordersService.isUserAdmin(user.attributes.email);
@@ -112,7 +112,7 @@ export class RepairComponent implements OnInit {
         })
         .catch(() => 
         {
-          this.router.navigate(['/examples/home'], { replaceUrl: true });
+          this.router.navigate(['/home'], { replaceUrl: true });
         });
       });
     });

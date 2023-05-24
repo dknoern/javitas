@@ -43,7 +43,7 @@ export class RepairsComponent implements OnInit {
       })
       .catch(() => 
       {
-        this.router.navigate(['/examples/home'], { replaceUrl: true });
+        this.router.navigate(['/home'], { replaceUrl: true });
       });
   }
 

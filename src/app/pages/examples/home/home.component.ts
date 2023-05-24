@@ -40,10 +40,10 @@ export class HomeComponent implements OnInit {
 
   gotoWizard(manufacturer: string) {
     if(!this.loggedIn){
-      this.router.navigate(['/examples/newuser'], { queryParams: { manufacturer: manufacturer } });
+      this.router.navigate(['/newuser'], { queryParams: { manufacturer: manufacturer } });
 
     }else {
-      this.router.navigate(['/examples/wizard'], { queryParams: { manufacturer: manufacturer } });
+      this.router.navigate(['/wizard'], { queryParams: { manufacturer: manufacturer } });
     }
   }
 }

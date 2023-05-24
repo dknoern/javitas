@@ -54,7 +54,7 @@ export class EstimateReviewComponent implements OnInit {
       }
     );
 
-    this.router.navigate(['examples/repair'], { queryParams: { id: this.estimate.id, _t: Date.now().toString()}}) 
+    this.router.navigate(['repair'], { queryParams: { id: this.estimate.id, _t: Date.now().toString()}}) 
 
     });
   }

@@ -30,11 +30,12 @@ export class WizardComponent implements OnInit {
 
     Auth.currentAuthenticatedUser()
     .then(user => {
+      this.email = user.attributes.email;
       this.isAdmin = this.ordersService.isUserAdmin( user.attributes.email);
     })
     .catch(() => {
       console.log("Not signed in");
-      this.router.navigate(['/examples/home'], { replaceUrl: true });
+      this.router.navigate(['/home'], { replaceUrl: true });
   });
   }
 
@@ -51,7 +52,7 @@ export class WizardComponent implements OnInit {
     this.ordersService.postOrder(order).then( data2 => { 
         console.log("data returned is " + JSON.stringify(data2));
         console.log("new id is " + data2['id']);
-        this.router.navigate(['examples/image-upload'], { queryParams: { id: data2['id'] }}) 
+        this.router.navigate(['image-upload'], { queryParams: { id: data2['id'] }}) 
       },
       err =>  console.error(err) 
     );
