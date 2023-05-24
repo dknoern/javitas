@@ -28,14 +28,16 @@ export class HomeComponent implements OnInit {
 
     Auth.currentUserInfo()
     .then(user => {
-      this.loggedIn = true;
+       if(user != null){
+        this.loggedIn = true;
+      }
     })
     .catch(() => console.log("Not signed in"));
   }
 
   gotoWizard(manufacturer: string) {
     if(!this.loggedIn){
-      this.router.navigate(['/newuser'], { queryParams: { manufacturer: manufacturer } });
+      this.router.navigate(['/newuser']);
 
     }else {
       this.router.navigate(['/wizard'], { queryParams: { manufacturer: manufacturer } });

@@ -15,9 +15,17 @@ exports.handler = event => {
   for (const record of event.Records) {
     console.log(record.eventID);
     console.log(record.eventName);
-    //console.log('DynamoDB Record: %j', record.dynamodb);
+    
+    if('REMOVE' === record.eventName) {
+      console.log('REMOVE event, skipping processing');
+      return;
+    }
+    
+    //console.log('DynamoDB Record: %j', record);
     console.log('email is ', record.dynamodb.NewImage.email.S);
     console.log('subject is ', record.dynamodb.NewImage.timeline.L[record.dynamodb.NewImage.timeline.L.length - 1].M.title.S);
+    
+    const id = record.dynamodb.NewImage.id.S;
 
     const params = {
       Destination: {
@@ -25,13 +33,13 @@ exports.handler = event => {
       },
       Message: {
         Body: {
-          Html: { Data: "Hello, you have a new update from Authorized Watch Repair. Please visit the site at https://authorizedwatchrepair.com/ to view your update." }
+          Html: { Data: "Hello, you have a new update from Authorized Watch Repair. Please visit the site at https://authorizedwatchrepair.com/#/repair?id=" + id + " to view your update." }
         },
         Subject: {
           Data: 'Message from Authorized Watch Repair'
         },
       },
-      Source: 'noreply.authorizedwatchrepair.com'
+      Source: 'noreply@authorizedwatchrepair.com'
     };
 
     // Create the promise and SES service object
