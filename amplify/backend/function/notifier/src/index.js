@@ -29,7 +29,7 @@ exports.handler = event => {
 
     const params = {
       Destination: {
-        ToAddresses: ["dknoern@seattleweb.com"],
+        ToAddresses: ["dknoern@seattleweb.com","authorizedwatchrepair@gmail.com","g.watchrepair@gmail.com"],
       },
       Message: {
         Body: {
@@ -39,7 +39,8 @@ exports.handler = event => {
           Data: 'Message from Authorized Watch Repair'
         },
       },
-      Source: 'noreply@authorizedwatchrepair.com'
+      Source: 'info@authorizedwatchrepair.com',
+      ReplyToAddress: [ 'noreply@authorizedwatchrepair.com']
     };
 
     // Create the promise and SES service object

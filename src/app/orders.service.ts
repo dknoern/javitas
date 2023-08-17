@@ -37,6 +37,6 @@ export class OrdersService {
   }
 
   isUserAdmin(email) {
-    return email === 'oroszlan67@yahoo.com' || email == 'david@seattleweb.com' || email === 'authorizedwatchrepair@gmail.com';
+    return email === 'oroszlan67@yahoo.com' || email == 'david@seattleweb.com' || email === 'authorizedwatchrepair@gmail.com' || email === 'g.watchrepair@gmail.com';
   }
 }
