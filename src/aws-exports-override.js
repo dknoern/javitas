@@ -32,7 +32,7 @@ const awsmobile = {
         "redirectSignOut": "https://www.authorizedwatchrepair.com/",
         //"redirectSignIn": "http://localhost:4200/",
         //"redirectSignOut": "http://localhost:4200/",
-        "responseType": "code"
+        "responseType": "token"
     },
     "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [
