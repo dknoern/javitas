@@ -6,6 +6,24 @@
 @import "primeicons/primeicons.css";
 
 .p-datatable .p-datatable-tbody > tr > td {
+  font-size: .7rem;
+
+}
+
+
+#pr_id_1 > div.p-datatable-header > div > span > input {
+
   font-size: .8rem;
 
+}
+
+
+#pr_id_1 > div.p-datatable-header > div > button > span.p-button-label {
+  font-size: .8rem;
+}
+
+
+
+#pr_id_1 > p-paginator > div {
+  font-size: .8rem;
 }
