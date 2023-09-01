@@ -167,7 +167,7 @@ app.post(path, function(req, res) {
   req.body.timeline = [{
     title: 'Repair requested',
     date: req.body.createdDate ,
-    description: 'Repair form was submitted for review by Advanced Watch Repair.'
+    description: 'Repair form was submitted for review by Authorized Watch Repair.'
   }];
 
   let putItemParams = {

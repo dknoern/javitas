@@ -22,14 +22,18 @@ exports.handler = event => {
     }
     
     //console.log('DynamoDB Record: %j', record);
-    console.log('email is ', record.dynamodb.NewImage.email.S);
+    const customerEmail = record.dynamodb.NewImage.email.S;
+    console.log('email is ', customerEmail);
     console.log('subject is ', record.dynamodb.NewImage.timeline.L[record.dynamodb.NewImage.timeline.L.length - 1].M.title.S);
     
     const id = record.dynamodb.NewImage.id.S;
 
     const params = {
       Destination: {
-        ToAddresses: ["dknoern@seattleweb.com","authorizedwatchrepair@gmail.com","g.watchrepair@gmail.com"],
+        ToAddresses: ["g.watchrepair@gmail.com", customerEmail],
+        BccAddresses: [
+          "dknoern@seattleweb.com",
+        ],
       },
       Message: {
         Body: {
@@ -39,8 +43,7 @@ exports.handler = event => {
           Data: 'Message from Authorized Watch Repair'
         },
       },
-      Source: 'info@authorizedwatchrepair.com',
-      ReplyToAddress: [ 'noreply@authorizedwatchrepair.com']
+      Source: 'noreply@authorizedwatchrepair.com'
     };
 
     // Create the promise and SES service object
