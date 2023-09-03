@@ -21,7 +21,7 @@
             <app-approval-status [status]="estimate.approvalStatus" ></app-approval-status></td>
         </tr>
         <tr *ngFor="let service of estimate.necessaryServices; let i = index">
-          <td>{{service.name}}</td>
+          <td style="white-space: normal;">{{service.name}}</td>
           <td>{{service.price | currency}}</td>
           <td></td>
         </tr>
@@ -29,7 +29,7 @@
           <td colspan="4"><b>Optional services:</b></td>
         </tr>
         <tr *ngFor="let service of estimate.optionalServices; let i = index">
-          <td>{{service.name}}</td>
+          <td style="white-space: normal;">{{service.name}}</td>
           <td>{{service.price | currency}}</td>
           <td style="text-align: center">
             <app-approval-status [status]="service.approvalStatus" ></app-approval-status>
@@ -47,8 +47,7 @@
 
         <tr *ngIf="estimate.approvedBy">
           <td><b>Approved:</b></td>
-          <td><i>{{estimate.approvedBy}}<br/>{{estimate.approvedDate}}</i></td>
-          <td></td>
+          <td colspan="2"><i>{{estimate.approvedBy}}<br/>{{estimate.approvedDate}}</i></td>
         </tr>
 
       </table>
