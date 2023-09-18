@@ -1,0 +1,76 @@
+<div>
+  <img src="assets/img/brand/blue.png" width="150" />
+</div>
+
+<div style="text-align:center"><b class="h1">
+    Repair Packing Slip
+  </b><br>
+
+  <script>
+
+    document.write("<a href='#' onclick='javascript:window.print();'>Print packing slip.</a>");
+  </script><a href="#" onclick="javascript:window.print();">Print packing slip</a>
+</div>
+
+<h4>Instuctions</h4>
+<p>
+  Ship your watch for repair along with this packing slip.
+  Be sure to insure your shipment for the value of the contents.
+</p>
+<h4>Ship to:</h4>
+<p>
+  Tobak W.R.<br />
+  1304 W. Euless Blvd<br />
+  Ste. 300<br />
+  Euless, TX 76040<br />
+</p>
+
+<div *ngIf="order.manufacturer">
+  <p class=" text-sm text-muted mb-0">Manufacturer</p>
+  <p class=" card-text mb-4">
+    {{order.manufacturer}}
+  </p>
+</div>
+<div *ngIf="order.model">
+  <p class=" text-sm text-muted mb-0">Model</p>
+  <p class=" card-text mb-4">
+    {{order.model}}
+  </p>
+</div>
+<div *ngIf="order.serialNumber">
+  <p class=" text-sm text-muted mb-0">Serial Number</p>
+  <p class=" card-text mb-4">
+    {{order.serialNumber}}
+  </p>
+</div>
+<div *ngIf="order.age">
+  <p class=" text-sm text-muted mb-0">Age</p>
+  <p class=" card-text mb-4">
+    {{order.age}} years
+  </p>
+</div>
+<div *ngIf="order.notes">
+  <p class=" text-sm text-muted mb-0">Notes</p>
+  <p class=" card-text mb-4">
+    {{order.notes}}
+  </p>
+</div>
+
+<div *ngIf="order.createdDate">
+  <p class=" text-sm text-muted mb-0">Requested</p>
+  <p class=" card-text mb-4">
+    {{ order.createdDate | date:'medium' }}
+  </p>
+</div>
+
+<h4>Photos:</h4>
+<span *ngFor='let photoURL of photoURLs; let i = index'>
+  <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
+    <img src="{{photoURL}}" width="150px" /></a>
+</span>
+
+<div *ngIf="order != null" style="text-align:center">
+  <a routerLinkActive="active" [routerLink]="['/repair']" [queryParams]="{id: order.id}">
+    Back to repair summary</a>
+</div>
+<p> </p>

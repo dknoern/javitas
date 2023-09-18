@@ -6,7 +6,6 @@ import { Auth, Storage } from "aws-amplify";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import swal from "sweetalert2";
 import { ToastrService } from "ngx-toastr";
-import { EstimateViewComponent } from "../estimate-view/estimate-view.component";
 
 @Component({
   selector: "app-repair",

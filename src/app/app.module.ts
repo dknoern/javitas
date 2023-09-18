@@ -17,11 +17,15 @@ import { ComponentsModule } from "./components/components.module";
 import { AppRoutingModule } from './app-routing.module';
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { BsModalService } from "ngx-bootstrap/modal";
+import { PrintLayoutComponent } from './layouts/print-layout/print-layout.component';
+import { PrintLayoutModule } from "./layouts/print-layout/print-layout.module";
+import { EstimateViewModule } from "./pages/examples/estimate-view/estimate-view.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    PrintLayoutComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -36,7 +40,9 @@ import { BsModalService } from "ngx-bootstrap/modal";
     TagInputModule,
     BrowserModule,
     AppRoutingModule,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    PrintLayoutModule,
+    EstimateViewModule
   ],
   providers: [
     AmplifyAuthenticatorModule, BsModalService

@@ -16,30 +16,29 @@ import { FormsModule } from '@angular/forms';
 import { WizardComponent } from "./wizard/wizard.component";
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgxPrintElementModule } from 'ngx-print-element';
-import { EstimateViewComponent } from "./estimate-view/estimate-view.component";
 import { EstimateReviewComponent } from "./estimate-review/estimate-review.component";
 import { MessageComponent } from './message/message.component';
 import { NewuserComponent } from './newuser/newuser.component';
 import { TrackingNumberComponent } from './tracking-number/tracking-number.component';
 import { NextStepComponent } from './next-step/next-step.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
-import { ApprovalStatusComponent } from './approval-status/approval-status.component';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { EstimateViewModule } from "src/app/pages/examples/estimate-view/estimate-view.module";
+import { ApprovalStatusModule } from "src/app/pages/examples/approval-status/approval-status.module";
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
-    EstimateComponent, TimelineComponent, WizardComponent, EstimateViewComponent,
+    EstimateComponent, TimelineComponent, WizardComponent,
     EstimateReviewComponent,
     MessageComponent,
     NewuserComponent,
     TrackingNumberComponent,
     NextStepComponent,
-    ImageUploadComponent,
-    ApprovalStatusComponent],
+    ImageUploadComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -49,7 +48,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CollapseModule.forRoot(),
     NgxDropzoneModule,
     NgxPrintElementModule,
-    TableModule, TagModule, ButtonModule, InputTextModule, ProgressSpinnerModule
+    TableModule, TagModule, ButtonModule, InputTextModule, ProgressSpinnerModule, EstimateViewModule, ApprovalStatusModule
   ]
 })
 export class ExamplesModule {}
