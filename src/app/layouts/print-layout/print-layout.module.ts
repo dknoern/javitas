@@ -12,6 +12,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { EstimateViewModule } from "src/app/pages/examples/estimate-view/estimate-view.module";
 import { ApprovalStatusModule } from "src/app/pages/examples/approval-status/approval-status.module";
 import { PackingSlipComponent } from "src/app/pages/examples/packing-slip/packing-slip.component";
+import { TestComponent } from "src/app/pages/examples/test/test.component";
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { PackingSlipComponent } from "src/app/pages/examples/packing-slip/packin
   ],
   declarations: [
     ApprovalComponent,
-    PackingSlipComponent
+    PackingSlipComponent,
+    TestComponent
   ]
 })
 export class PrintLayoutModule {}

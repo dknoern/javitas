@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth } from 'aws-amplify';
 import awsconfig from '../../../../aws-exports-override';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newuser',
@@ -9,17 +10,17 @@ import awsconfig from '../../../../aws-exports-override';
 })
 export class NewuserComponent {
 
+  constructor(private router: Router) {
+  }
+
   onLoginClick() {
 
-    Auth.federatedSignIn();
+    //Auth.federatedSignIn();
+    this.router.navigate(['/login']);
    }
 
    onSignupClick(){
-
-    var encodedRedirect = encodeURIComponent(awsconfig.oauth.redirectSignIn);
-    var signupUrl = `https://${awsconfig.oauth.domain}/signup?redirect_uri=${encodedRedirect}&response_type=code&client_id=${awsconfig.aws_user_pools_web_client_id}`;
-
-    window.location.href = signupUrl;
+    this.router.navigate(['/register']);
    }
-      
+     
 }
