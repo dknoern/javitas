@@ -19,7 +19,19 @@ export class HomeComponent implements OnInit {
     Hub.listen("auth", ({ payload: { event, data } }) => {
       console.log("IN HOME: auth event type", event);
       if (event === "cognitoHostedUI" || event === "signedIn") {
-        console.log("cgnito event");
+        console.log("cognito event");
+      }
+
+      if(event === "signOut") {
+        console.log("heard sign out event");
+        
+        this.loggedIn = false;
+      }
+
+      if(event === "signIn") {
+        console.log("heard sign in event");
+        
+        this.loggedIn = true;
       }
     });
   }

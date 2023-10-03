@@ -1,9 +1,12 @@
 import { Routes } from "@angular/router";
 
 import { LoginComponent } from "../../pages/examples/login/login.component";
+import { ForgotComponent } from "../../pages/examples/forgot/forgot.component";
+import { ResetComponent } from "../../pages/examples/reset/reset.component";
 import { PricingComponent } from "../../pages/examples/pricing/pricing.component";
 import { LockComponent } from "../../pages/examples/lock/lock.component";
 import { RegisterComponent } from "../../pages/examples/register/register.component";
+import { ConfirmComponent } from "../../pages/examples/confirm/confirm.component";
 import { HomeComponent } from "../../pages/examples/home/home.component";
 import { WizardComponent } from "../../pages/examples/wizard/wizard.component";
 import { RepairsComponent } from "../../pages/examples/repairs/repairs.component";
@@ -25,6 +28,24 @@ export const AuthLayoutRoutes: Routes = [
     path: "",
     children: [
       {
+        path: "forgot",
+        component: ForgotComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "reset",
+        component: ResetComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
         path: "lock",
         component: LockComponent
       }
@@ -36,6 +57,15 @@ export const AuthLayoutRoutes: Routes = [
       {
         path: "register",
         component: RegisterComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "confirm",
+        component: ConfirmComponent
       }
     ]
   },

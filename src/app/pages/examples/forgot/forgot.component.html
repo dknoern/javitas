@@ -22,21 +22,17 @@
         <div class=" card bg-secondary border-0 mb-0">
 
 
-
           <div class=" card-body px-lg-5 py-lg-5">
             <div class=" text-center text-muted mb-4">
-              <small> Sign in with with email and password </small>
+              <small> Forgot your password? </small>
+            </div>
+            <div class=" text-center text-muted mb-4">
+              <small>Enter your Email below and we will send a message to reset your password.</small>
             </div>
             <div class="alert alert-warning" role="alert" *ngIf="errorMessage != null">
               {{errorMessage}}
           </div>
-
-
-          <div *ngIf="loading" class=" row justify-content-center">
-            <p-progressSpinner></p-progressSpinner>
-          </div>
-
-            <form *ngIf="!loading"role="form">
+            <form role="form">
               <div
                 class="form-group mb-3"
                 [ngClass]="{ focused: focus === true }"
@@ -59,55 +55,14 @@
                   />
                 </div>
               </div>
-              <div class="form-group" [ngClass]="{ focused: focus1 === true }">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="ni ni-lock-circle-open"></i
-                    ></span>
-                  </div>
-                  <input
-                    class="form-control"
-                    placeholder="Password"
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    [(ngModel)]="password" 
-                    (focus)="focus1 = true"
-                    (blur)="focus1 = false"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <a class="text-muted mb-4" [routerLink]="['/forgot']">
-                  <small>
-                    Forgot your password?
-                  </small></a>
-              </div>
+             
 
               <div class="text-center">
-                <button type="button" (click)="signIn()" [disabled]="loading" class="btn btn-primary my-4">
-                  Sign in
+                <button type="button" (click)="sendCode()" [disabled]="loading" class="btn btn-primary my-4">
+                  Reset my password
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-
-        <div class=" row mt-3">
-          <div class=" col-6">
-            <!--a class=" text-light" href="javascript:void(0)">
-              <small> Forgot password? </small>
-            </a-->
-          </div>
-
-          <div class=" col-6 text-right">
-            <a class=" text-light" 
-              [routerLink]="['/register']"
-            >
-              <small> Create new account </small>
-            </a>
           </div>
         </div>
       </div>

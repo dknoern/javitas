@@ -29,6 +29,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { EstimateViewModule } from "src/app/pages/examples/estimate-view/estimate-view.module";
 import { ApprovalStatusModule } from "src/app/pages/examples/approval-status/approval-status.module";
+import { ConfirmComponent } from './confirm/confirm.component';
+import { ForgotComponent } from './forgot/forgot.component';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -38,7 +41,10 @@ import { ApprovalStatusModule } from "src/app/pages/examples/approval-status/app
     NewuserComponent,
     TrackingNumberComponent,
     NextStepComponent,
-    ImageUploadComponent],
+    ImageUploadComponent,
+    ConfirmComponent,
+    ForgotComponent,
+    ResetComponent],
   imports: [
     CommonModule,
     FormsModule,

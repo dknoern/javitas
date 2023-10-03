@@ -10,8 +10,8 @@ import { LockComponent } from "../../pages/examples/lock/lock.component";
 import { RegisterComponent } from "../../pages/examples/register/register.component";
 import { HomeComponent } from "../../pages/examples/home/home.component";
 
-
-
+import { ProgressbarModule } from "ngx-bootstrap/progressbar";
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -22,7 +22,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
   imports: [
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
-    FormsModule, CollapseModule, TooltipModule, BsDropdownModule
+    ProgressbarModule.forRoot(),
+    FormsModule, CollapseModule, TooltipModule, BsDropdownModule, ProgressSpinnerModule,
   ],
   declarations: [
     LoginComponent,

@@ -76,8 +76,7 @@ export class RepairComponent implements OnInit {
           this.customerName = user.attributes.given_name + ' ' + user.attributes.family_name;
           this.customerAddress = user.attributes.address;
           this.customerEmail = user.attributes.email;
-          this.customerPhone = user.attributes.phone_number;
-
+          this.customerPhone = user.attributes['custom:phone'];
 
           let id = params['id'];
           this.ordersService.getOrder(id).then(data=> {

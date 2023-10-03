@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Auth } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: "app-auth-layout",
@@ -15,6 +17,35 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
 
   test: Date = new Date();
   public isCollapsed = true;
+
+
+  constructor(private router: Router) {
+     // Used for listening to login events
+     Hub.listen("auth", ({ payload: { event, data } }) => {
+       console.log("IN AUTH LAYOUT: auth event type", event);
+       if (event === "cognitoHostedUI" || event === "signedIn") {
+         console.log("cognito event");
+       }
+ 
+       if(event === "signOut") {
+         console.log("AUTH LAYOUT: heard sign out event");
+         this.email = null;
+         this.firstName = null;
+         //this.loggedIn = false;
+       }
+ 
+       if(event === "signIn") {
+         console.log("AUTH LAYOUT: heard sign in event");
+         console.log("data is " + JSON.stringify(data));
+         this.email = data.attributes.email;
+         this.firstName = data.attributes.given_name;
+
+         console.log("LOGGING IN...., attributes are " + JSON.stringify(data.attributes));
+         console.log("PHONE IS " + data.attributes['custom:phone']);
+         //this.loggedIn = true;
+       }
+   });
+  }
 
   ngOnInit() {
 
@@ -48,13 +79,14 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   }
 
   onLoginClick() {
-   // this.spinner.show();
-    Auth.federatedSignIn();
+    this.router.navigate(['/login']);
   }
 
   onLogoutClick() {
     Auth.signOut({ global: true })
-      .then(data => console.log(data))
+      .then(data => {
+        this.router.navigate(['/home']);
+      })
       .catch(err => console.log(err));
   }
 }

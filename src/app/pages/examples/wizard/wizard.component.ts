@@ -11,6 +11,13 @@ import { Auth } from 'aws-amplify';
 export class WizardComponent implements OnInit {
 
   email = '';
+  firstName = '';
+  lastName = "";
+  phone = '';
+  address = '';
+  city = '';
+  state = '';
+  zip = '';
   model = '';
   manufacturer = '';
   serialNumber = '';
@@ -30,6 +37,13 @@ export class WizardComponent implements OnInit {
     Auth.currentAuthenticatedUser()
     .then(user => {
       this.email = user.attributes.email;
+      this.firstName = user.attributes.given_name;
+      this.lastName = user.attributes.family_name;
+      this.phone = user.attributes['custom:phone'];
+      this.address = user.attributes.address;
+      this.city = user.attributes['custom:city'];
+      this.state = user.attributes['custom:state'];
+      this.zip = user.attributes['custom:zip'];
       this.isAdmin = this.ordersService.isUserAdmin( user.attributes.email);
     })
     .catch(() => {
@@ -44,7 +58,16 @@ export class WizardComponent implements OnInit {
       "notes": this.notes, 
       "age": this.age, 
       "serialNumber": this.serialNumber, 
-      "model": this.model
+      "model": this.model,
+      "customer": {
+       "firstName": this.firstName,
+       "lastName": this.lastName,
+       "phone": this.phone,
+       "address": this.address,
+       "city": this.city,
+       "state": this.state,
+       "zip": this.zip
+      }
   };
 
     this.ordersService.postOrder(order).then( data2 => { 

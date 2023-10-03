@@ -1,0 +1,60 @@
+<div class=" main-content">
+  <div class=" header bg-gradient-default py-7 py-lg-8 pt-lg-9">
+
+
+    <div class="separator separator-bottom separator-skew zindex-100">
+      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1"
+        xmlns="http://www.w3.org/2000/svg">
+        <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+      </svg>
+    </div>
+  </div>
+
+  <div class=" container mt--8 pb-5">
+    <div class=" row justify-content-center">
+      <div class=" col-lg-5 col-md-7">
+        <div class=" card bg-secondary border-0 mb-0">
+
+
+          <div class=" card-body px-lg-5 py-lg-5">
+            <div class=" text-center text-muted mb-4">
+              <small> Confirm you account </small>
+            </div>
+            <div class=" text-center text-muted mb-4">
+              <small> We have sent a code by email to the email address you entered. Enter it below to confirm your
+                account. </small>
+            </div>
+            <div class="alert alert-warning" role="alert" *ngIf="errorMessage != null">
+              {{errorMessage}}
+            </div>
+            <form role="form">
+              <div class="form-group mb-3" [ngClass]="{ focused: focus === true }">
+                <label class=" form-control-label" for="code">
+                  Verification code
+                </label>
+                <input class=" form-control" name="code" type="text" [(ngModel)]="code"  />
+              </div>
+
+              <div class="text-center">
+                <button type="button" (click)="confirm()" [disabled]="loading" class="btn btn-primary my-4">
+                  Confirm account
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+          <div class=" text-muted text-center mt-3">
+            <small>Didn't receive a code?
+
+            <a class=" text-light" [routerLink]="['/register']">
+              Send a new code
+            </a>
+          </small>
+        </div>
+ 
+      </div>
+    </div>
+  </div>
+</div>
