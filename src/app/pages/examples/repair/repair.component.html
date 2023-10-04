@@ -238,7 +238,7 @@
             </span>
 
             &nbsp;
-            <a *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin && ('Watch received'===order.status || 'Estimate created'===order.status))"
+            <a *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin)"
               routerLinkActive="active" [routerLink]="['/image-upload']" [queryParams]="{id: order.id}">
               <button class=" btn btn-outline-primary btn" type="button">
                 Add<br />photo
