@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-estimate-view",
@@ -11,7 +11,9 @@ export class EstimateViewComponent implements OnInit {
   @Input() isAdmin = false;
   grandTotal = 0.0;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.updateTotals();
@@ -42,4 +44,7 @@ export class EstimateViewComponent implements OnInit {
     }
     return 0.0;
   }
+  editEstimate(){
+    this.router.navigate(['estimate'], { queryParams: { id: this.estimate.id}});
+   }
 }

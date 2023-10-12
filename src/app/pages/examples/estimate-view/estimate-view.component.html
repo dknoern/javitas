@@ -3,12 +3,10 @@
     <div class="col">
       <div class=" card-title mb-3">Estimate
         <span style="float: right;">
-          <a *ngIf="isAdmin" routerLinkActive="active" [routerLink]="['/estimate']"
-            [queryParams]="{id: estimate.id}">
-            <button *ngIf="!estimate.approvedBy" class=" btn btn-outline-primary btn-sm" type="button">
+            <button *ngIf="isAdmin && !estimate.approvedBy" class=" btn btn-outline-primary btn-sm" type="button" (click)="editEstimate()">
               Edit estimate
             </button>
-          </a></span>
+        </span>
       </div>
     </div>
   </div>

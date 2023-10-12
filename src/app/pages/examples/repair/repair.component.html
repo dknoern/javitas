@@ -157,9 +157,20 @@
                 </button>
               </div>
               <div class=" modal-body">
-                <div class=" row justify-content-center">
+                <div *ngIf="selectedPhotoURL && !selectedPhotoURL.includes('.pdf')" class=" row justify-content-center">
                   <img style="max-width: 100%" src="{{selectedPhotoURL}}" />
                 </div>
+                <div *ngIf="selectedPhotoURL && selectedPhotoURL.includes('.pdf')" class=" row justify-content-center">
+                  <p>
+                  <img style="max-width: 100%" src="/assets/img/brand/pdfdoc.png" />
+                  </p>
+                  <p>
+                    <a href="{{selectedPhotoURL}}">[ Download PDF file {{shortFileName(selectedPhotoURL)}} ]</a>
+                  </p>
+              
+                </div>
+
+
                 <div class=" row justify-content-center"><a href="javascript:void(0);"
                     (click)="deleteSelectedImage()">Delete image</a></div>
               </div>
@@ -233,15 +244,18 @@
 
             <!-- list photos -->
             <span *ngFor='let photoURL of photoURLs; let i = index'>
-              <a (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
-                <img src="{{photoURL}}" width="100px" /></a>
+              <a *ngIf="photoURL != null" (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
+                <img style="padding: 5px;" *ngIf="!photoURL.includes('.pdf')" src="{{photoURL}}" width="100px" />
+                <div *ngIf="photoURL.includes('.pdf')"><img style="padding: 5px;" src="/assets/img/brand/pdfdoc.png" width="100px" />{{shortFileName(photoURL)}}</div>
+                </a>
             </span>
+
 
             &nbsp;
             <a *ngIf="(!isAdmin && ('Repair requested'===order.status || 'Watch shipped'===order.status)) || (isAdmin)"
               routerLinkActive="active" [routerLink]="['/image-upload']" [queryParams]="{id: order.id}">
               <button class=" btn btn-outline-primary btn" type="button">
-                Add<br />photo
+                Add photo<br/>or PDF
               </button>
             </a>
 

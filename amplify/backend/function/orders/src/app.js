@@ -149,6 +149,35 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
   });
 });
 
+function getNextOrderNumber(data) {
+  var fallbackOrderNumber = '9999-9999';
+      if (!data) {
+        return fallbackOrderNumber ;
+      }
+
+      var arr = [];
+      data.map((item) => {
+        var orderNumber = item['orderNumber'];
+        if(orderNumber != null) {
+          arr.push(item['orderNumber']);
+        }
+      });
+      
+      if (!arr) {
+        return fallbackOrderNumber;
+      }
+      
+      var maxV = arr[0];
+      for (var a of arr) {
+        if (a > maxV) maxV = a;
+      }
+      var w = maxV.split('-');
+      var nextVal = parseInt(w[1]) +1;
+      var next = w[0] + "-" + nextVal;
+      return next;
+}
+
+
 /*************************************
 * HTTP post method for insert object *
 **************************************/
@@ -163,23 +192,37 @@ app.post(path, function(req, res) {
   req.body.createdDate = Date.now();
   req.body.modifiedDate = Date.now();
   req.body.status = 'Repair requested';
-
-  req.body.timeline = [{
-    title: 'Repair requested',
-    date: req.body.createdDate ,
-    description: 'Repair form was submitted for review by Authorized Watch Repair.'
-  }];
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body
+  
+  let queryParams = {
+    TableName: tableName
   }
-  dynamodb.put(putItemParams, (err, data) => {
+  
+  dynamodb.scan(queryParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
-      res.json({error: err, url: req.url, body: req.body});
+       res.json({error: err, url: req.url, body: req.body});
     } else {
-      res.json({success: 'post call succeed!', url: req.url, data: data, id: req.body.id})
+
+      req.body.orderNumber = getNextOrderNumber(data.Items);
+
+      req.body.timeline = [{
+        title: 'Repair requested',
+        date: req.body.createdDate ,
+        description: 'Repair form was submitted for review by Authorized Watch Repair.'
+      }];
+
+      let putItemParams = {
+        TableName: tableName,
+        Item: req.body
+      }
+      dynamodb.put(putItemParams, (err, data) => {
+        if (err) {
+          res.statusCode = 500;
+          res.json({error: err, url: req.url, body: req.body});
+        } else {
+          res.json({success: 'post call succeed!', url: req.url, data: data, id: req.body.id})
+        }
+      });
     }
   });
 });

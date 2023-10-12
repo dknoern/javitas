@@ -184,4 +184,9 @@ export class RepairComponent implements OnInit {
   orderSeverity(status) {
     return this.workflowService.getOrderSeverity(status,this.isAdmin);
    }
+
+   shortFileName(url){
+    var s = url.substring(url.lastIndexOf('/')+1);
+    return s.substring(0,s.indexOf('?'));
+   }
 }
