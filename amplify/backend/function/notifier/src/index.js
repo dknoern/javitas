@@ -4,6 +4,7 @@
   SITE_URL
 Amplify Params - DO NOT EDIT */
 
+const { cu } = require('@fullcalendar/core/internal-common');
 const AWS = require('aws-sdk');
 const SES = new AWS.SES();
 
@@ -28,9 +29,14 @@ exports.handler = event => {
     
     const id = record.dynamodb.NewImage.id.S;
 
+    // don't sent to AWR if using test customer
+    const toAddresses = customerEmail.includes('seattleweb.com') ? [customerEmail] : ["g.watchrepair@gmail.com", customerEmail];
+    console.log("customerEmail is", customerEmail);
+    console.log("sending email to", toAddresses);
+
     const params = {
       Destination: {
-        ToAddresses: ["g.watchrepair@gmail.com", customerEmail],
+        ToAddresses: toAddresses,
         BccAddresses: [
           "dknoern@seattleweb.com",
         ],
