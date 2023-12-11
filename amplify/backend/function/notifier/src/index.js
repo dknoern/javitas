@@ -4,7 +4,6 @@
   SITE_URL
 Amplify Params - DO NOT EDIT */
 
-const { cu } = require('@fullcalendar/core/internal-common');
 const AWS = require('aws-sdk');
 const SES = new AWS.SES();
 
