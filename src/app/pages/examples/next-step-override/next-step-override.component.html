@@ -1,0 +1,41 @@
+<div class=" card-body">
+  <form>
+    <div>
+        Do you want to override status from
+        <b><i>{{status}}</i></b>
+        to something else?
+    </div>
+
+    <div class=" custom-control custom-checkbox mb-3">
+      <input
+        class=" custom-control-input"
+        id="customCheck1"
+        type="checkbox"
+        (change)="checkForm()"
+      />
+      <select class=" form-control"  [(ngModel)]="newStatus" (change)="checkForm()">
+
+       // add an option for each item in workflowService
+       
+       <option *ngFor="let item of workflowNextSteps" [(ngModel)]="newStatus">
+        {{item.status}}
+      </option>
+
+      </select>
+
+      <!--br/>
+      <select class=" form-control"  [(ngModel)]="newStatus">
+
+        // add an option for each item in workflowService
+        
+        <option *ngFor="let item of workflowNextSteps" [value]="item.status">
+         {{item.status}}
+       </option>
+ 
+       </select-->
+    </div>
+
+    <button class=" btn btn-primary" type="button" [disabled]="!checkForm()"  (click)="saveNextStepOverride()">Save</button>
+    <button class=" btn btn-secondary" type="button" (click)="cancelMessage()">Cancel</button>
+  </form>
+</div>

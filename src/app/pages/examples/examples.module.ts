@@ -32,6 +32,7 @@ import { ApprovalStatusModule } from "src/app/pages/examples/approval-status/app
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ForgotComponent } from './forgot/forgot.component';
 import { ResetComponent } from './reset/reset.component';
+import { NextStepOverrideComponent } from './next-step-override/next-step-override.component';
 
 @NgModule({
   declarations: [ProfileComponent, RepairsComponent, RepairComponent, 
@@ -44,7 +45,8 @@ import { ResetComponent } from './reset/reset.component';
     ImageUploadComponent,
     ConfirmComponent,
     ForgotComponent,
-    ResetComponent],
+    ResetComponent,
+    NextStepOverrideComponent],
   imports: [
     CommonModule,
     FormsModule,

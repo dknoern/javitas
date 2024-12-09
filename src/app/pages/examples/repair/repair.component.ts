@@ -27,6 +27,7 @@ export class RepairComponent implements OnInit {
   nextStatus = null;
   nextStepWidget = null;
   nextStepWaitText = null;
+  status = null;
 
   customerName = '';
   customerAddress = '';
@@ -38,6 +39,8 @@ export class RepairComponent implements OnInit {
   messageModal: BsModalRef;
   trackingNumberModal: BsModalRef;
   nextStepModal: BsModalRef;
+  nextStepOverrideModal: BsModalRef
+  cancelModal: BsModalRef
 
   getNextStep() {
     var statusInfo = this.workflowService.getStatusInfo(this.order.status);
@@ -47,6 +50,7 @@ export class RepairComponent implements OnInit {
     this.nextStepWidget = statusInfo.isAdmin === this.isAdmin ? statusInfo.widget : null;
     this.nextStepWaitText = statusInfo.isAdmin != this.isAdmin ? 'Waiting for ' + nextUserType + ' to ' + this.nextStep.toLowerCase() :null;
     this.nextStatus = this.workflowService.getNextStatus(this.order.status);
+    this.status = this.order.status;
   }
 
   modalOptions = {
@@ -135,6 +139,15 @@ export class RepairComponent implements OnInit {
   openNextStepModal(modal: TemplateRef<any>) {
     this.nextStepModal = this.modalService.show(modal, this.modalOptions);
   }
+
+  openNextStepOverrideModal(modal: TemplateRef<any>) {
+    this.nextStepOverrideModal = this.modalService.show(modal, this.modalOptions);
+  }
+
+  openCancelModal(modal: TemplateRef<any>) {
+    this.cancelModal = this.modalService.show(modal, this.modalOptions);
+  }
+
   deleteSelectedImage() {
     this.photoDetailModal.hide();
 
@@ -189,4 +202,12 @@ export class RepairComponent implements OnInit {
     var s = url.substring(url.lastIndexOf('/')+1);
     return s.substring(0,s.indexOf('?'));
    }
+
+   cancelRepair() {
+    this.ordersService.updateOrderStatus(this.order.id, 'Canceled').then(_ => {
+      this.cancelModal.hide();
+      this.simpleToast('Repair canceled')  ;
+      this.router.navigate(['repair'], { queryParams: { id: this.order.id, _t: Date.now().toString()}});
+    })
+  }
 }

@@ -16,6 +16,8 @@
           <div class=" card-body" *ngIf="order">
 
             <!-- repair info-->
+
+            <!-- title and close row-->
             <div class="row">
               <div class="col">
                 <h3 class=" card-title mb-3">Repair Info</h3>
@@ -29,98 +31,117 @@
             </div>
 
             <div class="row">
-              <div class="col" *ngIf="order.orderNumber">
-                <p class=" text-sm text-muted mb-0">Order Number</p>
-                <p class=" card-text mb-4">
-                  {{order.orderNumber}}
-                </p>
-              </div>
-              <div class="col" *ngIf="order.status">
-                <p class=" text-sm text-muted mb-0">Order Status</p>
-                <p class=" card-text mb-4">
-                  <p-tag [value]="order.status" [severity]='orderSeverity(order.status)'></p-tag>
-                </p>
-              </div>
-            </div>
+              <!-- left main column-->
+              <div class="col">
+                <div class="row">
+                  <div class="col">
+                    <div *ngIf="order.orderNumber">
+                      <p class=" text-sm text-muted mb-0">Order Number</p>
+                      <p class=" card-text mb-4">
+                        {{order.orderNumber}}
+                      </p>
+                    </div>
+                    <div *ngIf="order.manufacturer">
+                      <p class=" text-sm text-muted mb-0">Manufacturer</p>
+                      <p class=" card-text mb-4">
+                        {{order.manufacturer}}
+                      </p>
+                    </div>
+                    <div *ngIf="order.model">
+                      <p class=" text-sm text-muted mb-0">Model</p>
+                      <p class=" card-text mb-4">
+                        {{order.model}}
+                      </p>
+                    </div>
+                    <div *ngIf="order.serialNumber">
+                      <p class=" text-sm text-muted mb-0">Serial Number</p>
+                      <p class=" card-text mb-4">
+                        {{order.serialNumber}}
+                      </p>
+                    </div>
+                    <div *ngIf="order.age">
+                      <p class=" text-sm text-muted mb-0">Age</p>
+                      <p class=" card-text mb-4">
+                        {{order.age}} years
+                      </p>
+                    </div>
 
-            <div class="row">
-              <div class="col" *ngIf="order.manufacturer">
-                <p class=" text-sm text-muted mb-0">Manufacturer</p>
-                <p class=" card-text mb-4">
-                  {{order.manufacturer}}
-                </p>
-              </div>
-
-              <div *ngIf="nextStep" class="col">
-                <p class=" text-sm text-muted mb-0">Next Step</p>
-                <div *ngIf="nextStepWaitText">
-                  {{ nextStepWaitText }}
-                </div>
-                <div *ngIf="'Enter tracking information' === nextStep">
-                  <p>Print packing slip and ship to:</p>
-                  <p>Tobak W.R.<br />7504 Pebble Dr<br />Fort Worth, TX 76118</p>
-                  <p>After shipping, click button below to add tracking number.</p>
+                  </div>
                 </div>
 
-                <div *ngIf="nextStepWidget === 'nextStatus'">
-                  <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
-                    {{ nextStep}}
-                  </button>
-                </div>
-                <div *ngIf="nextStepWidget === 'createEstimate'">
-                  <a routerLinkActive="active" [routerLink]="['/estimate']" [queryParams]="{id: order.id}">
-                    <button class=" btn btn-outline-primary btn" type="button">
-                      {{ nextStep}}
-                    </button>
-                  </a>
-                </div>
-                <div *ngIf="nextStepWidget === 'reviewEstimate'">
-                  <button *ngIf="!isAdmin && estimate != null && estimate.necessaryServices"
-                    class=" btn btn-outline-primary btn" type="button" (click)="openEstimateModal(modalEstimate)">
-                    Review estimate
-                  </button>
-                </div>
-                <div *ngIf="nextStepWidget === 'trackingInfo'">
-                  <button class=" btn btn-outline-primary btn" type="button"
-                    (click)="openTrackingNumberModal(modalTrackingNumber)">
-                    {{ nextStep}}
-                  </button>
-                </div>
               </div>
 
+
+              <!-- right main column-->
+              <div class="col">
+                <div class="row">
+                  <div class="col" *ngIf="order.status">
+                    <p class=" text-sm text-muted mb-0">Status <span *ngIf="isAdmin">| <a href="javascript:void(0);" (click)="openNextStepOverrideModal(modalNextStepOverride)">Override</a> <span *ngIf="'Canceled'!=order.status"> | <a href="javascript:void(0);" (click)="openCancelModal(modalCancel)">Cancel</a></span></span></p>
+                    <p class=" card-text mb-4">
+                      <p-tag [value]="order.status" [severity]='orderSeverity(order.status)'></p-tag>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div *ngIf="nextStep" class="col">
+                    <p class=" text-sm text-muted mb-0">Next Step</p>
+                    <div *ngIf="nextStepWaitText">
+                      {{ nextStepWaitText }}
+                    </div>
+    
+    
+                    <!--div *ngIf="order && !order.trackingNumber"-->
+                    <div *ngIf="nextStepWidget === 'trackingInfo'">
+                      <p>Print packing slip and ship to:</p>
+                      <p>Tobak W.R.<br />7504 Pebble Dr<br />Fort Worth, TX 76118</p>
+                      <p>After shipping, click button below to add tracking number.</p>
+                    </div>
+    
+                    <div *ngIf="nextStepWidget === 'nextStatus'">
+                      <button class=" btn btn-outline-primary btn" type="button" (click)="openNextStepModal(modalNextStep)">
+                        {{ nextStep}}
+                      </button>
+                    </div>
+                    <div *ngIf="nextStepWidget === 'createEstimate'">
+                      <a routerLinkActive="active" [routerLink]="['/estimate']" [queryParams]="{id: order.id}">
+                        <button class=" btn btn-outline-primary btn" type="button">
+                          {{ nextStep}}
+                        </button>
+                      </a>
+                    </div>
+                    <div
+                      *ngIf="!isAdmin && estimate != null && estimate.necessaryServices && !estimate.approvalStatus">
+                      <button class=" btn btn-outline-primary btn" type="button" (click)="openEstimateModal(modalEstimate)">
+                        Review estimate
+                      </button>
+                    </div>
+                    <div *ngIf="nextStepWidget === 'trackingInfo'">
+                      <button class=" btn btn-outline-primary btn" type="button"
+                        (click)="openTrackingNumberModal(modalTrackingNumber)">
+                        {{ nextStep}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div *ngIf="order.model">
-              <p class=" text-sm text-muted mb-0">Model</p>
-              <p class=" card-text mb-4">
-                {{order.model}}
-              </p>
-            </div>
-            <div *ngIf="order.serialNumber">
-              <p class=" text-sm text-muted mb-0">Serial Number</p>
-              <p class=" card-text mb-4">
-                {{order.serialNumber}}
-              </p>
-            </div>
-            <div *ngIf="order.age">
-              <p class=" text-sm text-muted mb-0">Age</p>
-              <p class=" card-text mb-4">
-                {{order.age}} years
-              </p>
-            </div>
+
             <div *ngIf="order.notes">
               <p class=" text-sm text-muted mb-0">Notes</p>
               <p class=" card-text mb-4">
                 {{order.notes}}
               </p>
             </div>
-
             <div *ngIf="order.createdDate">
               <p class=" text-sm text-muted mb-0">Requested</p>
               <p class=" card-text mb-4">
                 {{ order.createdDate | date:'medium' }}
               </p>
             </div>
+
+
 
             <!-- action buttons-->
             <div class="mb-4">
@@ -242,12 +263,49 @@
               </div>
             </ng-template>
 
+            <!--Next step OVERRIDE modal -->
+            <ng-template #modalNextStepOverride>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  Next step override
+                </h6>
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="nextStepOverrideModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+              <div class=" modal-body">
+                <app-next-step-override [modal]="nextStepOverrideModal" [user]="user" [order]="order"
+                  [nextStep]="nextStep" [nextStatus]="nextStatus" [status]="status"></app-next-step-override>
+              </div>
+            </ng-template>
+
+
+            <!--CANCEL modal -->
+            <ng-template #modalCancel>
+              <div class=" modal-header">
+                <h6 class=" modal-title" id="modal-title-default">
+                  Are you sure you want to cancel this repair?
+                </h6>
+                <button aria-label="Close" class=" close" data-dismiss="modal" type="button"
+                  (click)="cancelModal.hide()">
+                  <span aria-hidden="true"> × </span>
+                </button>
+              </div>
+              <div class=" modal-body">
+                <button class=" btn btn-primary" type="button"   (click)="cancelRepair()">Yes, cancel</button>
+                <button class=" btn btn-secondary" type="button" (click)="cancelModal.hide()">No, do not cancel</button>
+              </div>
+            </ng-template>
+
+
             <!-- list photos -->
             <span *ngFor='let photoURL of photoURLs; let i = index'>
               <a *ngIf="photoURL != null" (click)="openPhotoDetailModal(modalPhotoDetail,photoURL,i)">
                 <img style="padding: 5px;" *ngIf="!photoURL.includes('.pdf')" src="{{photoURL}}" width="100px" />
-                <div *ngIf="photoURL.includes('.pdf')"><img style="padding: 5px;" src="/assets/img/brand/pdfdoc.png" width="100px" />{{shortFileName(photoURL)}}</div>
-                </a>
+                <div *ngIf="photoURL.includes('.pdf')"><img style="padding: 5px;" src="/assets/img/brand/pdfdoc.png"
+                    width="100px" />{{shortFileName(photoURL)}}</div>
+              </a>
             </span>
 
 

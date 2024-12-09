@@ -65,6 +65,12 @@ export class WorkflowService {
       'nextStep': '',
       'isAdmin': false,
       'widget':''
+    },
+    {
+      'status': 'Canceled',
+      'nextStep': '',
+      'isAdmin': false,
+      'widget':''
     }
   ];
   
